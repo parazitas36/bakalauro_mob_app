@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native'
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import Resources from '../../Resources';
 
 export default styles = StyleSheet.create({
     btnText: {
-        color: 'white',
+        color: Resources.Colors.TextColorWhite,
         textDecorationLine: 'underline',
         fontWeight: 'bold',
         fontSize: scale(12),
@@ -15,22 +16,21 @@ export default styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'black',
-        color: 'white',
+        backgroundColor: Resources.Colors.BackgroundColorBlack,
     },
     text: {
-        color: 'white',
+        color: Resources.Colors.TextColorWhite,
         justifyContent: 'center',
         fontSize: scale(12)
     },
     horizontalFlex: {
         flexDirection: 'row',
-        gap: scale(10),
+        gap: scale(5),
         margin: scale(5),
     },
     heading: {
-        color: 'white',
+        color: Resources.Colors.TextColorWhite,
         fontSize: scale(30),
         margin: scale(10)
-    }
+    },
 })
