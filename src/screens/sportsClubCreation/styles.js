@@ -3,17 +3,10 @@ import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import Resources from '../../Resources';
 
 export default styles = StyleSheet.create({
-    scrollView: {
-        minHeight: '100%',
-        paddingVertical: scale(20),
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'center',
-    },
     view: {
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        alignSelf: 'center',
     },
     textInput: {
         color: Resources.Colors.TextColorWhite,
@@ -26,30 +19,11 @@ export default styles = StyleSheet.create({
         paddingHorizontal: moderateScale(10),
         marginBottom: moderateScale(5),
     },
-    dividedTextInput: {
-        color: Resources.Colors.TextColorWhite,
-        borderTopWidth: scale(0),
-        borderLeftWidth: scale(0),
-        borderRightWidth: scale(0),
-        borderBottomWidth: scale(1),
-        borderColor: Resources.Colors.BorderColorWhite,
-        marginBottom: moderateScale(5),
-        width: scale(120),
-        textAlign: 'center',
-    },
-    dividedView: {
-        width: scale(265),
-        paddingHorizontal: moderateScale(10),
-        flexDirection: 'row',
-        gap: scale(10),
-    },
-    partOfDividedView: {
-        flexDirection: 'column',
-    },
     heading: {
         color: Resources.Colors.TextColorWhite,
-        fontSize: scale(30),
-        margin: scale(10)
+        fontSize: scale(24),
+        textAlign: 'center',
+        margin: scale(5)
     },
     btnText: {
         color: Resources.Colors.TextColorWhite

@@ -4,7 +4,8 @@ import Resources from '../../Resources';
 
 export default styles = StyleSheet.create({
     btnText: {
-        color: Resources.Colors.TextColorWhite
+        color: Resources.Colors.TextColorWhite,
+        fontSize: scale(14)
     },
     button: {
         padding: moderateScale(10),
@@ -12,7 +13,6 @@ export default styles = StyleSheet.create({
         borderWidth: moderateScale(1),
         borderRadius: moderateScale(10),
         margin: scale(10),
-        marginTop: 20,
         width: scale(100),
         justifyContent: 'center',
         alignItems: 'center',
@@ -30,6 +30,7 @@ export default styles = StyleSheet.create({
         borderColor: Resources.Colors.BorderColorWhite,
         width: scale(250),
         paddingHorizontal: moderateScale(10),
+        marginBottom: scale(5),
     },
     passwordInput: {
         color: Resources.Colors.TextColorWhite,
@@ -40,5 +41,13 @@ export default styles = StyleSheet.create({
         borderColor: Resources.Colors.BorderColorWhite,
         width: scale(250),
         paddingHorizontal: moderateScale(10),
+        marginBottom: scale(5),
     },
+    errors: {
+        color: Resources.Colors.ErrorTextColor,
+        fontSize: scale(10),
+        alignSelf: 'flex-start',
+        paddingLeft: scale(5),
+        marginBottom: scale(5),
+    }
 })
