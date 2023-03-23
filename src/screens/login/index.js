@@ -10,12 +10,12 @@ import { LoginCall } from '../../api/LoginCall';
 import { UserContext } from '../../../App';
 
 const Login = (props) => {
-  const userContext = useContext(UserContext);
-  const [token, setToken] = userContext.tokenState;
-  const [userData, setUserData] = userContext.userDataState;
+  const {tokenState, userDataState} = useContext(UserContext);
+  const [token, setToken] = tokenState;
+  const [userData, setUserData] = userDataState;
 
-  const [username, setUsername] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [username, setUsername] = useState('string');
+  const [password, setPassword] = useState('string');
   const [validation, setValidation] = useState(null);
   const [error, setError] = props?.errorState?.state;
   const [loading, setLoading] = props?.loadingState?.state;
@@ -28,20 +28,17 @@ const Login = (props) => {
       validationResult?.passwordMessage === null
     ) {
       setLoading(true);
-
       const resp = await LoginCall({'username': username, 'password': password})
-      
-      console.log('login call resp: ', resp)
+      setLoading(false);
       if(resp.status === 200) {
         const data = await resp.json();
-        setUserData(data.data)
         setToken(data.token)
+        setUserData(data.data)
         console.log(data.data)
-        console.log(data.token)
       } else if (resp.status === 404) {
         setError(Resources.Errors.wrongCredentialsError)
       }
-      setLoading(false);
+      // if something is wrong move setLoading here
     } else {
       setError(Resources.Errors.loginFieldsError)
     }
@@ -91,7 +88,7 @@ const Login = (props) => {
         btnText={Resources.ButtonTexts.LoginBtnText}
         styles={styles}
         onPress={async() => await LoginPress()}
-        loading={loading === true}
+        loading={loading===true}
         disabled={loading === true}
       />
     </View>

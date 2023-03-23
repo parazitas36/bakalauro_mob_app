@@ -17,13 +17,29 @@ export default styles = StyleSheet.create({
         borderColor: Resources.Colors.BorderColorWhite,
         width: scale(250),
         paddingHorizontal: moderateScale(10),
+        marginBottom: moderateScale(10),
+    },
+    animatedView: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    description: {
+        color: Resources.Colors.TextColorWhite,
+        borderTopWidth: scale(0),
+        borderLeftWidth: scale(0),
+        borderRightWidth: scale(0),
+        borderBottomWidth: scale(1),
+        borderColor: Resources.Colors.BorderColorWhite,
+        width: scale(250),
+        paddingHorizontal: moderateScale(10),
         marginBottom: moderateScale(5),
     },
     heading: {
         color: Resources.Colors.TextColorWhite,
-        fontSize: scale(24),
+        fontSize: verticalScale(22),
         textAlign: 'center',
-        margin: scale(5)
+        paddingHorizontal: scale(10),
+        margin: scale(10)
     },
     btnText: {
         color: Resources.Colors.TextColorWhite
@@ -41,12 +57,12 @@ export default styles = StyleSheet.create({
     },
     errors: {
         color: Resources.Colors.ErrorTextColor,
-        fontSize: scale(10),
+        fontSize: verticalScale(10),
         alignSelf: 'center',
     },
     errorsFlexStart: {
         color: Resources.Colors.ErrorTextColor,
-        fontSize: scale(10),
+        fontSize: verticalScale(10),
         alignSelf: 'flex-start',
         paddingLeft: scale(10),
     }

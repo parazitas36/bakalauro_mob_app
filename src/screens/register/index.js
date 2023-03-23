@@ -17,8 +17,13 @@ import CustomButton from '../../components/customButton';
 import {ScrollView} from 'react-native';
 import {RegisterCall} from '../../api/RegisterCall';
 import {ToastAndroid} from 'react-native';
+import {Switch, HStack} from 'native-base';
+import {LogBox} from 'react-native';
 
 const Register = ({navigation}) => {
+  LogBox.ignoreLogs([
+    'We can not support a function callback. See Github Issues for details https://github.com/adobe/react-spectrum/issues/2320',
+  ]);
   const [name, setName] = useState(null);
   const [surname, setSurname] = useState(null);
   const [username, setUsername] = useState(null);
@@ -29,6 +34,7 @@ const Register = ({navigation}) => {
   const [validation, setValidation] = useState(null);
   const [loading, setLoading] = useState(false);
   const [registerError, setRegisterError] = useState(null);
+  const [imperialSystem, setImperialSystem] = useState(false);
 
   const validationMemo = useMemo(() => {
     return Validation(
@@ -63,12 +69,12 @@ const Register = ({navigation}) => {
         "repeatPassword": repeatPassword,
         "role": Number(role),
         "contactInfo": {
-          "email": email
+          "email": email,
         },
-        "usesImperialSystem": false,
+        "usesImperialSystem": imperialSystem,
         "name": name,
         "surname": surname,
-        "isPublicName": true
+        "isPublicName": true,
       };
 
       setLoading(true);
@@ -213,6 +219,35 @@ const Register = ({navigation}) => {
             {Resources.ValidationMessages.RoleInvalid}
           </Animated.Text>
         )}
+        <HStack alignItems="center" space={2}>
+          <Text
+            style={{
+              ...styles.btnText,
+              color:
+                imperialSystem === false
+                  ? Resources.Colors.TextColorWhite
+                  : Resources.Colors.PlaceholdersColor,
+            }}>
+            {Resources.Texts.MetricSystem}
+          </Text>
+          <Switch
+            value={imperialSystem}
+            onValueChange={value => {
+              setImperialSystem(value);
+            }}
+            size="sm"
+          />
+          <Text
+            style={{
+              ...styles.btnText,
+              color:
+                imperialSystem === true
+                  ? Resources.Colors.TextColorWhite
+                  : Resources.Colors.PlaceholdersColor,
+            }}>
+            {Resources.Texts.ImperialSystem}
+          </Text>
+        </HStack>
         <CustomButton
           styles={styles}
           btnText={Resources.ButtonTexts.RegisterBtnText}

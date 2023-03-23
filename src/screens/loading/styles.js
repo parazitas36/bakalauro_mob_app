@@ -7,7 +7,6 @@ export default styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: scale(24),
     },
     text: {
         color: Resources.Colors.TextColorWhite,
