@@ -48,11 +48,12 @@ export default styles = StyleSheet.create({
     },
     heading: {
         color: Resources.Colors.TextColorWhite,
-        fontSize: scale(30),
+        fontSize: Resources.FontSize.headingText,
         margin: scale(10)
     },
     btnText: {
-        color: Resources.Colors.TextColorWhite
+        color: Resources.Colors.TextColorWhite,
+        fontSize: Resources.FontSize.btnText,
     },
     button: {
         padding: moderateScale(10),
@@ -67,13 +68,13 @@ export default styles = StyleSheet.create({
     },
     errors: {
         color: Resources.Colors.ErrorTextColor,
-        fontSize: scale(10),
+        fontSize: Resources.FontSize.validationText,
         alignSelf: 'center',
     },
     errorsFlexStart: {
         color: Resources.Colors.ErrorTextColor,
-        fontSize: scale(10),
+        fontSize: Resources.FontSize.validationText,
         alignSelf: 'flex-start',
-        paddingLeft: scale(10),
+        paddingLeft: scale(28),
     }
 })

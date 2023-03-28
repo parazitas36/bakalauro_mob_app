@@ -1,14 +1,16 @@
-export const ApiConstants = () =>  {
+export const ApiConstants = (props) =>  {
     const SSL_URL = 'https://10.0.2.2:5021:7013/api/'
     const URL = 'http://localhost:5021/api/'
-    const USERS_ENDPOINT = 'Users/'
-    const SPORTSCLUB_ENDPOINT = 'SportsClub/'
+    const Users_Endpoint = 'Users/'
+    const SportsClub_Endpoint = 'SportsClub/'
 
     return ({
-        USERS_ENDPOINT,
-        SPORTSCLUB_ENDPOINT,
-        REGISTER: `${URL}${USERS_ENDPOINT}register`,
-        LOGIN: `${URL}${USERS_ENDPOINT}login`,
-        AdminClub: `${URL}${SPORTSCLUB_ENDPOINT}usersportsclub`,
+        USERS_ENDPOINT: `${URL}${Users_Endpoint}`,
+        SportsClub_Endpoint: `${URL}${SportsClub_Endpoint}`,
+        REGISTER: `${URL}${Users_Endpoint}register`,
+        LOGIN: `${URL}${Users_Endpoint}login`,
+        AdminClub: `${URL}${SportsClub_Endpoint}usersportsclub`,
+        SportsClubFacilities: `${URL}${SportsClub_Endpoint}${props?.ids[0]}/facility`,
+        Subscriptions: `${URL}${SportsClub_Endpoint}${props?.ids[0]}/subscriptions`,
     });
 }

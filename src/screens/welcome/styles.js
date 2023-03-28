@@ -7,7 +7,7 @@ export default styles = StyleSheet.create({
         color: Resources.Colors.TextColorWhite,
         textDecorationLine: 'underline',
         fontWeight: 'bold',
-        fontSize: scale(12),
+        fontSize: Resources.FontSize.btnText,
     },
     button: {
 
@@ -21,7 +21,7 @@ export default styles = StyleSheet.create({
     text: {
         color: Resources.Colors.TextColorWhite,
         justifyContent: 'center',
-        fontSize: scale(12)
+        fontSize: Resources.FontSize.btnText
     },
     horizontalFlex: {
         flexDirection: 'row',
@@ -30,7 +30,7 @@ export default styles = StyleSheet.create({
     },
     heading: {
         color: Resources.Colors.TextColorWhite,
-        fontSize: scale(30),
+        fontSize: Resources.FontSize.headingText,
         margin: scale(10)
     },
 })

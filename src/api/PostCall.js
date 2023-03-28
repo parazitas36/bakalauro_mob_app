@@ -6,6 +6,6 @@ export const PostCall = async ({endpoint, body, token}) => {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
         },
-        body: body,
+        body: JSON.stringify(body),
     });
 };

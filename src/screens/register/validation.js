@@ -10,6 +10,6 @@ export const Validation = (name, surname, username, email, password, repeatPassw
     validRepeatPassword: repeatPassword === password,
     validUsername:
       String(username).length > 5 && String(username).length < 16,
-    validRole: role !== null && role !== '',
+    validRole: role !== null,
   };
 };

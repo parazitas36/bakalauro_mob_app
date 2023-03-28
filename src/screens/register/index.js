@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View, Text, Switch} from 'react-native';
 import React, {useMemo, useState} from 'react';
 import styles from './styles';
 import Resources from '../../Resources';
@@ -12,13 +12,12 @@ import Animated, {
   FadeOutLeft,
   FadeOutRight,
 } from 'react-native-reanimated';
-import RolesList from '../../components/rolesList';
 import CustomButton from '../../components/customButton';
 import {ScrollView} from 'react-native';
 import {RegisterCall} from '../../api/RegisterCall';
 import {ToastAndroid} from 'react-native';
-import {Switch, HStack} from 'native-base';
 import {LogBox} from 'react-native';
+import { RadioGroup } from 'react-native-radio-buttons-group';
 
 const Register = ({navigation}) => {
   LogBox.ignoreLogs([
@@ -29,8 +28,37 @@ const Register = ({navigation}) => {
   const [username, setUsername] = useState(null);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const [role, setRole] = useState(null)
   const [repeatPassword, setRepeatPassword] = useState(null);
-  const [role, setRole] = useState('');
+  const [radioButtons, setRadioButtons] = useState([
+    {
+      id: '0',
+      label: 'Sports Club Admin',
+      value: 0,
+      labelStyle: {
+        color: Resources.Colors.TextColorWhite,
+        fontSize: Resources.FontSize.regularText *.8,
+      }
+    },
+    {
+      id: '1',
+      label: 'Trainer',
+      value: 1,
+      labelStyle: {
+        color: Resources.Colors.TextColorWhite,
+        fontSize: Resources.FontSize.regularText *.8,
+      }
+    },
+    {
+      id: '2',
+      label: 'User',
+      value: 2,
+      labelStyle: {
+        color: Resources.Colors.TextColorWhite,
+        fontSize: Resources.FontSize.regularText *.8,
+      }
+    }
+  ]);
   const [validation, setValidation] = useState(null);
   const [loading, setLoading] = useState(false);
   const [registerError, setRegisterError] = useState(null);
@@ -57,6 +85,11 @@ const Register = ({navigation}) => {
     validationMemo?.validRepeatPassword &&
     validationMemo?.validUsername &&
     validationMemo?.validRole;
+
+  const onPressRadioButton = (radioButtonsArray) => {
+    setRole(radioButtons?.find(x => x.selected === true)?.value)
+    setRadioButtons(radioButtonsArray)
+  }
 
   const RegisterPress = async () => {
     setRegisterError(false);
@@ -210,7 +243,7 @@ const Register = ({navigation}) => {
             {Resources.ValidationMessages.RepeatPasswordInvalid}
           </Animated.Text>
         )}
-        <RolesList rolesState={{useState: [role, setRole]}} />
+        <RadioGroup radioButtons={radioButtons} onPress={onPressRadioButton} layout="row" />
         {validation?.validRole === false && (
           <Animated.Text
             style={styles.errors}
@@ -219,7 +252,7 @@ const Register = ({navigation}) => {
             {Resources.ValidationMessages.RoleInvalid}
           </Animated.Text>
         )}
-        <HStack alignItems="center" space={2}>
+        <View style={{flexDirection: 'row', gap: 10, justifyContent: 'center', alignItems: 'center'}}>
           <Text
             style={{
               ...styles.btnText,
@@ -231,11 +264,12 @@ const Register = ({navigation}) => {
             {Resources.Texts.MetricSystem}
           </Text>
           <Switch
-            value={imperialSystem}
+            trackColor={{false: 'rgba(255, 255, 255, 0.2)', true: 'rgba(255, 255, 255, 0.75)'}}
+            thumbColor={imperialSystem ? '#f4f3f4' : '#f4f3f4'}
             onValueChange={value => {
               setImperialSystem(value);
             }}
-            size="sm"
+            value={imperialSystem}
           />
           <Text
             style={{
@@ -247,7 +281,7 @@ const Register = ({navigation}) => {
             }}>
             {Resources.Texts.ImperialSystem}
           </Text>
-        </HStack>
+        </View>
         <CustomButton
           styles={styles}
           btnText={Resources.ButtonTexts.RegisterBtnText}

@@ -5,7 +5,7 @@ import Resources from '../../Resources';
 export default styles = StyleSheet.create({
     btnText: {
         color: Resources.Colors.TextColorWhite,
-        fontSize: scale(14)
+        fontSize: Resources.FontSize.btnText,
     },
     button: {
         padding: moderateScale(10),
@@ -45,7 +45,7 @@ export default styles = StyleSheet.create({
     },
     errors: {
         color: Resources.Colors.ErrorTextColor,
-        fontSize: scale(10),
+        fontSize: Resources.FontSize.validationText,
         alignSelf: 'flex-start',
         paddingLeft: scale(5),
         marginBottom: scale(5),

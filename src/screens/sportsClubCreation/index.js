@@ -1,4 +1,4 @@
-import React, {useContext, useLayoutEffect, useMemo, useState} from 'react';
+import React, {useContext, useEffect, useMemo, useState} from 'react';
 import Animated, {
   FadeInLeft,
   FadeOutRight,
@@ -20,6 +20,8 @@ const SportsClubCreation = ({navigation}) => {
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false)
   const [validation, setValidation] = useState(null);
   const [sportsClubName, setSportsClubName] = useState(null);
   const [description, setDescription] = useState(null);
@@ -37,30 +39,39 @@ const SportsClubCreation = ({navigation}) => {
     validationMemo.validEmail === true;
 
   const savePress = async() => {
+    setError(null)
     if (isFormValid === false) {
       setValidation(validationMemo);
       return;
     }
 
     const body = {
-      name: sportsClubName,
-      description: description,
-      contactInfo: {
-        phoneNumber: phone,
-        email: email,
-      },
+      "name": sportsClubName,
+      "description": description,
+      "contactInfo": {
+        "phoneNumber": phone,
+        "email": email
+      }
     };
 
-    const resp = await PostCall({endpoint: ApiConstants().SPORTSCLUB_ENDPOINT, body: body, token: token})
+    setLoading(true)
+    const resp = await PostCall({endpoint: ApiConstants().SportsClub_Endpoint, body: body, token: token})
+    setLoading(false)
+
+    if(resp.status === 201) {
+      const data = await resp.json();
+      setRoleSpecificData(data)
+    }else {
+      setError(Resources.Errors.existingSportsClub)
+    }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     (async () => {
       const resp = await GetCall({
         endpoint: ApiConstants().AdminClub,
         token: token,
       });
-      console.log(resp);
       if (resp.status === 200) {
         const result = await resp.json();
         setTimeout(() => {
@@ -89,6 +100,14 @@ const SportsClubCreation = ({navigation}) => {
             exiting={FadeOutRight}>
             {Resources.Texts.SportsClubCreationHeading}
           </Animated.Text>
+          {error !== null && (
+              <Animated.Text
+                style={styles.errors}
+                entering={FadeInLeft}
+                exiting={FadeOutLeft}>
+                {error}
+              </Animated.Text>
+            )}
           <Animated.View
             entering={FadeInLeft.delay(300)}
             exiting={FadeOutRight}
@@ -111,7 +130,7 @@ const SportsClubCreation = ({navigation}) => {
               style={{...styles.description, verticalAlign: 'bottom'}}
               onChangeText={setDescription}
               multiline={true}
-              numberOfLines={2}
+              numberOfLines={3}
               placeholder={Resources.Placeholders.Description}
               placeholderTextColor={Resources.Colors.PlaceholdersColor}
             />
@@ -147,8 +166,10 @@ const SportsClubCreation = ({navigation}) => {
             />
             <CustomButton
               styles={styles}
-              btnText={'Save'}
+              btnText={Resources.ButtonTexts.SaveBtnText}
               onPress={async() => await savePress()}
+              disabled={loading === true}
+              loading={loading === true}
             />
           </Animated.View>
         </>
