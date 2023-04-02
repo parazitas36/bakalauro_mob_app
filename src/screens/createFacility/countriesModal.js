@@ -1,5 +1,5 @@
 import { countries } from 'country-list-json';
-import React, {useState, useMemo} from 'react';
+import React, {useState, useMemo, useRef} from 'react';
 import {Text} from 'react-native';
 import {TouchableOpacity} from 'react-native';
 import {Modal, StyleSheet, View} from 'react-native';

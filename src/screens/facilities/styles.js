@@ -11,17 +11,21 @@ export default styles = StyleSheet.create({
     fontSize: Resources.FontSize.btnText,
   },
   button: {
-    padding: moderateScale(10),
     borderColor: Resources.Colors.BorderColorWhite,
     borderWidth: moderateScale(1),
     borderRadius: moderateScale(10),
     margin: scale(10),
-    width: scale(100),
+    marginBottom: verticalScale(30),
+    height: verticalScale(30),
+    width: scale(250),
     justifyContent: 'center',
     alignItems: 'center',
   },
   view: {
     flex: 1,
+    paddingVertical: verticalScale(10),
+  },
+  viewContent: {
     justifyContent: 'center',
     alignItems: 'center',
   },

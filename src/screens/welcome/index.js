@@ -5,6 +5,7 @@ import styles from './styles';
 import Login from '../login';
 import Resources from '../../Resources';
 import Animated, {FadeInUp, FadeOutUp} from 'react-native-reanimated';
+import { Image } from 'react-native';
 
 const Welcome = ({navigation}) => {
   const [loading, setLoading] = useState(false);
@@ -12,6 +13,7 @@ const Welcome = ({navigation}) => {
 
   return (
     <Animated.View entering={FadeInUp} exiting={FadeOutUp} style={styles.view}>
+      <Image style={styles.image} source={require('../../assets/images/dumbell.png')}/>
       <Text style={styles.heading}>{Resources.AppName}</Text>
       <Login
         loadingState={{state: [loading, setLoading]}}

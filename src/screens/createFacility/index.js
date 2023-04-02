@@ -1,12 +1,12 @@
-import React, {useMemo, useState, useContext} from 'react';
-import Animated, { FadeInLeft, FadeOutLeft } from 'react-native-reanimated';
+import React, {useMemo, useState, useContext, Suspense} from 'react';
+import Animated, { FadeInDown, FadeInLeft, FadeOutLeft, FadeOutUp } from 'react-native-reanimated';
 import {TextInput} from 'react-native';
 
 import styles from './styles';
 import {View, Text} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Resources from '../../Resources';
-import {SportsClubContext, UserContext} from '../../../App';
+import {LoadingScreen, SportsClubContext, UserContext} from '../../../App';
 import CountriesModal from './countriesModal';
 import CustomButton from '../../components/customButton';
 import { Validation } from './validation';
@@ -59,15 +59,15 @@ const CreateFacility = ({navigation}) => {
 
       if(resp.status === 201) {
         ToastAndroid.show(
-          'Facility created successfully!',
+          Resources.Texts.NotificationFacilityCreatedSuccessFully,
           ToastAndroid.SHORT,
           ToastAndroid.BOTTOM,
         );
         setReloadFacilities(true)
-        navigation.navigate('Home')
+        navigation.navigate(Resources.Screens.Home)
       } else {
         ToastAndroid.show(
-          'Facility was not created!',
+          Resources.Texts.NotificationFacilityNotCreated,
           ToastAndroid.SHORT,
           ToastAndroid.BOTTOM,
         );
@@ -78,90 +78,92 @@ const CreateFacility = ({navigation}) => {
   }
 
   return (
-    <Animated.View style={styles.view}>
-      <Animated.Text style={styles.heading}>
-        {Resources.Texts.FillFacilityInfo}
-      </Animated.Text>
-      <CountriesModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-        setCountry={setCountry}
-        country={country}
-      />
-      <TouchableOpacity onPress={() => setModalVisible(prev => !prev)}>
-        <Text style={styles.countryButton}>
-          {country === null ? Resources.Texts.PickCountryText
-          : `${Resources.Texts.SelectedCountryText}: ${country}`}
-        </Text>
-      </TouchableOpacity>
-      {validation?.validCountry === false && (
+    <Suspense fallback={LoadingScreen()}>
+      <Animated.View style={styles.view} entering={FadeInDown.delay(100)} exiting={FadeOutUp}>
+        <Animated.Text style={styles.heading}>
+          {Resources.Texts.FillFacilityInfo}
+        </Animated.Text>
+        <CountriesModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          setCountry={setCountry}
+          country={country}
+        />
+        <TouchableOpacity onPress={() => setModalVisible(prev => !prev)}>
+          <Text style={styles.countryButton}>
+            {country === null ? Resources.Texts.PickCountryText
+            : `${Resources.Texts.SelectedCountryText}: ${country}`}
+          </Text>
+        </TouchableOpacity>
+        {validation?.validCountry === false && (
+                <Animated.Text
+                  style={styles.errors}
+                  entering={FadeInLeft}
+                  exiting={FadeOutLeft}>
+                {Resources.ValidationMessages.CountryInvalid}
+                </Animated.Text>
+              )}
+        <TextInput
+          style={styles.textInput}
+          placeholder={Resources.Placeholders.City}
+          placeholderTextColor={Resources.Colors.PlaceholdersColor}
+          onChangeText={setCity}
+        />
+        {validation?.validCity === false && (
               <Animated.Text
                 style={styles.errors}
                 entering={FadeInLeft}
                 exiting={FadeOutLeft}>
-               {Resources.ValidationMessages.CountryInvalid}
+                {Resources.ValidationMessages.CityInvalid}
               </Animated.Text>
             )}
-      <TextInput
-        style={styles.textInput}
-        placeholder={Resources.Placeholders.City}
-        placeholderTextColor={Resources.Colors.PlaceholdersColor}
-        onChangeText={setCity}
-      />
-      {validation?.validCity === false && (
-            <Animated.Text
-              style={styles.errors}
-              entering={FadeInLeft}
-              exiting={FadeOutLeft}>
-              {Resources.ValidationMessages.CityInvalid}
-            </Animated.Text>
-          )}
-      <TextInput
-        style={styles.textInput}
-        placeholder={Resources.Placeholders.StreetAddress}
-        placeholderTextColor={Resources.Colors.PlaceholdersColor}
-        onChangeText={setAddress}
-      />
-      {validation?.validAddress === false && (
-            <Animated.Text
-              style={styles.errors}
-              entering={FadeInLeft}
-              exiting={FadeOutLeft}>
-              {Resources.ValidationMessages.StreetAddressInvalid}
-            </Animated.Text>
-          )}
-      <TextInput
-        style={styles.textInput}
-        placeholder={Resources.Placeholders.Email}
-        placeholderTextColor={Resources.Colors.PlaceholdersColor}
-        onChangeText={setEmail}
-        defaultValue={email}
-      />
-      {validation?.validEmail === false && (
-            <Animated.Text
-              style={styles.errors}
-              entering={FadeInLeft}
-              exiting={FadeOutLeft}>
-              {Resources.ValidationMessages.EmailInvalid}
-            </Animated.Text>
-          )}
-      <TextInput
-        style={styles.textInput}
-        placeholder={Resources.Placeholders.Phone}
-        placeholderTextColor={Resources.Colors.PlaceholdersColor}
-        onChangeText={setPhone}
-        defaultValue={phone}
-      />
-      {validation?.validPhone === false && (
-            <Animated.Text
-              style={styles.errors}
-              entering={FadeInLeft}
-              exiting={FadeOutLeft}>
-              {Resources.ValidationMessages.PhoneNumberInvalid}
-            </Animated.Text>
-          )}
-      <CustomButton btnText={Resources.ButtonTexts.SaveBtnText} onPress={async() => await SavePress()} styles={styles}/>
-    </Animated.View>
+        <TextInput
+          style={styles.textInput}
+          placeholder={Resources.Placeholders.StreetAddress}
+          placeholderTextColor={Resources.Colors.PlaceholdersColor}
+          onChangeText={setAddress}
+        />
+        {validation?.validAddress === false && (
+              <Animated.Text
+                style={styles.errors}
+                entering={FadeInLeft}
+                exiting={FadeOutLeft}>
+                {Resources.ValidationMessages.StreetAddressInvalid}
+              </Animated.Text>
+            )}
+        <TextInput
+          style={styles.textInput}
+          placeholder={Resources.Placeholders.Email}
+          placeholderTextColor={Resources.Colors.PlaceholdersColor}
+          onChangeText={setEmail}
+          defaultValue={email}
+        />
+        {validation?.validEmail === false && (
+              <Animated.Text
+                style={styles.errors}
+                entering={FadeInLeft}
+                exiting={FadeOutLeft}>
+                {Resources.ValidationMessages.EmailInvalid}
+              </Animated.Text>
+            )}
+        <TextInput
+          style={styles.textInput}
+          placeholder={Resources.Placeholders.Phone}
+          placeholderTextColor={Resources.Colors.PlaceholdersColor}
+          onChangeText={setPhone}
+          defaultValue={phone}
+        />
+        {validation?.validPhone === false && (
+              <Animated.Text
+                style={styles.errors}
+                entering={FadeInLeft}
+                exiting={FadeOutLeft}>
+                {Resources.ValidationMessages.PhoneNumberInvalid}
+              </Animated.Text>
+            )}
+        <CustomButton btnText={Resources.ButtonTexts.SaveBtnText} onPress={async() => await SavePress()} styles={styles}/>
+      </Animated.View>
+    </Suspense>
   );
 };
 

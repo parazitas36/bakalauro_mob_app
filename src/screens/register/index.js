@@ -131,7 +131,7 @@ const Register = ({navigation}) => {
   return (
     <ScrollView contentContainerStyle={styles.scrollView}>
       <Animated.View
-        entering={FadeInDown}
+        entering={FadeInDown.delay(100)}
         exiting={FadeOutDown}
         style={styles.view}>
         <Text style={styles.heading}>
@@ -264,8 +264,8 @@ const Register = ({navigation}) => {
             {Resources.Texts.MetricSystem}
           </Text>
           <Switch
-            trackColor={{false: 'rgba(255, 255, 255, 0.2)', true: 'rgba(255, 255, 255, 0.75)'}}
-            thumbColor={imperialSystem ? '#f4f3f4' : '#f4f3f4'}
+            trackColor={{false: Resources.Colors.TrackColorFalse, true: Resources.Colors.TrackColorTrue}}
+            thumbColor={Resources.Colors.ThumbColor}
             onValueChange={value => {
               setImperialSystem(value);
             }}

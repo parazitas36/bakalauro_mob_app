@@ -1,11 +1,11 @@
-import React, {useContext, useEffect, useMemo, useState} from 'react';
+import React, {Suspense, useContext, useEffect, useMemo, useState} from 'react';
 import Animated, {
   FadeInLeft,
   FadeOutRight,
   FadeOutLeft,
 } from 'react-native-reanimated';
 import styles from './styles';
-import {UserContext} from '../../../App';
+import {LoadingScreen, UserContext} from '../../../App';
 import {ApiConstants} from '../../api/ApiConstants';
 import Loading from '../loading';
 import Resources from '../../Resources';
@@ -84,97 +84,99 @@ const SportsClubCreation = ({navigation}) => {
   }, []);
 
   return (
-    <Animated.View
-      style={styles.view}
-      entering={FadeInLeft}
-      exiting={FadeOutRight}>
-      {roleSpecificData === null ? (
-        <Loading
-          text={Resources.ActivityIndicatorLoadingScreen.Texts.Loading}
-        />
-      ) : (
-        <>
-          <Animated.Text
-            style={styles.heading}
-            entering={FadeInLeft.delay(300)}
-            exiting={FadeOutRight}>
-            {Resources.Texts.SportsClubCreationHeading}
-          </Animated.Text>
-          {error !== null && (
-              <Animated.Text
-                style={styles.errors}
-                entering={FadeInLeft}
-                exiting={FadeOutLeft}>
-                {error}
-              </Animated.Text>
-            )}
-          <Animated.View
-            entering={FadeInLeft.delay(300)}
-            exiting={FadeOutRight}
-            style={styles.animatedView}>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={setSportsClubName}
-              placeholder={Resources.Placeholders.SportsClubName}
-              placeholderTextColor={Resources.Colors.PlaceholdersColor}
-            />
-            {validation?.validSportsClubName === false && (
-              <Animated.Text
-                style={styles.errors}
-                entering={FadeInLeft}
-                exiting={FadeOutLeft}>
-                {Resources.ValidationMessages.SportsClubName}
-              </Animated.Text>
-            )}
-            <TextInput
-              style={{...styles.description, verticalAlign: 'bottom'}}
-              onChangeText={setDescription}
-              multiline={true}
-              numberOfLines={3}
-              placeholder={Resources.Placeholders.Description}
-              placeholderTextColor={Resources.Colors.PlaceholdersColor}
-            />
-            {validation?.validDescription === false && (
-              <Animated.Text
-                style={styles.errors}
-                entering={FadeInLeft}
-                exiting={FadeOutLeft}>
-                {Resources.ValidationMessages.Description}
-              </Animated.Text>
-            )}
-            <TextInput
-              style={styles.textInput}
-              onChangeText={setEmail}
-              defaultValue={userData?.contactInfo?.email}
-              placeholder={Resources.Placeholders.Email}
-              placeholderTextColor={Resources.Colors.PlaceholdersColor}
-            />
-            {validation?.validEmail === false && (
-              <Animated.Text
-                style={styles.errors}
-                entering={FadeInLeft}
-                exiting={FadeOutLeft}>
-                {Resources.ValidationMessages.EmailInvalid}
-              </Animated.Text>
-            )}
-            <TextInput
-              style={styles.textInput}
-              onChangeText={setPhone}
-              defaultValue={userData?.contactInfo?.phoneNumber}
-              placeholder={Resources.Placeholders.Phone}
-              placeholderTextColor={Resources.Colors.PlaceholdersColor}
-            />
-            <CustomButton
-              styles={styles}
-              btnText={Resources.ButtonTexts.SaveBtnText}
-              onPress={async() => await savePress()}
-              disabled={loading === true}
-              loading={loading === true}
-            />
-          </Animated.View>
-        </>
-      )}
-    </Animated.View>
+    <Suspense fallback={LoadingScreen()}>
+      <Animated.View
+        style={styles.view}
+        entering={FadeInLeft}
+        exiting={FadeOutRight}>
+        {roleSpecificData === null ? (
+          <Loading
+            text={Resources.ActivityIndicatorLoadingScreen.Texts.Loading}
+          />
+        ) : (
+          <>
+            <Animated.Text
+              style={styles.heading}
+              entering={FadeInLeft.delay(300)}
+              exiting={FadeOutRight}>
+              {Resources.Texts.SportsClubCreationHeading}
+            </Animated.Text>
+            {error !== null && (
+                <Animated.Text
+                  style={styles.errors}
+                  entering={FadeInLeft}
+                  exiting={FadeOutLeft}>
+                  {error}
+                </Animated.Text>
+              )}
+            <Animated.View
+              entering={FadeInLeft.delay(300)}
+              exiting={FadeOutRight}
+              style={styles.animatedView}>
+              <TextInput
+                style={styles.textInput}
+                onChangeText={setSportsClubName}
+                placeholder={Resources.Placeholders.SportsClubName}
+                placeholderTextColor={Resources.Colors.PlaceholdersColor}
+              />
+              {validation?.validSportsClubName === false && (
+                <Animated.Text
+                  style={styles.errors}
+                  entering={FadeInLeft}
+                  exiting={FadeOutLeft}>
+                  {Resources.ValidationMessages.SportsClubName}
+                </Animated.Text>
+              )}
+              <TextInput
+                style={{...styles.description, verticalAlign: 'bottom'}}
+                onChangeText={setDescription}
+                multiline={true}
+                numberOfLines={3}
+                placeholder={Resources.Placeholders.Description}
+                placeholderTextColor={Resources.Colors.PlaceholdersColor}
+              />
+              {validation?.validDescription === false && (
+                <Animated.Text
+                  style={styles.errors}
+                  entering={FadeInLeft}
+                  exiting={FadeOutLeft}>
+                  {Resources.ValidationMessages.Description}
+                </Animated.Text>
+              )}
+              <TextInput
+                style={styles.textInput}
+                onChangeText={setEmail}
+                defaultValue={userData?.contactInfo?.email}
+                placeholder={Resources.Placeholders.Email}
+                placeholderTextColor={Resources.Colors.PlaceholdersColor}
+              />
+              {validation?.validEmail === false && (
+                <Animated.Text
+                  style={styles.errors}
+                  entering={FadeInLeft}
+                  exiting={FadeOutLeft}>
+                  {Resources.ValidationMessages.EmailInvalid}
+                </Animated.Text>
+              )}
+              <TextInput
+                style={styles.textInput}
+                onChangeText={setPhone}
+                defaultValue={userData?.contactInfo?.phoneNumber}
+                placeholder={Resources.Placeholders.Phone}
+                placeholderTextColor={Resources.Colors.PlaceholdersColor}
+              />
+              <CustomButton
+                styles={styles}
+                btnText={Resources.ButtonTexts.SaveBtnText}
+                onPress={async() => await savePress()}
+                disabled={loading === true}
+                loading={loading === true}
+              />
+            </Animated.View>
+          </>
+        )}
+      </Animated.View>
+    </Suspense>
   );
 };
 

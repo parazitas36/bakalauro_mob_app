@@ -11,12 +11,12 @@ export default styles = StyleSheet.create({
     fontSize: Resources.FontSize.btnText,
   },
   button: {
-    padding: moderateScale(10),
     borderColor: Resources.Colors.BorderColorWhite,
     borderWidth: moderateScale(1),
     borderRadius: moderateScale(10),
     margin: scale(10),
-    width: scale(100),
+    height: verticalScale(30),
+    width: scale(250),
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -46,6 +46,13 @@ export default styles = StyleSheet.create({
   heading: {
     color: Resources.Colors.TextColorWhite,
     fontSize: Resources.FontSize.headingText,
-    margin: scale(10),
+    marginBottom: verticalScale(10)
   },
+  subscriptionsScrollView: {
+    maxHeight: verticalScale(200),
+  },
+  subscriptionsScrollViewContent: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });

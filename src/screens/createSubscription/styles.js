@@ -6,9 +6,6 @@ export default styles = StyleSheet.create({
   text: {
     color: Resources.Colors.TextColorWhite,
   },
-  box: {
-    marginVertical: verticalScale(5),
-  },
   btnText: {
     color: Resources.Colors.TextColorWhite,
     fontSize: Resources.FontSize.btnText,
@@ -18,8 +15,8 @@ export default styles = StyleSheet.create({
     borderWidth: moderateScale(1),
     borderRadius: moderateScale(10),
     margin: scale(10),
-    width: scale(250),
     height: verticalScale(30),
+    width: scale(250),
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -50,10 +47,5 @@ export default styles = StyleSheet.create({
     color: Resources.Colors.TextColorWhite,
     fontSize: Resources.FontSize.headingText,
     margin: scale(10),
-  },
-  countryButton: {
-    color: Resources.Colors.TextColorWhite,
-    fontSize: Resources.FontSize.regularText,
-    textDecorationLine: 'underline',
   },
 });

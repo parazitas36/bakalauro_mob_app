@@ -1,10 +1,13 @@
 import {Text} from 'react-native';
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect, Suspense} from 'react';
 import Animated, {FadeInLeft, FadeOutLeft} from 'react-native-reanimated';
-import { SportsClubContext, UserContext } from '../../../App';
+import { LoadingScreen, SportsClubContext, UserContext } from '../../../App';
 import { ApiConstants } from '../../api/ApiConstants';
 import { GetCall } from '../../api/GetCall';
 import styles from './styles';
+import Resources from '../../Resources';
+import CustomButton from '../../components/customButton';
+import FacilityCard from '../../components/facilityCard';
 
 const Facilities = ({navigation}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
@@ -35,18 +38,27 @@ const Facilities = ({navigation}) => {
   }, [reloadFacilities === true])
 
   return (
-    <Animated.View style={styles.view} entering={FadeInLeft} exiting={FadeOutLeft}>
-      <Text style={styles.text}>Facilities</Text>
-      {facilities === null ? <Text style={styles.text}>Loading</Text>
-      : (facilities.length === 0 ? <Text style={styles.text}>No facilities</Text>
-      : facilities.map((facility) => {
-        return (
-        <Text key={facility.id} style={styles.text}>
-          {facility.id} 
-        </Text>)
-      }))}
-      
-    </Animated.View>
+    <Suspense fallback={LoadingScreen()}>
+      {facilities === null ? LoadingScreen() :
+      <Animated.ScrollView
+        style={styles.view}
+        contentContainerStyle={styles.viewContent} 
+        entering={FadeInLeft.delay(300)} 
+        exiting={FadeOutLeft}>
+        <Text style={styles.heading}>{`Facilities (${facilities?.length ?? 0})`}</Text>
+        {(facilities.length === 0 ? <Text style={styles.text}>{Resources.Texts.NoFacilities}</Text>
+        : facilities.map((facility) => {
+          return <FacilityCard key={facility.id} navigation={navigation} facility={facility} />
+        }))}
+        {facilities !== null ? (
+          <CustomButton
+            btnText={Resources.ButtonTexts.AddNewBtnText}
+            styles={styles}
+            onPress={() => navigation.navigate(Resources.Screens.CreateFacility)}
+          />
+        ) : null}
+      </Animated.ScrollView>}
+    </Suspense>
   );
 };
 

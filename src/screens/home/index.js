@@ -1,7 +1,7 @@
-import { useContext } from 'react';
+import {Suspense, useContext} from 'react';
 import {View} from 'react-native';
 import {Text} from 'react-native';
-import { UserContext } from '../../../App';
+import {LoadingScreen, UserContext} from '../../../App';
 import styles from './styles';
 
 const Home = props => {
@@ -9,9 +9,11 @@ const Home = props => {
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
 
   return (
-    <View style={styles.view}>
-      <Text style={styles.text}>Home</Text>
-    </View>
+    <Suspense fallback={LoadingScreen()}>
+      <View style={styles.view}>
+        <Text style={styles.text}>Home</Text>
+      </View>
+    </Suspense>
   );
 };
 
