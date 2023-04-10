@@ -3,6 +3,7 @@ import React, { Suspense } from 'react'
 import { LoadingScreen } from '../../../App';
 import styles from './styles';
 import EquipmentList from '../../components/equipmentList';
+import { FAB } from '@rneui/base';
 
 const Facility = ({navigation, route}) => {
   const facility = route?.params?.facility;
@@ -22,7 +23,11 @@ const Facility = ({navigation, route}) => {
           <View style={styles.details}>
             <Text style={styles.text}>{facility.country}, {facility.city}, {facility.coordinates}</Text>
           </View>
-          <EquipmentList/>
+          <EquipmentList facilityId={facility.id}/>
+          <FAB
+          icon={{name: 'add', color: 'white'}}
+          size='small'
+          placement='right'/>
         </View>
     </Suspense>
   )

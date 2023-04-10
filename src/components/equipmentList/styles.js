@@ -15,10 +15,10 @@ export default styles = StyleSheet.create({
     view: {
         flex: 1,
         width: '100%',
-        maxWidth: scale(300),
         alignItems: 'center',
         flexDirection: 'column',
         paddingVertical: verticalScale(10),
+        alignSelf: 'center',
     },
     equipmentText: {
         color: Resources.Colors.TextColorWhite,

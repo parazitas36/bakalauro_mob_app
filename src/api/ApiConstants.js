@@ -14,5 +14,7 @@ export const ApiConstants = (props) =>  {
         SportsClubFacilities: `${URL}${SportsClub_Endpoint}${props?.ids[0]}/facility`,
         Subscriptions: `${URL}${SportsClub_Endpoint}${props?.ids[0]}/subscriptions`,
         Equipment: `${URL}${Facility_Endpoint}${props?.ids[0]}/equipment`,
+        SportsClubEquipment: `${URL}${SportsClub_Endpoint}${props?.ids[0]}/equipment`,
+        EquipmentAmountUpdate: `${URL}${Facility_Endpoint}${props?.ids[0]}/equipment/${props?.ids[1]}/${props?.amount}`
     });
 }

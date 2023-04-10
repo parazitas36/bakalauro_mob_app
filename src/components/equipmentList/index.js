@@ -7,8 +7,13 @@ import {LoadingScreen, UserContext} from '../../../App';
 import {GetCall} from '../../api/GetCall';
 import {ApiConstants} from '../../api/ApiConstants';
 import Animated, {FadeInUp, FadeOutDown} from 'react-native-reanimated';
+import Resources from '../../Resources';
+import { FAB } from '@rneui/base';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { PostCall } from '../../api/PostCall';
 
-const EquipmentList = ({facilityId}) => {
+const EquipmentList = ({facilityId, navigation, editAmountMode}) => {
+  const [reload, setReload] = useState(false);
   const [equipment, setEquipment] = useState(null);
   const {tokenState, userDataState, roleSpecificDataState} =
     useContext(UserContext);
@@ -19,7 +24,8 @@ const EquipmentList = ({facilityId}) => {
   useEffect(() => {
     (async () => {
       const resp = await GetCall({
-        endpoint: facilityId === null ? ApiConstants({ids: [facilityId]}).Equipment  : ApiConstants({ids: [facilityId]}).Equipment,
+        endpoint: facilityId === null || facilityId === undefined ? ApiConstants({ids: [roleSpecificData.id]}).SportsClubEquipment 
+          : ApiConstants({ids: [facilityId]}).Equipment,
         token: token,
       });
 
@@ -27,10 +33,31 @@ const EquipmentList = ({facilityId}) => {
         const data = await resp.json();
         setEquipment(data);
       } else {
-        setEquipment([1, 1, 1, 1, 1, 1, 1]);
+        setEquipment([]);
       }
     })();
-  }, []);
+    setReload(false)
+  }, [reload === true]);
+
+  const UpdateAmount = async(equipmentId, amount) => {
+    const resp = await PostCall({endpoint: ApiConstants({ids: [facilityId, equipmentId], amount: amount}).EquipmentAmountUpdate, token: token, body: ""});
+    console.log(resp)
+    setReload(true)
+  }
+
+  const EquipmentItem = ({item}) => {
+    if(!editAmountMode){
+      return Equipment({equipment: item})
+    }
+
+    if(editAmountMode){
+      return (
+        <TouchableOpacity>
+          {Equipment({equipment: item})}
+        </TouchableOpacity>
+      )
+    }
+  }
 
   return (
     <>
@@ -41,13 +68,21 @@ const EquipmentList = ({facilityId}) => {
           exiting={FadeOutDown}>
           {equipment !== null && <Text style={styles.equipmentText}>{`Equipment (${equipment?.length})`}</Text>}
           {equipment?.length > 0 ? 
-            <FlatList data={equipment} renderItem={Equipment} />
+            <FlatList data={equipment} renderItem={({item}) => EquipmentItem({item: item})} />
             : <Text style={styles.noEquipmentText}>No equipment</Text>
           }
+          {!facilityId && userData?.role === 'SportsClubAdmin' && 
+          <FAB
+            icon={{name: 'add', color: 'white'}}
+            size='small'
+            placement='right'
+            onPress={() => navigation.navigate({
+              name: Resources.Screens.CreateEquipment,
+              params: {reloadState: [reload, setReload]},
+            })}/>}
         </Animated.View>
       }
     </>
   );
 };
-
 export default EquipmentList;
