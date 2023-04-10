@@ -14,7 +14,6 @@ export default styles = StyleSheet.create({
     },
     view: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: Resources.Colors.BackgroundColorBlack,
     },
@@ -23,20 +22,26 @@ export default styles = StyleSheet.create({
         justifyContent: 'center',
         fontSize: Resources.FontSize.btnText,
     },
-    horizontalFlex: {
-        flexDirection: 'row',
-        gap: scale(5),
+    details: {
+        alignSelf: 'flex-start',
+        paddingHorizontal: scale(20),
         margin: scale(5),
     },
     heading: {
         color: Resources.Colors.TextColorWhite,
         fontSize: Resources.FontSize.headingText,
         margin: scale(10),
-        marginTop: scale(0)
+        maxHeight: scale(300),
+    },
+    imageView: {
+        height: verticalScale(180),
+        width: scale(300),
+        borderRadius: moderateScale(5),
+        overflow: 'hidden',
+        justifyContent: 'center',
     },
     image: {
-        width: scale(50),
-        height: scale(30),
+        flex: 1,
         padding: 0,
         margin: 0
     }

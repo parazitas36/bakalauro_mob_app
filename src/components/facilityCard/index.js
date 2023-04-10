@@ -3,12 +3,12 @@ import React from 'react'
 import styles from './styles'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-const FacilityCard = ({navigation, facility}) => {
+const FacilityCard = ({navigation, facility, sportsClubName}) => {
   console.log(facility.id)
   const navigateToFacilityComponent = () => {
     navigation.navigate({
       name: 'Facility',
-      params: {facility: facility},
+      params: {facility: facility, sportsClubName: sportsClubName},
     })
   }
 

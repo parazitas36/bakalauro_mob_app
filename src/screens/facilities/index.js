@@ -19,6 +19,7 @@ const Facilities = ({navigation}) => {
   const [reloadFacilities, setReloadFacilities] = reloadFacilitiesState;
 
   const [facilities, setFacilities] = useState(null)
+  const [sportsClubName, setSportsClubName] = useState(null)
 
   useEffect(() => {
     (async () => {
@@ -29,8 +30,10 @@ const Facilities = ({navigation}) => {
 
       if (resp.status === 200) {
         const result = await resp.json();
-        setFacilities(result)
+        setSportsClubName(result.sportsClubName)
+        setFacilities(result.facilities)
       } else {
+        setSportsClubName('Unknown club')
         setFacilities([])
       }
       setReloadFacilities(false)
@@ -45,10 +48,10 @@ const Facilities = ({navigation}) => {
         contentContainerStyle={styles.viewContent} 
         entering={FadeInLeft.delay(300)} 
         exiting={FadeOutLeft}>
-        <Text style={styles.heading}>{`Facilities (${facilities?.length ?? 0})`}</Text>
+        <Text style={styles.heading}>{`${sportsClubName} facilities (${facilities?.length ?? 0})`}</Text>
         {(facilities.length === 0 ? <Text style={styles.text}>{Resources.Texts.NoFacilities}</Text>
         : facilities.map((facility) => {
-          return <FacilityCard key={facility.id} navigation={navigation} facility={facility} />
+          return <FacilityCard key={facility.id} navigation={navigation} facility={facility} sportsClubName={sportsClubName}/>
         }))}
         {facilities !== null ? (
           <CustomButton

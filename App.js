@@ -9,10 +9,12 @@ import Resources from './src/Resources';
 import Register from './src/screens/register';
 import Welcome from './src/screens/welcome';
 import Loading from './src/screens/loading';
+import TrainerStack from './src/navigation/TrainerStack';
 
 export const LoadingScreen = () => <Loading />
 export const UserContext = createContext();
 export const SportsClubContext = createContext();
+export const TrainerContext = createContext();
 
 const SCAdminStack = React.lazy(() => import('./src/navigation/SCAdminStack'));
 
@@ -59,6 +61,11 @@ const App = () => {
                 {userData !== null && userData?.role === 'SportsClubAdmin' && (
                   <Suspense fallback={LoadingScreen()}>
                     <SCAdminStack roleSpecificData={roleSpecificData} />
+                  </Suspense>
+                )}
+                {userData !== null && userData?.role === 'Trainer' && (
+                  <Suspense fallback={LoadingScreen()}>
+                    <TrainerStack roleSpecificData={roleSpecificData} />
                   </Suspense>
                 )}
               </NavigationContainer>

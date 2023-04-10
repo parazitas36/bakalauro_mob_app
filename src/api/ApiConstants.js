@@ -3,6 +3,7 @@ export const ApiConstants = (props) =>  {
     const URL = 'http://localhost:5021/api/'
     const Users_Endpoint = 'Users/'
     const SportsClub_Endpoint = 'SportsClub/'
+    const Facility_Endpoint = 'Facility/'
 
     return ({
         USERS_ENDPOINT: `${URL}${Users_Endpoint}`,
@@ -12,5 +13,6 @@ export const ApiConstants = (props) =>  {
         AdminClub: `${URL}${SportsClub_Endpoint}usersportsclub`,
         SportsClubFacilities: `${URL}${SportsClub_Endpoint}${props?.ids[0]}/facility`,
         Subscriptions: `${URL}${SportsClub_Endpoint}${props?.ids[0]}/subscriptions`,
+        Equipment: `${URL}${Facility_Endpoint}${props?.ids[0]}/equipment`,
     });
 }

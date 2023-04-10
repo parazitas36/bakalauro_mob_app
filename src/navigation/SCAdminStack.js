@@ -1,40 +1,43 @@
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
-import React, { Suspense, useState } from "react";
-import { LoadingScreen, SportsClubContext } from "../../App";
-import Resources from "../Resources";
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
+import React, {Suspense, useState} from 'react';
+import {LoadingScreen, SportsClubContext} from '../../App';
+import Resources from '../Resources';
 
-const Home = React.lazy(() => import("../screens/home"));
-const Facilities = React.lazy(() => import("../screens/facilities"));
-const Facility = React.lazy(() => import("../screens/facility"));
-const CreateFacility = React.lazy(() => import("../screens/createFacility"));
-const CreateSubscription = React.lazy(() => import("../screens/createSubscription"))
-const Subscriptions = React.lazy(() => import("../screens/subscriptions"));
-const SportsClubCreation = React.lazy(() => import("../screens/sportsClubCreation"));
+const SCAdminHome = React.lazy(() => import('../screens/scAdminHome'));
+const Facilities = React.lazy(() => import('../screens/facilities'));
+const Facility = React.lazy(() => import('../screens/facility'));
+const CreateFacility = React.lazy(() => import('../screens/createFacility'));
+const CreateSubscription = React.lazy(() => import('../screens/createSubscription'));
+const Subscriptions = React.lazy(() => import('../screens/subscriptions'));
+const SportsClubCreation = React.lazy(() => import('../screens/sportsClubCreation'));
 
 const SCAdminTabNavigator = createMaterialBottomTabNavigator();
 const SCAdminHomeStackNav = createStackNavigator();
 const SCAdminFacilitiesStackNav = createStackNavigator();
 const SCAdminSubscriptionsStackNav = createStackNavigator();
 
-const noRoleSpecificData = (data) => {
+const noRoleSpecificData = data => {
   return data === null || data === '';
-}
+};
 
 const SCAdminHomeStack = () => {
   return (
     <SCAdminHomeStackNav.Navigator
-      initialRouteName={Resources.Screens.Home}
+      initialRouteName={Resources.Screens.SCAdminHome}
       screenOptions={{
         headerShown: false,
         presentation: 'card',
         animationEnabled: true,
         detachPreviousScreen: true,
       }}>
-      <SCAdminHomeStackNav.Screen name={Resources.Screens.Home} component={Home}/>
+      <SCAdminHomeStackNav.Screen
+        name={Resources.Screens.SCAdminHome}
+        component={SCAdminHome}
+      />
     </SCAdminHomeStackNav.Navigator>
-  )
-}
+  );
+};
 
 const SCAdminFacilitiesStack = () => {
   return (
@@ -46,12 +49,18 @@ const SCAdminFacilitiesStack = () => {
         animationEnabled: true,
         detachPreviousScreen: true,
       }}>
-      <SCAdminFacilitiesStackNav.Screen name={Resources.Screens.Facilities} component={Facilities}/>
-      <SCAdminFacilitiesStackNav.Screen name='Facility' component={Facility}/>
-      <SCAdminFacilitiesStackNav.Screen name={Resources.Screens.CreateFacility} component={CreateFacility}/>
+      <SCAdminFacilitiesStackNav.Screen
+        name={Resources.Screens.Facilities}
+        component={Facilities}
+      />
+      <SCAdminFacilitiesStackNav.Screen name="Facility" component={Facility} />
+      <SCAdminFacilitiesStackNav.Screen
+        name={Resources.Screens.CreateFacility}
+        component={CreateFacility}
+      />
     </SCAdminFacilitiesStackNav.Navigator>
-  )
-}
+  );
+};
 
 const SCAdminSubscriptionsStack = () => {
   return (
@@ -63,11 +72,17 @@ const SCAdminSubscriptionsStack = () => {
         animationEnabled: true,
         detachPreviousScreen: true,
       }}>
-      <SCAdminSubscriptionsStackNav.Screen name={Resources.Screens.Subscriptions} component={Subscriptions}/>
-      <SCAdminSubscriptionsStackNav.Screen name={Resources.Screens.CreateSubscription} component={CreateSubscription}/>
+      <SCAdminSubscriptionsStackNav.Screen
+        name={Resources.Screens.Subscriptions}
+        component={Subscriptions}
+      />
+      <SCAdminSubscriptionsStackNav.Screen
+        name={Resources.Screens.CreateSubscription}
+        component={CreateSubscription}
+      />
     </SCAdminSubscriptionsStackNav.Navigator>
-  )
-}
+  );
+};
 const SCAdminTab = () => {
   return (
     <SCAdminTabNavigator.Navigator
@@ -75,22 +90,31 @@ const SCAdminTab = () => {
       activeColor="#f0edf6"
       inactiveColor="#3e2465"
       barStyle={{backgroundColor: 'black'}}>
-      <SCAdminTabNavigator.Screen name={'HomeStack'} component={SCAdminHomeStack} />
-      <SCAdminTabNavigator.Screen name={'FacilitiesStack'}  component={SCAdminFacilitiesStack} />
-      <SCAdminTabNavigator.Screen name={'SubscriptionsStack'}  component={SCAdminSubscriptionsStack} />
+      <SCAdminTabNavigator.Screen
+        name={'HomeStack'}
+        component={SCAdminHomeStack}
+      />
+      <SCAdminTabNavigator.Screen
+        name={'FacilitiesStack'}
+        component={SCAdminFacilitiesStack}
+      />
+      <SCAdminTabNavigator.Screen
+        name={'SubscriptionsStack'}
+        component={SCAdminSubscriptionsStack}
+      />
     </SCAdminTabNavigator.Navigator>
   );
 };
 
 const SCAdminNavigator = createStackNavigator();
 const SCAdminStack = ({roleSpecificData}) => {
-  const [reloadFacilities, setReloadFacilities] = useState(false)
-  const [reloadSubscriptions, setReloadSubscriptions] = useState(false)
+  const [reloadFacilities, setReloadFacilities] = useState(false);
+  const [reloadSubscriptions, setReloadSubscriptions] = useState(false);
 
   const contextValues = {
     reloadFacilitiesState: [reloadFacilities, setReloadFacilities],
     reloadSubscriptionsState: [reloadSubscriptions, setReloadSubscriptions],
-  }
+  };
 
   return (
     <Suspense fallback={LoadingScreen()}>
@@ -119,4 +143,4 @@ const SCAdminStack = ({roleSpecificData}) => {
   );
 };
 
-export default SCAdminStack
+export default SCAdminStack;

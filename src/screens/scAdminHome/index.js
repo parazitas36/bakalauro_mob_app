@@ -4,17 +4,17 @@ import {Text} from 'react-native';
 import {LoadingScreen, UserContext} from '../../../App';
 import styles from './styles';
 
-const Home = props => {
+const SCAdminHome = props => {
   const {roleSpecificDataState} = useContext(UserContext);
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
 
   return (
     <Suspense fallback={LoadingScreen()}>
       <View style={styles.view}>
-        <Text style={styles.text}>Home</Text>
+        <Text style={styles.text}>SCAdminHome</Text>
       </View>
     </Suspense>
   );
 };
 
-export default Home;
+export default SCAdminHome;

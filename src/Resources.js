@@ -38,6 +38,7 @@ export default Resources = {
         validationText: verticalScale(10),
         regularText: verticalScale(12),
         headingText: verticalScale(22),
+        heading2Text: verticalScale(18),
         btnText: verticalScale(12),
         subscriptionTitle: verticalScale(16),
     },
@@ -69,8 +70,10 @@ export default Resources = {
         Facilities: 'Facilities',
         Home: 'Home',
         Register: 'Register',
+        SCAdminHome: 'SCAdminHome',
         SportsClubCreation: 'SportsClubCreation',
         Subscriptions: 'Subscriptions',
+        TrainerHome: 'TrainerHome',
         Welcome: 'Welcome',
     },
     Texts: {

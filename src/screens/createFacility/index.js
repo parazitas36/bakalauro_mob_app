@@ -64,7 +64,7 @@ const CreateFacility = ({navigation}) => {
           ToastAndroid.BOTTOM,
         );
         setReloadFacilities(true)
-        navigation.navigate(Resources.Screens.Home)
+        navigation.navigate(Resources.Screens.SCAdminHome)
       } else {
         ToastAndroid.show(
           Resources.Texts.NotificationFacilityNotCreated,
