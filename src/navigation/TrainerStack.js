@@ -6,8 +6,12 @@ import Resources from '../Resources';
 
 const TrainerTabNavigator = createMaterialBottomTabNavigator();
 const TrainerHomeStackNavigator = createStackNavigator();
+const TrainerExercisesStackNavigator = createStackNavigator();
 
-const TrainerHome = React.lazy(() => import('../screens/trainerHome'))
+const TrainerHome = React.lazy(() => import('../screens/trainerHome'));
+const CreateExercise = React.lazy(() => import('../screens/createExercise'));
+const Exercises = React.lazy(() => import('../screens/exercises'));
+const CreateExerciseGuide = React.lazy(() => import('../screens/createExerciseGuide'));
 
 const TrainerHomeStack = () => {
   return (
@@ -27,6 +31,22 @@ const TrainerHomeStack = () => {
   );
 };
 
+const TrainerExercisesStack = () => {
+  return (
+    <TrainerExercisesStackNavigator.Navigator
+      screenOptions={{
+        headerShown: false,
+        presentation: 'card',
+        animationEnabled: true,
+        detachPreviousScreen: true,
+      }}>
+      <TrainerExercisesStackNavigator.Screen name='Exercises' component={Exercises}/>
+      <TrainerExercisesStackNavigator.Screen name='CreateExercise' component={CreateExercise}/>
+      <TrainerExercisesStackNavigator.Screen name='CreateExerciseGuide' component={CreateExerciseGuide}/>
+    </TrainerExercisesStackNavigator.Navigator>
+  )
+}
+
 const TrainerTab = () => {
   return (
     <TrainerTabNavigator.Navigator
@@ -37,6 +57,10 @@ const TrainerTab = () => {
       <TrainerTabNavigator.Screen
         name={'HomeStack'}
         component={TrainerHomeStack}
+      />
+      <TrainerTabNavigator.Screen
+        name={'ExercisesStack'}
+        component={TrainerExercisesStack}
       />
     </TrainerTabNavigator.Navigator>
   );

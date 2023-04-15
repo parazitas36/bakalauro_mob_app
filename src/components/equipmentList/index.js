@@ -1,4 +1,4 @@
-import {Text} from 'react-native';
+import {RefreshControl, Text} from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 import {FlatList} from 'react-native';
 import Equipment from '../equipment';
@@ -11,8 +11,9 @@ import Resources from '../../Resources';
 import { FAB } from '@rneui/base';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { PostCall } from '../../api/PostCall';
+import DialogInput from 'react-native-dialog-input';
 
-const EquipmentList = ({facilityId, navigation, editAmountMode}) => {
+const EquipmentList = ({facilityId, navigation, route}) => {
   const [reload, setReload] = useState(false);
   const [equipment, setEquipment] = useState(null);
   const {tokenState, userDataState, roleSpecificDataState} =
@@ -20,12 +21,28 @@ const EquipmentList = ({facilityId, navigation, editAmountMode}) => {
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
+  const [selectedEquipmentId, setSelectedEquipmentId] = useState(null);
+
+  const editAmountMode = route?.params?.editAmountMode;
+
+  if(facilityId === null || facilityId === undefined) {
+    facilityId = route?.params?.facilityId;
+  }
+
+  const GetApiCall = () => {
+    if(facilityId !== undefined && facilityId !== null && editAmountMode === true) {
+      return ApiConstants({ids: [roleSpecificData.id]}).SportsClubEquipment
+    } else if (facilityId !== undefined && facilityId !== null) {
+      return ApiConstants({ids: [facilityId]}).Equipment;
+    }
+
+    return ApiConstants({ids: [roleSpecificData.id]}).SportsClubEquipment;
+  }
 
   useEffect(() => {
     (async () => {
       const resp = await GetCall({
-        endpoint: facilityId === null || facilityId === undefined ? ApiConstants({ids: [roleSpecificData.id]}).SportsClubEquipment 
-          : ApiConstants({ids: [facilityId]}).Equipment,
+        endpoint: GetApiCall(),
         token: token,
       });
 
@@ -52,11 +69,18 @@ const EquipmentList = ({facilityId, navigation, editAmountMode}) => {
 
     if(editAmountMode){
       return (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setSelectedEquipmentId(item.id)}>
           {Equipment({equipment: item})}
         </TouchableOpacity>
       )
     }
+  }
+
+  const SubmitInput = async(input) => {
+    const amount = Math.floor(Number(input));
+    console.log('amount: ', amount)
+    await UpdateAmount(selectedEquipmentId, amount);
+    setSelectedEquipmentId(null)
   }
 
   return (
@@ -66,12 +90,29 @@ const EquipmentList = ({facilityId, navigation, editAmountMode}) => {
           style={styles.view}
           entering={FadeInUp.delay(300)}
           exiting={FadeOutDown}>
+            <DialogInput isDialogVisible={selectedEquipmentId !== null}
+            title={"Enter equipment amount in facility"}
+            hintInput={"Enter amount"}
+            submitInput={async(input) => SubmitInput(input)}
+            textInputProps={{
+              keyboardType: 'numeric'
+            }}
+            closeDialog={() => setSelectedEquipmentId(null)}/>
           {equipment !== null && <Text style={styles.equipmentText}>{`Equipment (${equipment?.length})`}</Text>}
+          {editAmountMode === true && <Text style={styles.instructionText}>{`Click on equipment to enter the amount`}</Text>}
           {equipment?.length > 0 ? 
-            <FlatList data={equipment} renderItem={({item}) => EquipmentItem({item: item})} />
+            <FlatList 
+              refreshControl={
+                <RefreshControl
+                  refreshing={reload}
+                  onRefresh={() => setReload(true)}
+                />
+              } 
+              data={equipment} 
+              renderItem={({item}) => EquipmentItem({item: item})} />
             : <Text style={styles.noEquipmentText}>No equipment</Text>
           }
-          {!facilityId && userData?.role === 'SportsClubAdmin' && 
+          {!editAmountMode && !facilityId && userData?.role === 'SportsClubAdmin' && 
           <FAB
             icon={{name: 'add', color: 'white'}}
             size='small'

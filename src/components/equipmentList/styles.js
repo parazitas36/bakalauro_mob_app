@@ -43,13 +43,11 @@ export default styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    priceText: {
+    instructionText: {
         color: Resources.Colors.TextColorWhite,
         fontSize: Resources.FontSize.regularText,
-        borderTopWidth: 1,
-        borderTopColor: 'white',
-        maxWidth: scale(230),
-        width: scale(230),
+        maxWidth: scale(250),
+        width: scale(250),
         textAlign: 'center',
         padding: moderateScale(2)
     },

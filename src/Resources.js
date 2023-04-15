@@ -11,6 +11,11 @@ export default Resources = {
         },
     },
     AppName: 'Sportify',
+    BlockType: {
+        Image: 'ImageBlock',
+        Text: 'TextBlock',
+        Video: 'VideoBlock',
+    },
     ButtonTexts: {
         AddNewBtnText: 'Add New',
         CreateNewBtnText: 'Create New',

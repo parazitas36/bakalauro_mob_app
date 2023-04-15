@@ -14,8 +14,8 @@ const Login = (props) => {
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
 
-  const [username, setUsername] = useState('string');
-  const [password, setPassword] = useState('string');
+  const [username, setUsername] = useState('trainer');
+  const [password, setPassword] = useState('12345678');
   const [validation, setValidation] = useState(null);
   const [error, setError] = props?.errorState?.state;
   const [loading, setLoading] = props?.loadingState?.state;
@@ -38,7 +38,6 @@ const Login = (props) => {
       } else if (resp.status === 404) {
         setError(Resources.Errors.wrongCredentialsError)
       }
-      // if something is wrong move setLoading here
     } else {
       setError(Resources.Errors.loginFieldsError)
     }

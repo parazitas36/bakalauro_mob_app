@@ -4,6 +4,7 @@ import { LoadingScreen } from '../../../App';
 import styles from './styles';
 import EquipmentList from '../../components/equipmentList';
 import { FAB } from '@rneui/base';
+import Resources from '../../Resources';
 
 const Facility = ({navigation, route}) => {
   const facility = route?.params?.facility;
@@ -25,9 +26,10 @@ const Facility = ({navigation, route}) => {
           </View>
           <EquipmentList facilityId={facility.id}/>
           <FAB
-          icon={{name: 'add', color: 'white'}}
-          size='small'
-          placement='right'/>
+            icon={{name: 'add', color: 'white'}}
+            size='small'
+            placement='right'
+            onPress={() => navigation.navigate({name: Resources.Screens.EquipmentList, params: {facilityId: facility.id, editAmountMode: true}})}/>
         </View>
     </Suspense>
   )
