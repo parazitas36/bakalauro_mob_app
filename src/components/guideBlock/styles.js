@@ -42,5 +42,9 @@ export default styles = StyleSheet.create({
     button: {
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
+    image: {
+        width: '100%',
+        height: '100%',
+    },
 })

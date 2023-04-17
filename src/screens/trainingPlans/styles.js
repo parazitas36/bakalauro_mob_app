@@ -6,6 +6,9 @@ export default styles = StyleSheet.create({
   text: {
     color: Resources.Colors.TextColorWhite,
   },
+  box: {
+    marginVertical: verticalScale(5),
+  },
   btnText: {
     color: Resources.Colors.TextColorWhite,
     fontSize: Resources.FontSize.btnText,
@@ -15,8 +18,8 @@ export default styles = StyleSheet.create({
     borderWidth: moderateScale(1),
     borderRadius: moderateScale(10),
     margin: scale(10),
-    height: verticalScale(30),
     width: scale(250),
+    height: verticalScale(30),
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -46,11 +49,11 @@ export default styles = StyleSheet.create({
   heading: {
     color: Resources.Colors.TextColorWhite,
     fontSize: Resources.FontSize.headingText,
-    marginBottom: verticalScale(10)
+    margin: scale(10),
   },
-  subscriptionsScrollView: {
-    maxHeight: '75%',
+  countryButton: {
+    color: Resources.Colors.TextColorWhite,
+    fontSize: Resources.FontSize.regularText,
+    textDecorationLine: 'underline',
   },
-  subscriptionsScrollViewContent: {
-  }
 });

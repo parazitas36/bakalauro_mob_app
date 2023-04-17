@@ -26,6 +26,8 @@ export default Resources = {
     Colors: {
         BackgroundColorBlack: 'black',
         BorderColorWhite: 'white',
+        DefaultIconColor: 'white',
+        DisabledIconColor: 'rgba(255, 255, 255, 0.2)',
         ErrorTextColor: '#FF3333',
         PlaceholdersColor: 'grey',
         TextColorWhite: 'white',
@@ -82,6 +84,10 @@ export default Resources = {
         Subscriptions: 'Subscriptions',
         TrainerHome: 'TrainerHome',
         Welcome: 'Welcome',
+    },
+    Sizes: {
+        AddBlockIconSize: verticalScale(22),
+        BlockButtonsSize: verticalScale(24),
     },
     Texts: {
         ConfirmButtonText: 'Confirm',

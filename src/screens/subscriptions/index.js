@@ -60,7 +60,6 @@ const Subscriptions = ({navigation}) => {
             <Text style={styles.text}>No subscriptions</Text>
           ) : (
             <ScrollView
-              horizontal
               style={styles.subscriptionsScrollView}
               contentContainerStyle={styles.subscriptionsScrollViewContent}>
               {subscriptions?.map(x => {
