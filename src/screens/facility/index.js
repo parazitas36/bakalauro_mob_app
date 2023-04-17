@@ -14,7 +14,7 @@ const Facility = ({navigation, route}) => {
   return (
     <Suspense fallback={LoadingScreen()}>
         <View style={styles.view}>
-          <Text style={styles.heading}>{sportsClubName} facility</Text>
+          <Text style={styles.heading}>{sportsClubName} {Resources.Texts.Facility.toLowerCase()}</Text>
           <View style={styles.imageView}>
             <Image
               source={{uri: tempImageUrl}}
@@ -26,7 +26,7 @@ const Facility = ({navigation, route}) => {
           </View>
           <EquipmentList facilityId={facility.id}/>
           <FAB
-            icon={{name: 'add', color: 'white'}}
+            icon={{name: 'add', color: Resources.Colors.IconsColor}}
             size='small'
             placement='right'
             onPress={() => navigation.navigate({name: Resources.Screens.EquipmentList, params: {facilityId: facility.id, editAmountMode: true}})}/>

@@ -33,7 +33,7 @@ const Facilities = ({navigation}) => {
         setSportsClubName(result.sportsClubName)
         setFacilities(result.facilities)
       } else {
-        setSportsClubName('Unknown club')
+        setSportsClubName(Resources.Texts.UnknownClub)
         setFacilities([])
       }
       setReloadFacilities(false)
@@ -48,7 +48,7 @@ const Facilities = ({navigation}) => {
         contentContainerStyle={styles.viewContent} 
         entering={FadeInLeft.delay(300)} 
         exiting={FadeOutLeft}>
-        <Text style={styles.heading}>{`${sportsClubName} facilities (${facilities?.length ?? 0})`}</Text>
+        <Text style={styles.heading}>{`${sportsClubName} ${Resources.Texts.Facilities.toLowerCase()} (${facilities?.length ?? 0})`}</Text>
         {(facilities.length === 0 ? <Text style={styles.text}>{Resources.Texts.NoFacilities}</Text>
         : facilities.map((facility) => {
           return <FacilityCard key={facility.id} navigation={navigation} facility={facility} sportsClubName={sportsClubName}/>

@@ -43,11 +43,16 @@ const CreateExercise = ({navigation}) => {
     <Suspense fallback={LoadingScreen()}>
       <Animated.View style={styles.view} entering={FadeInDown.delay(100)} exiting={FadeOutUp}>
         <Animated.Text style={styles.heading}>
-        CreateExercise
+        {Resources.Texts.AddExercise}
         </Animated.Text>
-        <TextInput placeholder='Name' placeholderTextColor={'grey'} onChangeText={setName} value={name} />
-        <CustomButton btnText={guide.length == 0 ? 'Add guide' : 'Edit guide'} onPress={() => navigation.navigate('CreateExerciseGuide')} styles={styles}/>
-        <CustomButton btnText={'Save'} onPress={async() => await SavePress()} styles={styles}/>
+        <TextInput 
+          placeholder={Resources.Placeholders.Name} 
+          placeholderTextColor={Resources.Colors.PlaceholdersColor} 
+          onChangeText={setName} value={name} />
+        <CustomButton 
+          btnText={guide.length == 0 ? Resources.ButtonTexts.AddGuide : Resources.ButtonTexts.EditGuide} 
+          onPress={() => navigation.navigate(Resources.Screens.CreateExerciseGuide)} styles={styles}/>
+        <CustomButton btnText={Resources.ButtonTexts.SaveBtnText} onPress={async() => await SavePress()} styles={styles}/>
       </Animated.View>
     </Suspense>
   );

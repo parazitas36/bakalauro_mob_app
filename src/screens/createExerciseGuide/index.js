@@ -9,7 +9,6 @@ import {View, Text} from 'react-native';
 import Resources from '../../Resources';
 import {LoadingScreen, TrainerContext, UserContext} from '../../../App';
 import CustomButtonWithIcon from '../../components/customButtonWithIcon';
-import {Validation} from './validation';
 import {ToastAndroid} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {verticalScale} from 'react-native-size-matters';
@@ -17,7 +16,6 @@ import GuideBlock from '../../components/guideBlock';
 import TextInputModal from '../../components/textInputModal';
 import {launchImageLibrary} from 'react-native-image-picker';
 import CustomButton from '../../components/customButton';
-import { PostExerciseCall } from '../../api/PostExerciseCall';
 
 const CreateExerciseGuide = ({navigation, route}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
@@ -114,36 +112,35 @@ const CreateExerciseGuide = ({navigation, route}) => {
         contentContainerStyle={styles.viewContainer}
         entering={FadeInDown.delay(100)}
         exiting={FadeOutUp}>
-        <Animated.Text style={styles.heading}>Guide Creation</Animated.Text>
+        <Animated.Text style={styles.heading}>{Resources.Texts.ExerciseGuideCreation}</Animated.Text>
         {blocks.length > 0 ? blockList : null}
         <View style={styles.addView}>
-          <Text style={styles.text}>Choose what to add</Text>
+          <Text style={styles.text}>{Resources.Texts.ChooseBlockToAdd}</Text>
           <View style={styles.buttonsWindow}>
             <CustomButtonWithIcon
-              btnText={'Image'}
-              icon={() => { return <Icon name="image" size={verticalScale(Resources.Sizes.AddBlockIconSize)} color="white"/> }}
+              btnText={Resources.ButtonTexts.Image}
+              icon={() => { return <Icon name="image" size={verticalScale(Resources.Sizes.AddBlockIconSize)} color={Resources.Colors.IconsColor} /> }}
               onPress={async() => await addImage()}
               styles={styles}
             />
             <CustomButtonWithIcon
-              btnText={'Text'}
-              icon={() => { return <Icon name="keyboard" size={verticalScale(Resources.Sizes.AddBlockIconSize)} color="white" /> }}
+              btnText={Resources.ButtonTexts.Text}
+              icon={() => { return <Icon name="keyboard" size={verticalScale(Resources.Sizes.AddBlockIconSize)} color={Resources.Colors.IconsColor} /> }}
               onPress={() => setTextInputVisible(true)}
               styles={styles}
             />
             <CustomButtonWithIcon
-              btnText={'Video'}
-              icon={() => { return <Icon name="video" size={verticalScale(Resources.Sizes.AddBlockIconSize)} color="white" /> }}
+              btnText={Resources.ButtonTexts.Video}
+              icon={() => { return <Icon name="video" size={verticalScale(Resources.Sizes.AddBlockIconSize)} color={Resources.Colors.IconsColor} /> }}
               onPress={async () => await addVideo()}
               styles={styles}
             />
           </View>
         </View>
         <CustomButton
-        styles={styles}
-        btnText='Save'
-        onPress={SavePress}
-        />
+          styles={styles}
+          btnText={Resources.ButtonTexts.SaveBtnText}
+          onPress={SavePress} />
       </Animated.ScrollView>
     </Suspense>
   );

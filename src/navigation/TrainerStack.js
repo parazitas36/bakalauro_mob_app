@@ -46,19 +46,19 @@ const TrainerExercisesStack = () => {
         detachPreviousScreen: true,
       }}>
       <TrainerExercisesStackNavigator.Screen
-        name="Exercises"
+        name={Resources.Screens.Exercises}
         component={Exercises}
       />
       <TrainerExercisesStackNavigator.Screen
-        name="Exercise"
+        name={Resources.Screens.Exercise}
         component={Exercise}
       />
       <TrainerExercisesStackNavigator.Screen
-        name="CreateExercise"
+        name={Resources.Screens.CreateExercise}
         component={CreateExercise}
       />
       <TrainerExercisesStackNavigator.Screen
-        name="CreateExerciseGuide"
+        name={Resources.Screens.CreateExerciseGuide}
         component={CreateExerciseGuide}
       />
     </TrainerExercisesStackNavigator.Navigator>
@@ -75,7 +75,7 @@ const TrainerTrainingPlansStack = () => {
         detachPreviousScreen: true,
       }}>
       <TrainerTrainingPlansStackNavigator.Screen
-        name="TrainingPlans"
+        name={Resources.Screens.TrainingPlans}
         component={TrainingPlans}
       />
     </TrainerTrainingPlansStackNavigator.Navigator>

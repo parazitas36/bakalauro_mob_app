@@ -36,7 +36,7 @@ const Subscriptions = ({navigation}) => {
         setSportsClubName(data.sportsClubName);
         setSubscriptions(data.subscriptions);
       } else {
-        setSportsClubName('Unknown club')
+        setSportsClubName(Resources.Texts.UnknownClub)
         setSubscriptions([]);
       }
     })();
@@ -54,10 +54,10 @@ const Subscriptions = ({navigation}) => {
           entering={FadeInLeft.delay(200)}
           exiting={FadeOutRight}>
           {subscriptions !== null && (
-            <Text style={styles.heading}>{`${sportsClubName} subscriptions (${subscriptions?.length})`}</Text>
+            <Text style={styles.heading}>{`${sportsClubName} ${Resources.Texts.Subscriptions.toLowerCase()} (${subscriptions?.length})`}</Text>
           )}
           {subscriptions?.length === 0 ? (
-            <Text style={styles.text}>No subscriptions</Text>
+            <Text style={styles.text}>{Resources.Texts.NoSubscriptions}</Text>
           ) : (
             <ScrollView
               style={styles.subscriptionsScrollView}

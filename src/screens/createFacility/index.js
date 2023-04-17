@@ -3,7 +3,7 @@ import Animated, { FadeInDown, FadeInLeft, FadeOutLeft, FadeOutUp } from 'react-
 import {TextInput} from 'react-native';
 
 import styles from './styles';
-import {View, Text} from 'react-native';
+import {Text} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Resources from '../../Resources';
 import {LoadingScreen, SportsClubContext, UserContext} from '../../../App';

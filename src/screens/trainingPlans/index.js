@@ -47,14 +47,14 @@ const TrainingPlans = ({navigation}) => {
           style={styles.view}
           entering={FadeInDown.delay(100)}
           exiting={FadeOutUp}>
-          <Animated.Text style={styles.heading}>TrainingPlans</Animated.Text>
-          {trainingPlans.length === 0 ? <Text style={styles.text}>No training plans</Text> :
+          <Animated.Text style={styles.heading}>{Resources.Texts.TrainingPlans}</Animated.Text>
+          {trainingPlans.length === 0 ? <Text style={styles.text}>{Resources.Texts.NoTrainingPlans}</Text> :
           <FlatList data={trainingPlans} renderItem={({item}) => {return <Text style={styles.text}>{item.name}</Text>}} />}
           <FAB
-            icon={{name: 'add', color: 'white'}}
+            icon={{name: 'add', color: Resources.Colors.IconsColor}}
             size='small'
             placement='right'
-            onPress={() => navigation.navigate('CreateTrainingPlan')}/>
+            onPress={() => navigation.navigate(Resources.Screens.CreateTrainingPlan)}/>
         </Animated.View>
       )}
     </Suspense>

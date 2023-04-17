@@ -49,14 +49,14 @@ const Exercises = ({navigation}) => {
           style={styles.view}
           entering={FadeInDown.delay(100)}
           exiting={FadeOutUp}>
-          <Animated.Text style={styles.heading}>Exercises</Animated.Text>
-          {exercises?.length === 0 ? <Text style={styles.text}>No exercises</Text> :
+          <Animated.Text style={styles.heading}>{Resources.Texts.Exercises}</Animated.Text>
+          {exercises?.length === 0 ? <Text style={styles.text}>{Resources.Texts.NoExercises}</Text> :
           <FlatList data={exercises} renderItem={({item}) => ExerciseCard({data: item, navigation: navigation})}/>}
           <FAB
-            icon={{name: 'add', color: 'white'}}
+            icon={{name: 'add', color: Resources.Colors.IconsColor}}
             size='small'
             placement='right'
-            onPress={() => navigation.navigate('CreateExercise')}/>
+            onPress={() => navigation.navigate(Resources.Screens.CreateExercise)}/>
         </Animated.View>
       )}
     </Suspense>
