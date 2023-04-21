@@ -1,6 +1,6 @@
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
-import React, {createContext, Suspense, useState} from 'react';
+import React, {Suspense, useState} from 'react';
 import {LoadingScreen, TrainerContext} from '../../App';
 import Resources from '../Resources';
 
@@ -13,10 +13,10 @@ const TrainerHome = React.lazy(() => import('../screens/trainerHome'));
 const CreateExercise = React.lazy(() => import('../screens/createExercise'));
 const Exercises = React.lazy(() => import('../screens/exercises'));
 const Exercise = React.lazy(() => import('../screens/exercise'));
-const CreateExerciseGuide = React.lazy(() =>
-  import('../screens/createExerciseGuide'),
-);
+const CreateExerciseGuide = React.lazy(() => import('../screens/createExerciseGuide'));
 const TrainingPlans = React.lazy(() => import('../screens/trainingPlans'));
+const CreateTrainingPlan = React.lazy(() => import('../screens/createTrainingPlan'));
+const AddExerciseSets = React.lazy(() => import('../screens/addExerciseSets'));
 
 const TrainerHomeStack = () => {
   return (
@@ -78,6 +78,14 @@ const TrainerTrainingPlansStack = () => {
         name={Resources.Screens.TrainingPlans}
         component={TrainingPlans}
       />
+      <TrainerTrainingPlansStackNavigator.Screen
+        name={Resources.Screens.CreateTrainingPlan}
+        component={CreateTrainingPlan}
+      />
+      <TrainerTrainingPlansStackNavigator.Screen
+        name={Resources.Screens.AddExerciseSets}
+        component={AddExerciseSets}
+      />
     </TrainerTrainingPlansStackNavigator.Navigator>
   );
 };
@@ -85,10 +93,16 @@ const TrainerTrainingPlansStack = () => {
 const TrainerTab = () => {
   const [guide, setGuide] = useState([]);
   const [refreshExercises, setRefreshExercises] = useState(false);
+  const [key, setKey] = useState(0);
+  const [weeks, setWeeks] = useState(null);
+  const [exercises, setExercises] = useState(null);
 
   const context = {
     guideState: [guide, setGuide],
     refreshExercisesState: [refreshExercises, setRefreshExercises],
+    keyState: [key, setKey],
+    weeksState: [weeks, setWeeks],
+    exercisesState: [exercises, setExercises]
   };
 
   return (

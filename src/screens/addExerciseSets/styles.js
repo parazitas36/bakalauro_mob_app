@@ -17,17 +17,20 @@ export default styles = StyleSheet.create({
     borderColor: Resources.Colors.BorderColorWhite,
     borderWidth: moderateScale(1),
     borderRadius: moderateScale(10),
-    margin: scale(10),
     width: scale(250),
     height: verticalScale(30),
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex: 0,
   },
   view: {
     flex: 1,
   },
-  viewContent: {
+  contentContainerStyle: {
     alignItems: 'center',
+    minHeight: '100%',
+    gap: verticalScale(15),
+    paddingBottom: verticalScale(20)
   },
   textInput: {
     color: Resources.Colors.TextColorWhite,
@@ -39,7 +42,6 @@ export default styles = StyleSheet.create({
     width: scale(250),
     paddingHorizontal: moderateScale(10),
     marginBottom: verticalScale(5),
-    textAlign: 'center',
   },
   errors: {
     color: Resources.Colors.ErrorTextColor,
@@ -50,11 +52,33 @@ export default styles = StyleSheet.create({
   },
   heading: {
     color: Resources.Colors.TextColorWhite,
-    fontSize: Resources.FontSize.heading2Text,
+    fontSize: Resources.FontSize.headingText,
     margin: scale(10),
   },
-  radioButtons: {
+  infoView: {
+    height: verticalScale(100),
+    width: scale(280),
+    flexDirection: 'row',
+  },
+  card: {
+    maxHeight: verticalScale(150),
+    width: scale(280),
+    borderRadius: moderateScale(5),
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    marginHorizontal: scale(10),
+    alignSelf: 'center',
+  },
+  exerciseHeader: {
+    fontSize: Resources.FontSize.heading2Text,
     color: Resources.Colors.TextColorWhite,
-    fontSize: Resources.FontSize.regularText,
-  }
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    minHeight: verticalScale(30),
+    maxHeight: verticalScale(50),
+  },
+  subView: {
+    width: scale(140),
+    flexDirection: 'column',
+    padding: scale(5),
+  },
 });

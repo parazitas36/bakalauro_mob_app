@@ -91,6 +91,7 @@ export default Resources = {
         User: 'User',
     },
     Screens: {
+        AddExerciseSets: 'AddExerciseSets',
         CreateExercise: 'CreateExercise',
         CreateExerciseGuide: 'CreateExerciseGuide',
         CreateEquipment: 'CreateEquipment',
