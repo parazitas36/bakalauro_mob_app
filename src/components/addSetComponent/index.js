@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View, Text, ToastAndroid} from 'react-native';
 import React from 'react';
 import styles from './styles';
 import {TextInput} from 'react-native-gesture-handler';
@@ -13,39 +13,40 @@ const AddSetComponent = ({setState, setsState}) => {
   const numberRegex = new RegExp('^[0-9]+$');
 
   const AddSet = () => {
-    setSets(prev => [...prev, set]);
+    if (set?.Repetitions > 0) {
+      setSets(prev => [...prev, set]);
+    } else {
+      ToastAndroid.show(
+        'Repetitions cannot be zero!',
+        ToastAndroid.SHORT
+      )
+    }
   };
 
   const OnChangeRepetitions = value => {
-    if (
-      numberRegex.test(String(value)) === false &&
-      value.length > (set?.Weights?.length ?? 0)
-    ) {
+    if (numberRegex.test(String(value)) === false && String(value).length > (set?.Weights?.length ?? 0)) {
       return;
     }
 
     if (set === null) {
-      setSet({Repetitions: value, Weights: 0});
+      setSet({Repetitions: value.toString(), Weights: '0'});
       return;
     }
 
-    setSet({...set, Repetitions: value});
+    setSet({...set, Repetitions: value.toString()});
   };
 
   const OnChangeWeights = value => {
-    if (
-      numberRegex.test(String(value)) === false &&
-      value.length > (set?.Weights?.length ?? 0)
-    ) {
+    if (numberRegex.test(String(value)) === false && String(value).length > (set?.Weights?.length ?? 0)) {
       return;
     }
 
     if (set === null) {
-      setSet({Weights: value, Repetitions: 0});
+      setSet({Weights: value.toString(), Repetitions: '0'});
       return;
     }
 
-    setSet({...set, Weights: value});
+    setSet({...set, Weights: value.toString()});
   };
 
   return (
@@ -57,8 +58,8 @@ const AddSetComponent = ({setState, setsState}) => {
         <View style={styles.subView}>
           <Text style={styles.boldText}>{Resources.Texts.Repetitions}</Text>
           <TextInput
-            value={set?.Repetitions ?? ''}
-            keyboardType="numeric"
+            value={set?.Repetitions?.toString()}
+            keyboardType='number-pad'
             onChangeText={val => OnChangeRepetitions(val)}
             style={styles.textInput}
           />
@@ -66,8 +67,8 @@ const AddSetComponent = ({setState, setsState}) => {
         <View style={styles.subView}>
           <Text style={styles.boldText}>{Resources.Texts.Weight}</Text>
           <TextInput
-            keyboardType="numeric"
-            value={set?.Weights ?? ''}
+            keyboardType='number-pad'
+            value={set?.Weights?.toString()}
             onChangeText={val => OnChangeWeights(val)}
             style={styles.textInput}
           />

@@ -9,16 +9,27 @@ export default styles = StyleSheet.create({
   heading: {
     color: Resources.Colors.TextColorWhite,
     fontSize: Resources.FontSize.heading2Text,
-    margin: scale(10),
+    marginTop: scale(10),
   },
   view: {
     width: scale(300),
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginBottom: verticalScale(10),
   },
   hiddenView: {
     height: 0,
     overflow: 'hidden'
-  }
+  },
+  headingView: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: scale(5)
+  },
+  icon: {
+    alignSelf: 'flex-end', 
+    marginBottom: scale(2)
+  },
 });

@@ -15,13 +15,25 @@ export default styles = StyleSheet.create({
     width: scale(300),
     flexDirection: 'column',
   },
-  dayText: {
-    fontSize: Resources.FontSize.heading2Text,
+  dayTextView: {
     width: scale(300),
-    color: Resources.Colors.TextColorWhite,
     borderBottomColor: Resources.Colors.BorderColorWhite,
     borderBottomWidth: 1,
-    height: verticalScale(30)
+    height: verticalScale(30),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  icon: {
+    width: '50%',
+    alignItems: 'flex-end',
+    paddingRight: scale(5)
+  },
+  dayText: {
+    left: 0,
+    fontSize: Resources.FontSize.heading2Text,
+    color: Resources.Colors.TextColorWhite,
+    width: '50%'
   },
   btnText: {
     color: Resources.Colors.TextColorWhite,
@@ -29,11 +41,12 @@ export default styles = StyleSheet.create({
   },
   button: {
     borderColor: Resources.Colors.BorderColorWhite,
-    borderWidth: moderateScale(1),
+    borderWidth: moderateScale(1.25),
     borderRadius: moderateScale(10),
+    borderStyle: 'dashed',
     margin: scale(10),
-    width: scale(150),
-    height: verticalScale(30),
+    width: scale(100),
+    height: scale(40),
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',

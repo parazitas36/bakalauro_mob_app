@@ -42,6 +42,7 @@ export default styles = StyleSheet.create({
         fontSize: Resources.FontSize.regularText,
         width: scale(50),
         height: scale(30),
+        padding: scale(5),
         color: Resources.Colors.TextColorWhite,
         textAlign: 'center',
         textAlignVertical: 'center',

@@ -17,8 +17,8 @@ export default styles = StyleSheet.create({
     borderColor: Resources.Colors.BorderColorWhite,
     borderWidth: moderateScale(1),
     borderRadius: moderateScale(10),
-    margin: scale(10),
-    width: scale(250),
+    marginVertical: scale(10),
+    width: scale(135),
     height: verticalScale(30),
     justifyContent: 'center',
     alignItems: 'center',
@@ -56,5 +56,9 @@ export default styles = StyleSheet.create({
   radioButtons: {
     color: Resources.Colors.TextColorWhite,
     fontSize: Resources.FontSize.regularText,
+  },
+  flexRow: {
+    flexDirection: 'row',
+    gap: scale(30)
   }
 });

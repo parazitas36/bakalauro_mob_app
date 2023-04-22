@@ -8,6 +8,8 @@ import styles from './styles';
 import {TouchableOpacity} from 'react-native';
 import { useState } from 'react';
 import { TrainerContext } from '../../../App';
+import Icon from 'react-native-vector-icons/FontAwesome5'
+import { scale } from 'react-native-size-matters';
 
 const TrainingPlanWeeklyExercises = ({navigation, planWeek}) => {
   const {weekState} = useContext(TrainingPlanContext);
@@ -19,8 +21,15 @@ const TrainingPlanWeeklyExercises = ({navigation, planWeek}) => {
 
   return (
     <View style={styles.view}>
-      <TouchableOpacity onPress={() => setHidden(prev => !prev)}>
-        <Text style={styles.heading}>Week {planWeek}</Text>
+      <TouchableOpacity
+        style={styles.headingView}
+        onPress={() => setHidden(prev => !prev)}>
+        <Text style={styles.heading}>{Resources.Texts.Week} {planWeek}</Text>
+        <Icon 
+            name={`${hidden ? 'chevron-down' : 'chevron-up'}`} 
+            color={Resources.Colors.IconsColor} 
+            style={styles.icon}
+            size={scale(15)} />
       </TouchableOpacity>
       <View style={hidden ? styles.hiddenView : null}>
         <TrainingPlanDayExercises
