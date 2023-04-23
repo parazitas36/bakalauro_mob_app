@@ -18,6 +18,7 @@ export default styles = StyleSheet.create({
     borderRadius: moderateScale(5),
     borderColor: Resources.Colors.BorderColorWhite,
     flexDirection: 'row',
+    marginTop: verticalScale(15)
   },
   subView: {
     width: scale(150),

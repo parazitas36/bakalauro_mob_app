@@ -110,6 +110,7 @@ export default Resources = {
         Subscriptions: 'Subscriptions',
         TrainerHome: 'TrainerHome',
         TrainingPlans: 'TrainingPlans',
+        TrainingPlanScreen: 'TrainingPlanScreen',
         Welcome: 'Welcome',
     },
     Sizes: {

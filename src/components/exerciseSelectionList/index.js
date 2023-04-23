@@ -41,6 +41,7 @@ const ExerciseSelectionList = ({exercises, exerciseState}) => {
               paddingLeft: scale(10),
             }}>
             <Text style={{color: 'white'}}>{Resources.Texts.MuscleGroups}</Text>
+            <Text style={{color: 'white'}}>{data.muscleGroups}</Text>
           </View>
           <View
             style={{

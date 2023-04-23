@@ -1,4 +1,4 @@
-import {Text, ToastAndroid, View} from 'react-native';
+import {ToastAndroid, View} from 'react-native';
 import React, {Suspense} from 'react';
 import styles from './styles';
 import {LoadingScreen, TrainerContext, UserContext} from '../../../App';
@@ -23,8 +23,8 @@ const CreateTrainingPlan = ({navigation}) => {
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
-  const {keyState, weeksState, exercisesState} = useContext(TrainerContext);
-
+  const {keyState, weeksState, exercisesState,refreshTrainingPlansState} = useContext(TrainerContext);
+  const [refreshTrainingPlans, setRefreshTrainingPlans] = refreshTrainingPlansState;
   const [exercises, setExercises] = exercisesState;
 
   const [trainingPlanName, setTrainingPlanName] = useState(null);
@@ -88,16 +88,14 @@ const CreateTrainingPlan = ({navigation}) => {
       "WeeklyPlan": weeks
     }
 
-    console.log(trainingPlanBody)
-
     const resp = await PostCall({endpoint: ApiConstants().TrainingPlan_Endpoint, token: token, body: trainingPlanBody})
-    console.log(resp);
 
     if (resp.status === 201){
       ToastAndroid.show(
         'Training was created successfuly!',
         ToastAndroid.SHORT
       );
+      setRefreshTrainingPlans(true)
       navigation.goBack();
     }
   }
@@ -121,6 +119,35 @@ const CreateTrainingPlan = ({navigation}) => {
     return 0;
   }, [weeks])
 
+  const TargetedMuscleGroups = useMemo(() => {
+    if(weeks?.length > 0) {
+      const muscleGroups = new Set()
+      const exerciseIds = new Set()
+      for(var i = 0; i < weeks.length; i++){
+        weeks[i].Days.Monday.forEach(x => exerciseIds.add(x?.Id));
+        weeks[i].Days.Tuesday.forEach(x => exerciseIds.add(x?.Id));
+        weeks[i].Days.Wednesday.forEach(x => exerciseIds.add(x?.Id));
+        weeks[i].Days.Thursday.forEach(x => exerciseIds.add(x?.Id));
+        weeks[i].Days.Friday.forEach(x => exerciseIds.add(x?.Id));
+        weeks[i].Days.Saturday.forEach(x => exerciseIds.add(x?.Id));
+        weeks[i].Days.Sunday.forEach(x => exerciseIds.add(x?.Id));
+      }
+
+      exerciseIds.forEach(id => 
+        muscleGroups.add(exercises
+          .filter(e => 
+            e.id === id)[0]
+            .muscleGroups
+      ));
+      
+      const arr = []
+      muscleGroups.forEach(x => arr.push(x))
+      return arr;
+    }
+
+    return [];
+  }, [weeks])
+
   useEffect(() => {
     ResetPlan();
     (async () => {
@@ -131,7 +158,6 @@ const CreateTrainingPlan = ({navigation}) => {
 
       if (resp.status === 200) {
         const data = await resp.json();
-        console.log(data);
         setExercises(data);
       } else {
         setExercises([]);
@@ -157,13 +183,14 @@ const CreateTrainingPlan = ({navigation}) => {
               placeholderTextColor={Resources.Colors.PlaceholdersColor}
               style={styles.textInput}
             />
-            <TrainingPlanExercisesInfo />
+            {TargetedMuscleGroups.length > 0 && <TrainingPlanExercisesInfo muscleGroups={TargetedMuscleGroups}/>}
             {weeks?.map((x, i) => {
               return (
                 <TrainingPlanWeeklyExercises
                   key={i}
                   planWeek={x.Week}
                   navigation={navigation}
+                  editMode={true}
                 />
               );
             })}

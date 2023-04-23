@@ -17,6 +17,7 @@ const CreateExerciseGuide = React.lazy(() => import('../screens/createExerciseGu
 const TrainingPlans = React.lazy(() => import('../screens/trainingPlans'));
 const CreateTrainingPlan = React.lazy(() => import('../screens/createTrainingPlan'));
 const AddExerciseSets = React.lazy(() => import('../screens/addExerciseSets'));
+const TrainingPlanScreen = React.lazy(() => import('../screens/trainingPlanScreen'));
 
 const TrainerHomeStack = () => {
   return (
@@ -86,6 +87,10 @@ const TrainerTrainingPlansStack = () => {
         name={Resources.Screens.AddExerciseSets}
         component={AddExerciseSets}
       />
+      <TrainerTrainingPlansStackNavigator.Screen
+        name={Resources.Screens.TrainingPlanScreen}
+        component={TrainingPlanScreen}
+      />
     </TrainerTrainingPlansStackNavigator.Navigator>
   );
 };
@@ -93,6 +98,7 @@ const TrainerTrainingPlansStack = () => {
 const TrainerTab = () => {
   const [guide, setGuide] = useState([]);
   const [refreshExercises, setRefreshExercises] = useState(false);
+  const [refreshTrainingPlans, setRefreshTrainingPlans] = useState(false);
   const [key, setKey] = useState(0);
   const [weeks, setWeeks] = useState(null);
   const [exercises, setExercises] = useState(null);
@@ -100,9 +106,10 @@ const TrainerTab = () => {
   const context = {
     guideState: [guide, setGuide],
     refreshExercisesState: [refreshExercises, setRefreshExercises],
+    refreshTrainingPlansState: [refreshTrainingPlans, setRefreshTrainingPlans],
     keyState: [key, setKey],
     weeksState: [weeks, setWeeks],
-    exercisesState: [exercises, setExercises]
+    exercisesState: [exercises, setExercises],
   };
 
   return (
