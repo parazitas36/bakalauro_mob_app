@@ -9,6 +9,9 @@ export default styles = StyleSheet.create({
     borderColor: 'white',
     borderRadius: moderateScale(15),
     marginHorizontal: scale(10),
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: verticalScale(5)
   },
   titleView: {
     justifyContent: 'center',
@@ -29,6 +32,7 @@ export default styles = StyleSheet.create({
     paddingHorizontal: scale(15),
   },
   detailsScrollView: {
+    width: '100%',
     height: verticalScale(100),
     maxHeight: verticalScale(100),
   },

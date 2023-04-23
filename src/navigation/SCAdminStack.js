@@ -65,7 +65,7 @@ const SCAdminFacilitiesStack = () => {
         name={Resources.Screens.CreateFacility}
         component={CreateFacility}
       />
-            <SCAdminEquipmentListStackNav.Screen
+      <SCAdminEquipmentListStackNav.Screen
         name={Resources.Screens.EquipmentList}
         component={EquipmentList}
       />

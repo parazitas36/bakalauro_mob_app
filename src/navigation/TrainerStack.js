@@ -3,6 +3,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import React, {Suspense, useState} from 'react';
 import {LoadingScreen, TrainerContext} from '../../App';
 import Resources from '../Resources';
+import Icon from 'react-native-vector-icons/FontAwesome5'
+import { verticalScale } from 'react-native-size-matters';
 
 const TrainerTabNavigator = createMaterialBottomTabNavigator();
 const TrainerHomeStackNavigator = createStackNavigator();
@@ -122,14 +124,32 @@ const TrainerTab = () => {
         <TrainerTabNavigator.Screen
           name={'HomeStack'}
           component={TrainerHomeStack}
+          options={{
+            tabBarLabel: Resources.Screens.Home,
+            tabBarIcon: ({ color }) => (
+              <Icon name="home" color={color} size={verticalScale(18)} />
+            ),
+          }}
         />
         <TrainerTabNavigator.Screen
           name={'ExercisesStack'}
           component={TrainerExercisesStack}
+          options={{
+            tabBarLabel: Resources.Screens.Exercises,
+            tabBarIcon: ({ color }) => (
+              <Icon name="dumbbell" color={color} size={verticalScale(18)} />
+            ),
+          }}
         />
         <TrainerTabNavigator.Screen
           name={'TrainingPlansStack'}
           component={TrainerTrainingPlansStack}
+          options={{
+            tabBarLabel: Resources.Screens.TrainingPlans,
+            tabBarIcon: ({ color }) => (
+              <Icon name="clipboard-list" color={color} size={verticalScale(18)} />
+            ),
+          }}
         />
       </TrainerTabNavigator.Navigator>
     </TrainerContext.Provider>
