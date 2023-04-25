@@ -5,6 +5,9 @@ import Resources from '../../Resources';
 export default styles = StyleSheet.create({
     view: {
         flex: 1,
+    },
+    container: {
+        height: '100%',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -53,7 +56,7 @@ export default styles = StyleSheet.create({
         borderRadius: moderateScale(10),
         margin: scale(10),
         marginTop: 20,
-        width: scale(100),
+        width: scale(200),
         justifyContent: 'center',
         alignItems: 'center',
     },

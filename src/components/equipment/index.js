@@ -7,11 +7,11 @@ const Equipment = ({equipment}) => {
   console.log(equipment)
   return (
     <View style={styles.card}>
-        <View style={styles.cityView}>
-            <Text style={styles.cityText}>{equipment?.name}</Text>
+        <View style={styles.equipmentView}>
+            <Text style={styles.heading}>{equipment?.name}</Text>
         </View>
-        <View style={styles.contactsView}>
-            <Text style={styles.contactsText}>{equipment?.description}</Text>
+        <View style={styles.descriptionView}>
+            <Text style={styles.descriptionText}>{equipment?.description}</Text>
         </View>
     </View>
   )

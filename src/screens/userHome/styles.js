@@ -28,35 +28,5 @@ export default styles = StyleSheet.create({
   },
   flexRow: {
     flexDirection: 'row'
-  },
-  sportsClubView: {
-    width: scale(300),
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: verticalScale(150),
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    borderRadius: moderateScale(10),
-    gap: verticalScale(5)
-  },
-  image: {
-    width: scale(100),
-    height: scale(100),
-    borderRadius: moderateScale(10)
-  },
-  imageView: {
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  infoView: {
-    width: scale(170),
-    alignItems: 'flex-end',
-    justifyContent: 'center',
-    paddingHorizontal: scale(10)
-  },
-  heading: {
-    color: Resources.Colors.TextColorWhite,
-    fontSize: Resources.FontSize.heading2Text,
-    paddingHorizontal: scale(5),
-    textAlign: 'center',
   }
 });

@@ -158,27 +158,18 @@ const TrainerTab = () => {
 
 const TrainerNavigator = createStackNavigator();
 const TrainerStack = ({roleSpecificData}) => {
-  const [reloadFacilities, setReloadFacilities] = useState(false);
-  const [reloadSubscriptions, setReloadSubscriptions] = useState(false);
-
-  const contextValues = {
-    reloadFacilitiesState: [reloadFacilities, setReloadFacilities],
-    reloadSubscriptionsState: [reloadSubscriptions, setReloadSubscriptions],
-  };
 
   return (
     <Suspense fallback={LoadingScreen()}>
-      <TrainerContext.Provider value={contextValues}>
-        <TrainerNavigator.Navigator
-          screenOptions={{
-            headerShown: false,
-            presentation: 'card',
-            animationEnabled: true,
-            detachPreviousScreen: true,
-          }}>
-          <TrainerNavigator.Screen name="TrainerTab" component={TrainerTab} />
-        </TrainerNavigator.Navigator>
-      </TrainerContext.Provider>
+      <TrainerNavigator.Navigator
+        screenOptions={{
+          headerShown: false,
+          presentation: 'card',
+          animationEnabled: true,
+          detachPreviousScreen: true,
+        }}>
+        <TrainerNavigator.Screen name="TrainerTab" component={TrainerTab} />
+      </TrainerNavigator.Navigator>
     </Suspense>
   );
 };

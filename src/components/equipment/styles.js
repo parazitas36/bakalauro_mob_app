@@ -4,7 +4,7 @@ import Resources from '../../Resources';
 
 export default styles = StyleSheet.create({
     card: {
-        width: scale(200),
+        width: scale(250),
         maxWidth: scale(200),
         borderWidth: 1,
         borderColor: 'white',
@@ -13,7 +13,7 @@ export default styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    cityView: {
+    equipmentView: {
         minHeight: verticalScale(50),
         maxHeight: verticalScale(60),
         width: scale(200),
@@ -22,38 +22,18 @@ export default styles = StyleSheet.create({
         borderBottomColor: 'white',
         borderBottomWidth: 1
     },
-    cityText: {
+    heading: {
         color: Resources.Colors.TextColorWhite,
         fontSize: verticalScale(14),
-        maxWidth: scale(200),
-        width: scale(230),
-        padding: moderateScale(2)
     },
-    contactsView: {
+    descriptionView: {
         justifyContent: 'center',
-        minHeight: verticalScale(40),
-        maxHeight: verticalScale(100),
         paddingHorizontal: scale(10),
         paddingVertical: verticalScale(10),
         alignSelf: 'flex-start',
     },
-    contactsText: {
+    descriptionText: {
         color: Resources.Colors.TextColorWhite,
         fontSize: verticalScale(10),
-    },
-    priceView: {
-        height: verticalScale(30),
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    priceText: {
-        color: Resources.Colors.TextColorWhite,
-        fontSize: Resources.FontSize.regularText,
-        borderTopWidth: 1,
-        borderTopColor: 'white',
-        maxWidth: scale(230),
-        width: scale(230),
-        textAlign: 'center',
-        padding: moderateScale(2)
     },
 })

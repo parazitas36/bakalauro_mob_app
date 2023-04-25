@@ -14,6 +14,9 @@ import {TextInput} from 'react-native-gesture-handler';
 import CustomButton from '../../components/customButton';
 import {Validation} from './validation';
 import { PostCall } from '../../api/PostCall';
+import { launchImageLibrary } from 'react-native-image-picker';
+import { Image, ToastAndroid } from 'react-native';
+import { PostSportsClub } from '../../api/PostSportsClub';
 
 const SportsClubCreation = ({navigation}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
@@ -27,6 +30,7 @@ const SportsClubCreation = ({navigation}) => {
   const [description, setDescription] = useState(null);
   const [email, setEmail] = useState(userData?.contactInfo?.email);
   const [phone, setPhone] = useState(userData?.contactInfo?.phoneNumber);
+  const [image, setImage] = useState(null)
 
   const validationMemo = useMemo(() => {
     return Validation(sportsClubName, description, email);
@@ -38,6 +42,25 @@ const SportsClubCreation = ({navigation}) => {
     validationMemo.validDescription === true &&
     validationMemo.validEmail === true;
 
+  const addImage = async () => {
+    const options = {
+      mediaType: 'photo',
+      noData: true,
+    };
+
+    try {
+      const result = await launchImageLibrary(options);
+      if (result.didCancel !== true) {
+        const image = result?.assets.at(0);
+        if (image) {
+          setImage(image)
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const savePress = async() => {
     setError(null)
     if (isFormValid === false) {
@@ -45,17 +68,25 @@ const SportsClubCreation = ({navigation}) => {
       return;
     }
 
+    if (image === null) {
+      ToastAndroid.show(
+        'You must select the logo!',
+        ToastAndroid.SHORT
+      );
+
+      return;
+    }
+
     const body = {
       "name": sportsClubName,
       "description": description,
-      "contactInfo": {
-        "phoneNumber": phone,
-        "email": email
-      }
+      "phoneNumber": phone,
+      "email": email,
+      "image": image
     };
 
     setLoading(true)
-    const resp = await PostCall({endpoint: ApiConstants().SportsClub_Endpoint, body: body, token: token})
+    const resp = await PostSportsClub({token, body})
     setLoading(false)
 
     if(resp.status === 201) {
@@ -85,8 +116,9 @@ const SportsClubCreation = ({navigation}) => {
 
   return (
     <Suspense fallback={LoadingScreen()}>
-      <Animated.View
+      <Animated.ScrollView
         style={styles.view}
+        contentContainerStyle={styles.container}
         entering={FadeInLeft}
         exiting={FadeOutRight}>
         {roleSpecificData === null ? (
@@ -165,6 +197,17 @@ const SportsClubCreation = ({navigation}) => {
                 placeholder={Resources.Placeholders.Phone}
                 placeholderTextColor={Resources.Colors.PlaceholdersColor}
               />
+              {image !== null ? 
+              <Image
+                source={{uri: image?.uri}}
+                style={{height: 100, width: 100}}
+              /> : null}
+              <CustomButton
+                styles={styles}
+                btnText={image === null ? 'Select logo' : 'Change logo'}
+                onPress={async() => await addImage()}
+                disabled={loading === true}
+              />
               <CustomButton
                 styles={styles}
                 btnText={Resources.ButtonTexts.SaveBtnText}
@@ -175,7 +218,7 @@ const SportsClubCreation = ({navigation}) => {
             </Animated.View>
           </>
         )}
-      </Animated.View>
+      </Animated.ScrollView>
     </Suspense>
   );
 };

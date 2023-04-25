@@ -14,7 +14,7 @@ const Login = (props) => {
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
 
-  const [username, setUsername] = useState('trainer');
+  const [username, setUsername] = useState('regularuser');
   const [password, setPassword] = useState('12345678');
   const [validation, setValidation] = useState(null);
   const [error, setError] = props?.errorState?.state;
