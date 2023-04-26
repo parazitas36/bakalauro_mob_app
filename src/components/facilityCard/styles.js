@@ -14,7 +14,6 @@ export default styles = StyleSheet.create({
     },
     cityView: {
         minHeight: verticalScale(30),
-        maxHeight: verticalScale(60),
         width: scale(230),
         justifyContent: 'center',
         alignItems: 'center',
@@ -31,7 +30,6 @@ export default styles = StyleSheet.create({
     contactsView: {
         justifyContent: 'center',
         minHeight: verticalScale(40),
-        maxHeight: verticalScale(100),
         paddingHorizontal: scale(10),
         paddingVertical: verticalScale(10),
         alignSelf: 'flex-start',
@@ -39,20 +37,5 @@ export default styles = StyleSheet.create({
     contactsText: {
         color: Resources.Colors.TextColorWhite,
         fontSize: verticalScale(10),
-    },
-    priceView: {
-        height: verticalScale(30),
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    priceText: {
-        color: Resources.Colors.TextColorWhite,
-        fontSize: Resources.FontSize.regularText,
-        borderTopWidth: 1,
-        borderTopColor: 'white',
-        maxWidth: scale(230),
-        width: scale(230),
-        textAlign: 'center',
-        padding: moderateScale(2)
     },
 })

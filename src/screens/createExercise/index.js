@@ -45,7 +45,8 @@ const CreateExercise = ({navigation}) => {
         <Animated.Text style={styles.heading}>
         {Resources.Texts.AddExercise}
         </Animated.Text>
-        <TextInput 
+        <TextInput
+          style={styles.textInput}
           placeholder={Resources.Placeholders.Name} 
           placeholderTextColor={Resources.Colors.PlaceholdersColor} 
           onChangeText={setName} value={name} />

@@ -22,7 +22,6 @@ export default styles = StyleSheet.create({
   },
   view: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
   },
   textInput: {
@@ -46,11 +45,16 @@ export default styles = StyleSheet.create({
   heading: {
     color: Resources.Colors.TextColorWhite,
     fontSize: Resources.FontSize.headingText,
-    marginBottom: verticalScale(10)
+    marginBottom: verticalScale(10),
+    paddingHorizontal: scale(20),
+    textAlign: 'center'
   },
   subscriptionsScrollView: {
-    maxHeight: '75%',
+    flex: 1,
+    width: scale(300),
   },
   subscriptionsScrollViewContent: {
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });

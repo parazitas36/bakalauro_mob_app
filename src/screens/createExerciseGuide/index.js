@@ -76,7 +76,6 @@ const CreateExerciseGuide = ({navigation, route}) => {
 
     try {
       const result = await launchImageLibrary(options);
-      console.log(result)
       if (result.didCancel !== true) {
         const video = result?.assets.at(0);
         if (video) {
@@ -138,7 +137,7 @@ const CreateExerciseGuide = ({navigation, route}) => {
           </View>
         </View>
         <CustomButton
-          styles={styles}
+          styles={{btnText: styles.btnText, button: styles.saveButton}}
           btnText={Resources.ButtonTexts.SaveBtnText}
           onPress={SavePress} />
       </Animated.ScrollView>

@@ -29,6 +29,16 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  saveButton: {
+    margin: scale(10),
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: Resources.Colors.BorderColorWhite,
+    borderWidth: moderateScale(1),
+    width: scale(200),
+    height: scale(30),
+    borderRadius: moderateScale(10)
+  },
   buttonsWindow: {
     flexDirection: 'row',
     gap: moderateScale(30),

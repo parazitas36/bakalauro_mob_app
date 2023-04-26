@@ -9,6 +9,7 @@ import Resources from '../../Resources';
 import styles from './styles';
 import Subscription from '../../components/subscription';
 import {ScrollView} from 'react-native';
+import { FAB } from '@rneui/themed';
 
 const Subscriptions = ({navigation}) => {
   const {tokenState, userDataState, roleSpecificDataState} =
@@ -36,7 +37,7 @@ const Subscriptions = ({navigation}) => {
         setSportsClubName(data.sportsClubName);
         setSubscriptions(data.subscriptions);
       } else {
-        setSportsClubName(Resources.Texts.UnknownClub)
+        setSportsClubName(Resources.Texts.UnknownClub);
         setSubscriptions([]);
       }
     })();
@@ -54,7 +55,12 @@ const Subscriptions = ({navigation}) => {
           entering={FadeInLeft.delay(200)}
           exiting={FadeOutRight}>
           {subscriptions !== null && (
-            <Text style={styles.heading}>{`${sportsClubName} ${Resources.Texts.Subscriptions.toLowerCase()} (${subscriptions?.length})`}</Text>
+            <Text
+              style={
+                styles.heading
+              }>{`${sportsClubName} ${Resources.Texts.Subscriptions.toLowerCase()} (${
+              subscriptions?.length
+            })`}</Text>
           )}
           {subscriptions?.length === 0 ? (
             <Text style={styles.text}>{Resources.Texts.NoSubscriptions}</Text>
@@ -68,9 +74,11 @@ const Subscriptions = ({navigation}) => {
             </ScrollView>
           )}
           {subscriptions !== null ? (
-            <CustomButton
-              btnText={Resources.ButtonTexts.CreateNewBtnText}
-              styles={styles}
+            <FAB
+              icon={{name: 'add', color: Resources.Colors.IconsColor}}
+              color="#2089DC"
+              size="small"
+              placement="right"
               onPress={() =>
                 navigation.navigate(Resources.Screens.CreateSubscription)
               }

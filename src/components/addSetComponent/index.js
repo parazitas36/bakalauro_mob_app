@@ -65,7 +65,7 @@ const AddSetComponent = ({setState, setsState}) => {
           />
         </View>
         <View style={styles.subView}>
-          <Text style={styles.boldText}>{Resources.Texts.Weight}</Text>
+          <Text style={styles.boldText}>{`${Resources.Texts.Weight} (kg)`}</Text>
           <TextInput
             keyboardType='number-pad'
             value={set?.Weights?.toString()}

@@ -21,7 +21,7 @@ const SetComponent = ({id, setsState}) => {
           <Text style={styles.boldText}>{data?.Repetitions}</Text>
         </View>
         <View style={styles.subView}>
-          <Text style={styles.boldText}>{Resources.Texts.Weight}</Text>
+          <Text style={styles.boldText}>{`${Resources.Texts.Weight} (kg)`}</Text>
           <Text style={styles.boldText}>{data?.Weights}</Text>
         </View>
       </View>

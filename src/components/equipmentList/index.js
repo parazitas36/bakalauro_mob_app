@@ -64,7 +64,7 @@ const EquipmentList = ({facilityId, navigation, route}) => {
 
   const EquipmentItem = ({item}) => {
     if(!editAmountMode){
-      return Equipment({equipment: item})
+      return Equipment({equipment: item, token: token})
     }
 
     if(editAmountMode){
@@ -78,7 +78,6 @@ const EquipmentList = ({facilityId, navigation, route}) => {
 
   const SubmitInput = async(input) => {
     const amount = Math.floor(Number(input));
-    console.log('amount: ', amount)
     await UpdateAmount(selectedEquipmentId, amount);
     setSelectedEquipmentId(null)
   }
@@ -109,12 +108,13 @@ const EquipmentList = ({facilityId, navigation, route}) => {
                 />
               } 
               data={equipment} 
-              renderItem={({item}) => EquipmentItem({item: item})} />
+              renderItem={({item, index}) => <EquipmentItem item={item} key={index} />} />
             : <Text style={styles.noEquipmentText}>No equipment</Text>
           }
           {!editAmountMode && !facilityId && userData?.role === 'SportsClubAdmin' && 
           <FAB
             icon={{name: 'add', color: 'white'}}
+            color="#2089DC"
             size='small'
             placement='right'
             onPress={() => navigation.navigate({

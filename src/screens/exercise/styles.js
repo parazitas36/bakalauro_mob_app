@@ -5,15 +5,17 @@ import Resources from '../../Resources';
 export default styles = StyleSheet.create({
     view: {
         flex: 1,
+        height: '100%',
+        width: '100%',
         backgroundColor: Resources.Colors.BackgroundColorBlack,
         alignItems: 'center',
         justifyContent: 'center',
+        paddingVertical: verticalScale(20)
     },
     text: {
         color: Resources.Colors.TextColorWhite,
-        fontSize: Resources.FontSize.btnText,
-        maxWidth: scale(300),
-        width: scale(300),
+        fontSize: Resources.FontSize.regularText,
+        textAlign: 'justify',
     },
     heading: {
         color: Resources.Colors.TextColorWhite,
@@ -22,4 +24,11 @@ export default styles = StyleSheet.create({
         maxWidth: scale(300),
         maxHeight: scale(300),
     },
+    guideBlock: {
+        width: scale(300),
+        maxWidth: scale(300),
+        maxHeight: verticalScale(250),
+        justifyContent:'center',
+        alignItems: 'center'
+    }
 })

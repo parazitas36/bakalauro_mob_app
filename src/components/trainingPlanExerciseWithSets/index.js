@@ -9,10 +9,7 @@ import Resources from '../../Resources';
 import { scale } from 'react-native-size-matters';
 
 const TrainingPlanExerciseWithSets = ({data, exercise, editMode}) => {
-  console.log(data)
-  console.log(exercise)
   const sets = JSON.parse(editMode ? data.Sets : data.sets)
-  console.log(sets)
 
   if (editMode === true) {
     return (
@@ -42,8 +39,9 @@ const TrainingPlanExerciseWithSets = ({data, exercise, editMode}) => {
             }}>
             <Text style={styles.boldText}>{Resources.Texts.Sets}</Text>
             {sets?.length > 0 ?
-              sets.map((x) => {
+              sets.map((x, i) => {
                 return <Text 
+                        key={i}
                         style={{color: 'white'}}>
                           {x.Repetitions} x {x.Weights === 0 ? 
                           'No weights' 
@@ -83,8 +81,9 @@ const TrainingPlanExerciseWithSets = ({data, exercise, editMode}) => {
         }}>
         <Text style={styles.boldText}>{Resources.Texts.Sets}</Text>
         {sets?.length > 0 ?
-          sets.map((x) => {
+          sets.map((x, i) => {
             return <Text 
+                    key={i}
                     style={{color: 'white'}}>
                       {x.Repetitions} x {x.Weights === 0 ? 
                       'No weights' 

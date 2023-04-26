@@ -26,7 +26,6 @@ const SportsClubs = ({navigation}) => {
 
       if (resp.status === 200) {
         const data = await resp.json();
-        console.log(data)
         setSportsClubs(data);
       } else {
         setSportsClubs([]);

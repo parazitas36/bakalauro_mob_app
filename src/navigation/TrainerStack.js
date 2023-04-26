@@ -119,7 +119,7 @@ const TrainerTab = () => {
       <TrainerTabNavigator.Navigator
         initialRouteName={'HomeStack'}
         activeColor="#f0edf6"
-        inactiveColor="#3e2465"
+        inactiveColor="#2089DC"
         barStyle={{backgroundColor: 'black'}}>
         <TrainerTabNavigator.Screen
           name={'HomeStack'}

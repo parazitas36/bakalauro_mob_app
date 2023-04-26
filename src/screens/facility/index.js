@@ -27,6 +27,7 @@ const Facility = ({navigation, route}) => {
           <EquipmentList facilityId={facility.id}/>
           <FAB
             icon={{name: 'add', color: Resources.Colors.IconsColor}}
+            color="#2089DC"
             size='small'
             placement='right'
             onPress={() => navigation.navigate({name: Resources.Screens.EquipmentList, params: {facilityId: facility.id, editAmountMode: true}})}/>

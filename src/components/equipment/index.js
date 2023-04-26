@@ -1,20 +1,31 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import styles from './styles'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import {View, Text} from 'react-native';
+import React from 'react';
+import styles from './styles';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {ApiConstants} from '../../api/ApiConstants';
+import { Image } from 'react-native';
 
-const Equipment = ({equipment}) => {
-  console.log(equipment)
+const Equipment = ({equipment, token}) => {
+  console.log(equipment);
   return (
     <View style={styles.card}>
-        <View style={styles.equipmentView}>
-            <Text style={styles.heading}>{equipment?.name}</Text>
-        </View>
-        <View style={styles.descriptionView}>
-            <Text style={styles.descriptionText}>{equipment?.description}</Text>
-        </View>
+      <View style={styles.equipmentView}>
+        <Image
+          source={{
+            uri: `${ApiConstants().Exercise_Endpoint}file/${String(
+              equipment?.imageURI,
+            )}`,
+            headers: {Authorization: `Bearer ${token}`},
+          }}
+          style={styles.image}
+        />
+        <Text style={styles.heading}>{equipment?.amount === 0 ? equipment?.name : `${equipment?.name} (${equipment?.amount})`}</Text>
+      </View>
+      <View style={styles.descriptionView}>
+        <Text style={styles.descriptionText}>{equipment?.description}</Text>
+      </View>
     </View>
-  )
-}
+  );
+};
 
-export default Equipment
+export default Equipment;

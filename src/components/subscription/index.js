@@ -12,9 +12,20 @@ console.log(subscription)
       title={subscription.name}
       price={`$${Number(subscription.price).toFixed(2)}`}
       info={[subscription.details]}
-      infoStyle={{maxHeight: verticalScale(100)}}
+      infoStyle={{
+        maxHeight: verticalScale(100),
+        color: 'rgba(255, 255, 255, 0.75)'
+      }}
       button={{containerStyle: {width: 0, height: 0}}}
-      containerStyle={{borderRadius: moderateScale(10)}}
+      containerStyle={{
+        borderRadius: moderateScale(10),
+        backgroundColor: 'rgba(255, 255, 255, 0.01)',
+        width: '100%',
+        borderWidth: moderateScale(2),
+      }}
+      pricingStyle={{
+        color: 'white'
+      }}
     />
   )
 }

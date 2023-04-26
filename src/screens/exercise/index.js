@@ -20,9 +20,8 @@ const Exercise = ({navigation, route}) => {
   const [guideSteps, setGuideSteps] = useState(null)
 
   const GuideStep = (data) => {
-    console.log(data)
     if(data.Type === Resources.BlockType.Image){
-      return(<View style={{width: 200, height: 200}}>
+      return(<View style={styles.guideBlock}>
         <Image 
           source={{
             uri: `${ApiConstants().Exercise_Endpoint}file/${String(data.Content)}`, 
@@ -33,12 +32,12 @@ const Exercise = ({navigation, route}) => {
       </View>)
     }
     if(data.Type === Resources.BlockType.Text){
-      return(<View style={{width: 200, height: 200}}>
+      return(<View style={styles.guideBlock}>
         <Text style={styles.text}>{data.Content}</Text>
       </View>)
     }
     if(data.Type === Resources.BlockType.Video){
-      return(<View style={{width: 200, height: 200}}>
+      return(<View style={styles.guideBlock}>
         <Video
           source={{
             uri: `${ApiConstants().Exercise_Endpoint}file/${String(data.Content)}`, 
@@ -78,7 +77,7 @@ const Exercise = ({navigation, route}) => {
           style={styles.view}
           entering={FadeInDown}
           exiting={FadeOutUp}>
-            <Text style={styles.text}>{data.name}</Text>
+            <Text style={styles.heading}>{data.name}</Text>
             {guideSteps !== null ? <View>
               <FlatList data={guideSteps} renderItem={({item}) => GuideStep(item)}/>
             </View> : null}

@@ -76,7 +76,6 @@ const TrainingPlans = ({navigation}) => {
           : <FlatList
               data={trainingPlans}
               renderItem={({item, index}) => {
-                console.log(index);
                 return (
                   <TrainingPlan
                     key={index}
@@ -89,6 +88,7 @@ const TrainingPlans = ({navigation}) => {
           }
           <FAB
             icon={{name: 'add', color: Resources.Colors.IconsColor}}
+            color="#2089DC"
             size="small"
             placement="right"
             onPress={() =>

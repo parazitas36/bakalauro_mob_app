@@ -45,6 +45,7 @@ const TrainingPlanDayExercises = ({navigation, planDay, planWeek, editMode, fetc
               return <TrainingPlanExerciseWithSets 
                         data={x} 
                         key={i}
+                        editMode={editMode}
                         exercise={exercises.filter(y => y.id === x.Id)[0]}
                       />
             }) 
@@ -81,7 +82,6 @@ const TrainingPlanDayExercises = ({navigation, planDay, planWeek, editMode, fetc
         <View style={hidden ? styles.hidden : null}>
           {ExerciseData !== null ? 
             ExerciseData.length > 0 ? ExerciseData.map((x, i) => {
-              console.log(x)
               return <TrainingPlanExerciseWithSets 
                         key={i}
                         data={x} 

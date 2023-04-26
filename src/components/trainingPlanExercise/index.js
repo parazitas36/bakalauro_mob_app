@@ -21,6 +21,7 @@ const TrainingPlanExercise = ({exercise}) => {
             paddingLeft: scale(10),
           }}>
           <Text style={{color: 'white'}}>{Resources.Texts.MuscleGroups}</Text>
+          <Text style={{color: 'white'}}>{exercise?.muscleGroups}</Text>
         </View>
         <View
           style={{
