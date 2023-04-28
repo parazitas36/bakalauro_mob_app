@@ -28,6 +28,7 @@ export default styles = StyleSheet.create({
         width: scale(300),
         maxWidth: scale(300),
         maxHeight: verticalScale(250),
+        marginVertical: verticalScale(5),
         justifyContent:'center',
         alignItems: 'center'
     }

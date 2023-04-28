@@ -57,7 +57,7 @@ export default Resources = {
         existingSportsClub: 'Sports club with the given name already exists!',
         loginFieldsError: 'You must enter both username and password!',
         registerError: 'Account with such username or email already exists!',
-        wrongCredentialsError: 'Account with data you have entered doesn\'t exist!',
+        wrongCredentialsError: 'We couldn\'t log you in, try again, please!',
     },
     FontSize: {
         validationText: verticalScale(10),

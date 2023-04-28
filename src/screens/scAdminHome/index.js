@@ -82,6 +82,7 @@ const SCAdminHome = ({navigation}) => {
                 size={scale(20)}
               />
             )}
+            onPress={() => navigation.navigate('Trainers')}
             btnText="Trainers"
             styles={styles}
           />

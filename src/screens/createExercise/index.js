@@ -15,7 +15,7 @@ const CreateExercise = ({navigation}) => {
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
 
-  const [muscleGroups, setMuscleGroups] = useState('arms');
+  const [muscleGroups, setMuscleGroups] = useState(null);
   const [name, setName] = useState(null);
   const [exerciseType] = useState('Other');
   const [equipmentId, setEquipmentId] = useState(null);
@@ -25,7 +25,7 @@ const CreateExercise = ({navigation}) => {
   const SavePress = async() => {
     const body = {
       name: name,
-      muscleGroups: "arms",
+      muscleGroups: muscleGroups,
       exerciseTypes: "Other",
       equipmentId: null,
     }
@@ -50,6 +50,11 @@ const CreateExercise = ({navigation}) => {
           placeholder={Resources.Placeholders.Name} 
           placeholderTextColor={Resources.Colors.PlaceholdersColor} 
           onChangeText={setName} value={name} />
+        <TextInput
+          style={styles.textInput}
+          placeholder={'Muscle group'} 
+          placeholderTextColor={Resources.Colors.PlaceholdersColor} 
+          onChangeText={setMuscleGroups} value={muscleGroups} />
         <CustomButton 
           btnText={guide.length == 0 ? Resources.ButtonTexts.AddGuide : Resources.ButtonTexts.EditGuide} 
           onPress={() => navigation.navigate(Resources.Screens.CreateExerciseGuide)} styles={styles}/>

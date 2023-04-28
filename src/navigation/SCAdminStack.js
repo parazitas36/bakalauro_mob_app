@@ -15,6 +15,8 @@ const Subscriptions = React.lazy(() => import('../screens/subscriptions'));
 const SportsClubCreation = React.lazy(() => import('../screens/sportsClubCreation'));
 const EquipmentList = React.lazy(() => import('../components/equipmentList'));
 const CreateEquipment = React.lazy(() => import('../screens/createEquipment'));
+const Trainers = React.lazy(() => import('../screens/trainers'));
+const Trainer = React.lazy(() => import('../screens/trainer'));
 
 const SCAdminTabNavigator = createMaterialBottomTabNavigator();
 const SCAdminHomeStackNav = createStackNavigator();
@@ -39,6 +41,14 @@ const SCAdminHomeStack = () => {
       <SCAdminHomeStackNav.Screen
         name={Resources.Screens.SCAdminHome}
         component={SCAdminHome}
+      />
+      <SCAdminHomeStackNav.Screen
+        name={'Trainers'}
+        component={Trainers}
+      />
+      <SCAdminHomeStackNav.Screen
+        name={'Trainer'}
+        component={Trainer}
       />
     </SCAdminHomeStackNav.Navigator>
   );

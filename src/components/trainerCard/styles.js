@@ -7,16 +7,15 @@ export default styles = StyleSheet.create({
     width: scale(250),
     borderWidth: 1,
     borderColor: 'white',
-    borderRadius: moderateScale(10),
+    borderRadius: moderateScale(15),
     marginHorizontal: scale(10),
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: verticalScale(10)
+    marginVertical: verticalScale(5)
   },
   titleView: {
     justifyContent: 'center',
     alignItems: 'center',
-    maxHeight: verticalScale(45),
   },
   titleText: {
     color: Resources.Colors.TextColorWhite,
@@ -30,6 +29,8 @@ export default styles = StyleSheet.create({
   },
   detailsView: {
     paddingHorizontal: scale(15),
+  },
+  detailsScrollView: {
     width: '100%',
     paddingVertical: verticalScale(10)
   },
@@ -45,9 +46,9 @@ export default styles = StyleSheet.create({
     backgroundColor: Resources.Colors.BackgroundColorBlack,
     borderColor: Resources.Colors.BorderColorWhite,
     borderWidth: moderateScale(1),
-    borderRadius: moderateScale(5),
+    borderRadius: moderateScale(10),
     margin: scale(10),
-    width: '90%',
+    width: scale(100),
     height: verticalScale(30),
     justifyContent: 'center',
     alignItems: 'center',

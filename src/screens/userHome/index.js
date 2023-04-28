@@ -19,6 +19,7 @@ const UserHome = ({navigation}) => {
       <View style={styles.flexRow}>
         <CustomButtonWithIcon
           icon={() => <MaterialCommunityIcons name="newspaper-variant-outline" color={Resources.Colors.IconsColor} size={scale(20)} />}
+          onPress={() => navigation.navigate('UserForms')}
           btnText="My forms"
           styles={styles}
         />
@@ -38,6 +39,7 @@ const UserHome = ({navigation}) => {
         <CustomButtonWithIcon
           icon={() => <Ionicons name="people" color={Resources.Colors.IconsColor} size={scale(20)} />}
           btnText="Trainers"
+          onPress={() => navigation.navigate('Trainers')}
           styles={styles}
         />
       </View>

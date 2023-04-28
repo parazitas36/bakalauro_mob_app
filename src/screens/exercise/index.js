@@ -44,8 +44,8 @@ const Exercise = ({navigation, route}) => {
             headers: {'Authorization': `Bearer ${token}`},
           }}
           style={{height: '100%', width: '100%'}}
-          resizeMode='cover'
-          paused={false}
+          resizeMode='contain'
+          paused={true}
           controls={true}
         />
       </View>)

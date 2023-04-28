@@ -6,6 +6,7 @@ export const ApiConstants = (props) =>  {
     const Facility_Endpoint = 'Facility/'
     const Exercise_Endpoint = 'Exercises/'
     const TrainingPlan_Endpoint = 'TrainingPlans/'
+    const Forms_Endpoint = 'Forms/'
 
     return ({
         USERS_ENDPOINT: `${URL}${Users_Endpoint}`,
@@ -23,5 +24,10 @@ export const ApiConstants = (props) =>  {
         TrainingPlan_Endpoint: `${URL}${TrainingPlan_Endpoint}`,
         TrainingPlansShort: `${URL}${TrainingPlan_Endpoint}${props?.ids[0]}/short`,
         TrainingPlanById: `${URL}${TrainingPlan_Endpoint}${props?.ids[0]}/`,
+        Forms_Endpoint: `${URL}${Forms_Endpoint}`,
+        TrainingPlanForms: `${URL}${Forms_Endpoint}trainingplanforms`,
+        UsersTrainingPlanForms: `${URL}${Forms_Endpoint}user/trainingplanforms`,
+        Trainers: `${URL}${Users_Endpoint}trainers/`,
+        Reviews: `${URL}${Users_Endpoint}reviews/`,
     });
 }

@@ -13,6 +13,9 @@ import { Validation } from './validation';
 import { PostCall } from '../../api/PostCall';
 import { ApiConstants } from '../../api/ApiConstants';
 import { ToastAndroid } from 'react-native';
+import { launchImageLibrary } from 'react-native-image-picker';
+import { Image } from 'react-native';
+import { PostFormData } from '../../api/PostFormData';
 
 const CreateFacility = ({navigation}) => {
   const {tokenState, userDataState, roleSpecificDataState} =
@@ -25,11 +28,19 @@ const CreateFacility = ({navigation}) => {
   const {reloadFacilitiesState} = useContext(SportsClubContext)
   const [reloadFacilities, setReloadFacilities] = reloadFacilitiesState;
 
+  const CheckValueAndReturnData = (val) => {
+    if (val === undefined || val === null || val === '' || val === 'null') {
+      return null;
+    } 
+    return val;
+  }
+
+  const [image, setImage] = useState(null);
   const [country, setCountry] = useState(null);
   const [city, setCity] = useState(null);
   const [address, setAddress] = useState(null);
-  const [phone, setPhone] = useState(userData?.contactInfo?.phoneNumber);
-  const [email, setEmail] = useState(userData?.contactInfo?.email);
+  const [phone, setPhone] = useState(CheckValueAndReturnData(userData?.contactInfo?.phoneNumber));
+  const [email, setEmail] = useState(CheckValueAndReturnData(userData?.contactInfo?.email));
   const [validation, setValidation] = useState(null);
 
   const validationMemo = useMemo(() => {
@@ -43,19 +54,54 @@ const CreateFacility = ({navigation}) => {
     validationMemo?.validEmail &&
     validationMemo?.validPhone;
 
-  const SavePress = async() => {
-    if (isFormValid) {
-      const body = {
-        "contactInfo": {
-          "phoneNumber": phone,
-          "email": email
-        },
-        "country": country,
-        "city": city,
-        "coordinates": address
-      };
+  const addImage = async () => {
+    const options = {
+      mediaType: 'photo',
+      noData: true,
+    };
 
-      const resp = await PostCall({endpoint: ApiConstants({ids: [roleSpecificData.id]}).SportsClubFacilities, body: body, token: token});
+    try {
+      const result = await launchImageLibrary(options);
+      if (result.didCancel !== true) {
+        const image = result?.assets.at(0);
+        if (image) {
+          setImage(image);
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const SavePress = async() => {
+    if (image === null) {
+      ToastAndroid.show(
+        'You must select the image!',
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM,
+      );
+      return;
+    }
+
+    if (isFormValid) {
+      const formData = new FormData();
+
+      formData.append('PhoneNumber', String(phone));
+      formData.append('Email', String(email));
+      formData.append('Country', String(country));
+      formData.append('City', String(city));
+      formData.append('Image', {
+        uri: String(image.uri),
+        type: String(image.type),
+        name: String(image.fileName)
+    })
+
+      const resp = await PostFormData({
+        endpoint: ApiConstants({ids: [roleSpecificData.id]})
+          .SportsClubFacilities,
+        formData: formData,
+        token: token,
+      });
 
       if(resp.status === 201) {
         ToastAndroid.show(
@@ -64,7 +110,7 @@ const CreateFacility = ({navigation}) => {
           ToastAndroid.BOTTOM,
         );
         setReloadFacilities(true)
-        navigation.navigate(Resources.Screens.SCAdminHome)
+        navigation.goBack()
       } else {
         ToastAndroid.show(
           Resources.Texts.NotificationFacilityNotCreated,
@@ -161,6 +207,12 @@ const CreateFacility = ({navigation}) => {
                 {Resources.ValidationMessages.PhoneNumberInvalid}
               </Animated.Text>
             )}
+        {image !== null ? <Image source={{uri: image?.uri}} style={{height: 100, width: 100}} /> : null}
+        <CustomButton
+          styles={styles}
+          btnText={image === null ? 'Select image' : 'Change image'}
+          onPress={async () => await addImage()}
+        />
         <CustomButton btnText={Resources.ButtonTexts.SaveBtnText} onPress={async() => await SavePress()} styles={styles}/>
       </Animated.View>
     </Suspense>

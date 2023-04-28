@@ -5,12 +5,16 @@ import {LoadingScreen, RegularUserContext} from '../../App';
 import Resources from '../Resources';
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import { verticalScale } from 'react-native-size-matters';
-import SportsClubs from '../screens/sportsClubs';
 
 const UserTabNavigator = createMaterialBottomTabNavigator();
 const UserHomeStackNavigator = createStackNavigator();
 
 const UserHome = React.lazy(() => import('../screens/userHome'));
+const SportsClubs = React.lazy(() => import('../screens/sportsClubs'));
+const UserForms = React.lazy(() => import('../screens/userForms'));
+const CreateTrainingPlanForm = React.lazy(() => import('../screens/createTrainingPlanForm'));
+const Trainers = React.lazy(() => import('../screens/trainers'));
+const Trainer = React.lazy(() => import('../screens/trainer'));
 
 const UserHomeStack = () => {
   return (
@@ -29,6 +33,22 @@ const UserHomeStack = () => {
       <UserHomeStackNavigator.Screen
         name={'SportsClubs'}
         component={SportsClubs}
+      />
+      <UserHomeStackNavigator.Screen
+        name={'UserForms'}
+        component={UserForms}
+      />
+      <UserHomeStackNavigator.Screen
+        name={'CreateTrainingPlanForm'}
+        component={CreateTrainingPlanForm}
+      />
+      <UserHomeStackNavigator.Screen
+        name={'Trainers'}
+        component={Trainers}
+      />
+      <UserHomeStackNavigator.Screen
+        name={'Trainer'}
+        component={Trainer}
       />
     </UserHomeStackNavigator.Navigator>
   );

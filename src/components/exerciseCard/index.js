@@ -11,12 +11,12 @@ console.log(data)
         <View style={styles.titleView}>
             <Text style={styles.titleText}>{data.name}</Text>
         </View>
-        <ScrollView style={styles.detailsScrollView} contentContainerStyle={styles.detailsView}>
+        <View style={styles.detailsView}>
             <Text style={styles.detailsText}>Details</Text>
-        </ScrollView>
+        </View>
         {data.hasGuide ? <CustomButton 
           styles={styles}
-          btnText='Show'
+          btnText='Show guide'
           onPress={() => navigation.navigate({name: 'Exercise', params: {exerciseId: data.id}})}/> : null}
     </View>
   )
