@@ -21,8 +21,6 @@ export default styles = StyleSheet.create({
   titleText: {
     color: Resources.Colors.TextColorWhite,
     fontSize: Resources.FontSize.subscriptionTitle,
-    borderBottomWidth: 1,
-    borderBottomColor: 'white',
     maxWidth: scale(220),
     width: scale(220),
     textAlign: 'center',

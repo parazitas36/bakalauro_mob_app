@@ -11,9 +11,6 @@ console.log(data)
         <View style={styles.titleView}>
             <Text style={styles.titleText}>{data.name}</Text>
         </View>
-        <View style={styles.detailsView}>
-            <Text style={styles.detailsText}>Details</Text>
-        </View>
         {data.hasGuide ? <CustomButton 
           styles={styles}
           btnText='Show guide'

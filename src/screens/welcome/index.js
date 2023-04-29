@@ -6,6 +6,8 @@ import Login from '../login';
 import Resources from '../../Resources';
 import Animated, {FadeInUp, FadeOutUp} from 'react-native-reanimated';
 import { Image } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5'
+import { verticalScale } from 'react-native-size-matters';
 
 const Welcome = ({navigation}) => {
   const [loading, setLoading] = useState(false);
@@ -13,7 +15,7 @@ const Welcome = ({navigation}) => {
 
   return (
     <Animated.View entering={FadeInUp} exiting={FadeOutUp} style={styles.view}>
-      <Image style={styles.image} source={require('../../assets/images/dumbell.png')}/>
+      <Icon name="dumbbell" color={'white'} size={verticalScale(30)} />
       <Text style={styles.heading}>{Resources.AppName}</Text>
       <Login
         loadingState={{state: [loading, setLoading]}}

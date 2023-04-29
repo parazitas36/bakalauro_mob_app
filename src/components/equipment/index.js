@@ -7,6 +7,14 @@ import { Image } from 'react-native';
 
 const Equipment = ({equipment, token}) => {
   console.log(equipment);
+
+  const ReturnAmount = (val) => {
+    if (val === null || val === undefined || val === 0) {
+      return ''
+    }
+    return `(${val})`
+  }
+
   return (
     <View style={styles.card}>
       <View style={styles.equipmentView}>
@@ -19,7 +27,7 @@ const Equipment = ({equipment, token}) => {
           }}
           style={styles.image}
         />
-        <Text style={styles.heading}>{equipment?.amount === 0 ? equipment?.name : `${equipment?.name} (${equipment?.amount})`}</Text>
+        <Text style={styles.heading}>{equipment?.amount === 0 ? equipment?.name : `${equipment?.name} ${ReturnAmount(equipment?.amount)}`}</Text>
       </View>
       <View style={styles.descriptionView}>
         <Text style={styles.descriptionText}>{equipment?.description}</Text>
