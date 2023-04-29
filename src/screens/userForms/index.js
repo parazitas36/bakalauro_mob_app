@@ -1,7 +1,6 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 import styles from './styles';
-import CustomButtonWithIcon from '../../components/customButtonWithIcon';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -16,15 +15,16 @@ import {useContext} from 'react';
 import {useState} from 'react';
 import {GetCall} from '../../api/GetCall';
 import {ApiConstants} from '../../api/ApiConstants';
-import {FAB} from '@rneui/themed';
+import {FAB, useTheme} from '@rneui/themed';
 import TrainingPlanForm from '../../components/trainingPlanForm';
 
 const UserForms = ({navigation}) => {
-  const {tokenState, userDataState, roleSpecificDataState} =
-    useContext(UserContext);
+  const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
+
+  const {theme} = useTheme();
 
   const [userForms, setUserForms] = useState(null);
 
@@ -47,12 +47,12 @@ const UserForms = ({navigation}) => {
   return (
     <Suspense fallback={LoadingScreen()}>
       {userForms === null ? LoadingScreen() : 
-        <Animated.View entering={FadeInLeft} style={styles.view}>
-          <Text style={styles.btnText}>My forms</Text>
+        <Animated.View entering={FadeInLeft} style={styles({theme: theme}).view}>
+          <Text style={styles({theme: theme}).heading}>My forms</Text>
           {userForms?.length === 0 ? (
-            <Text style={styles.btnText}>No forms</Text>
+            <Text style={styles({theme: theme}).text}>No forms</Text>
           ) : userForms?.map((item, index) => {
-            return <TrainingPlanForm key={index} data={item} />
+            return <TrainingPlanForm key={index} data={item} theme={theme} />
           })}
           <FAB
             icon={{name: 'add', color: Resources.Colors.IconsColor}}

@@ -11,25 +11,25 @@ import { TrainerContext } from '../../../App';
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import { scale } from 'react-native-size-matters';
 
-const TrainingPlanWeeklyExercises = ({navigation, planWeek, editMode, fetchedWeeklyPlan}) => {
+const TrainingPlanWeeklyExercises = ({navigation, planWeek, editMode, fetchedWeeklyPlan, theme}) => {
   const {weeksState, keyState} = useContext(TrainerContext);
 
   const [weeks, setWeeks] = weeksState;
   const [hidden, setHidden] = useState(false)
 
   return (
-    <View style={styles.view}>
+    <View style={styles({theme}).view}>
       <TouchableOpacity
-        style={styles.headingView}
+        style={styles({theme}).headingView}
         onPress={() => setHidden(prev => !prev)}>
-        <Text style={styles.heading}>{Resources.Texts.Week} {planWeek}</Text>
+        <Text style={styles({theme}).heading}>{Resources.Texts.Week} {planWeek}</Text>
         <Icon 
             name={`${hidden ? 'chevron-down' : 'chevron-up'}`} 
             color={Resources.Colors.IconsColor} 
-            style={styles.icon}
+            style={styles({theme}).icon}
             size={scale(15)} />
       </TouchableOpacity>
-      <View style={hidden ? styles.hiddenView : null}>
+      <View style={hidden ? styles({theme}).hiddenView : null}>
         <TrainingPlanDayExercises
           key={Resources.Days.Monday}
           planWeek={planWeek}
@@ -37,6 +37,7 @@ const TrainingPlanWeeklyExercises = ({navigation, planWeek, editMode, fetchedWee
           navigation={navigation} 
           editMode={editMode}
           fetchedWeeklyPlan={fetchedWeeklyPlan}
+          theme={theme}
         />
         <TrainingPlanDayExercises
           key={Resources.Days.Tuesday}
@@ -45,6 +46,7 @@ const TrainingPlanWeeklyExercises = ({navigation, planWeek, editMode, fetchedWee
           navigation={navigation} 
           editMode={editMode}
           fetchedWeeklyPlan={fetchedWeeklyPlan}
+          theme={theme}
         />
         <TrainingPlanDayExercises
           key={Resources.Days.Wednesday}
@@ -53,6 +55,7 @@ const TrainingPlanWeeklyExercises = ({navigation, planWeek, editMode, fetchedWee
           navigation={navigation} 
           editMode={editMode}
           fetchedWeeklyPlan={fetchedWeeklyPlan}
+          theme={theme}
         />
         <TrainingPlanDayExercises
           key={Resources.Days.Thursday}
@@ -61,6 +64,7 @@ const TrainingPlanWeeklyExercises = ({navigation, planWeek, editMode, fetchedWee
           navigation={navigation} 
           editMode={editMode}
           fetchedWeeklyPlan={fetchedWeeklyPlan}
+          theme={theme}
         />
         <TrainingPlanDayExercises
           key={Resources.Days.Friday}
@@ -69,6 +73,7 @@ const TrainingPlanWeeklyExercises = ({navigation, planWeek, editMode, fetchedWee
           navigation={navigation} 
           editMode={editMode}
           fetchedWeeklyPlan={fetchedWeeklyPlan}
+          theme={theme}
         />
         <TrainingPlanDayExercises
           key={Resources.Days.Saturday}
@@ -77,6 +82,7 @@ const TrainingPlanWeeklyExercises = ({navigation, planWeek, editMode, fetchedWee
           navigation={navigation} 
           editMode={editMode}
           fetchedWeeklyPlan={fetchedWeeklyPlan}
+          theme={theme}
         />
         <TrainingPlanDayExercises
           key={Resources.Days.Sunday}
@@ -85,6 +91,7 @@ const TrainingPlanWeeklyExercises = ({navigation, planWeek, editMode, fetchedWee
           navigation={navigation} 
           editMode={editMode}
           fetchedWeeklyPlan={fetchedWeeklyPlan}
+          theme={theme}
         />
       </View>
     </View>

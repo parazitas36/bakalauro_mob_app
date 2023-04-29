@@ -5,6 +5,7 @@ import {LoadingScreen, RegularUserContext} from '../../App';
 import Resources from '../Resources';
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import { verticalScale } from 'react-native-size-matters';
+import { useTheme } from '@rneui/themed';
 
 const UserTabNavigator = createMaterialBottomTabNavigator();
 const UserHomeStackNavigator = createStackNavigator();
@@ -55,6 +56,7 @@ const UserHomeStack = () => {
 };
 
 const UserTab = () => {
+  const {theme} = useTheme();
 
   const context = {
     
@@ -64,9 +66,9 @@ const UserTab = () => {
     <RegularUserContext.Provider value={context}>
       <UserTabNavigator.Navigator
         initialRouteName={'HomeStack'}
-        activeColor="#f0edf6"
-        inactiveColor="#2089DC"
-        barStyle={{backgroundColor: 'black'}}>
+        activeColor={theme.colors.primary}
+        inactiveColor={theme.mode === 'dark' ? theme.colors.greyOutline : theme.colors.secondary}
+        barStyle={{backgroundColor: theme.colors.background, borderTopColor: theme.colors.black, borderTopWidth: 0.2}}>
         <UserTabNavigator.Screen
           name={'HomeStack'}
           component={UserHomeStack}

@@ -2,58 +2,45 @@ import {StyleSheet} from 'react-native';
 import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
 import Resources from '../../Resources';
 
-export default styles = StyleSheet.create({
-  text: {
-    color: Resources.Colors.TextColorWhite,
-  },
-  box: {
-    marginVertical: verticalScale(5),
-  },
-  btnText: {
-    color: Resources.Colors.TextColorWhite,
-    fontSize: Resources.FontSize.btnText,
-  },
-  button: {
-    borderColor: Resources.Colors.BorderColorWhite,
-    borderWidth: moderateScale(1),
-    borderRadius: moderateScale(10),
-    margin: scale(10),
-    width: scale(250),
-    height: verticalScale(30),
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  view: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  textInput: {
-    color: Resources.Colors.TextColorWhite,
-    borderTopWidth: scale(0),
-    borderLeftWidth: scale(0),
-    borderRightWidth: scale(0),
-    borderBottomWidth: scale(1),
-    borderColor: Resources.Colors.BorderColorWhite,
-    width: scale(250),
-    paddingHorizontal: moderateScale(10),
-    marginBottom: verticalScale(5),
-  },
-  errors: {
-    color: Resources.Colors.ErrorTextColor,
-    fontSize: Resources.FontSize.validationText,
-    paddingLeft: scale(5),
-    marginTop: verticalScale(2),
-    marginBottom: verticalScale(5),
-  },
-  heading: {
-    color: Resources.Colors.TextColorWhite,
-    fontSize: Resources.FontSize.headingText,
-    margin: scale(10),
-  },
-  countryButton: {
-    color: Resources.Colors.TextColorWhite,
-    fontSize: Resources.FontSize.regularText,
-    textDecorationLine: 'underline',
-  },
-});
+export default styles = ({theme}) => {
+  return StyleSheet.create({
+    text: {
+      color: theme.colors.black,
+    },
+    btnText: {
+      color: theme.colors.black,
+      fontSize: Resources.FontSize.btnText,
+    },
+    button: {
+      borderColor: theme.colors.black,
+      borderWidth: moderateScale(1),
+      borderRadius: moderateScale(10),
+      margin: scale(10),
+      width: scale(250),
+      height: verticalScale(30),
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    view: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    textInput: {
+      color: theme.colors.black,
+      borderTopWidth: scale(0),
+      borderLeftWidth: scale(0),
+      borderRightWidth: scale(0),
+      borderBottomWidth: scale(1),
+      borderColor: theme.colors.black,
+      width: scale(250),
+      paddingHorizontal: moderateScale(10),
+      marginBottom: verticalScale(5),
+    },
+    heading: {
+      color: theme.colors.black,
+      fontSize: Resources.FontSize.headingText,
+      margin: scale(10),
+    },
+  });
+};

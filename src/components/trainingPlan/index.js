@@ -7,7 +7,7 @@ import Resources from '../../Resources';
 import {scale} from 'react-native-size-matters';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
-const TrainingPlan = ({navigation, trainingPlan}) => {
+const TrainingPlan = ({navigation, trainingPlan, theme}) => {
   return (
     <Animated.View entering={FadeInLeft.delay(200)}>
       <TouchableOpacity 
@@ -16,35 +16,35 @@ const TrainingPlan = ({navigation, trainingPlan}) => {
             name: Resources.Screens.TrainingPlanScreen, 
             params: { trainingPlanId: trainingPlan.id }
           })} 
-        style={styles.card}
+        style={styles({theme: theme}).card}
       >
-        <Text style={styles.trainingPlanHeader}>{trainingPlan?.name}</Text>
-        <View style={styles.infoView}>
+        <Text style={styles({theme: theme}).trainingPlanHeader}>{trainingPlan?.name}</Text>
+        <View style={styles({theme: theme}).infoView}>
           <View
             style={{
-              ...styles.subView,
+              ...styles({theme: theme}).subView,
               paddingLeft: scale(10),
             }}>
-            <Text style={styles.boldText}>{Resources.Texts.MuscleGroups}</Text>
+            <Text style={styles({theme: theme}).boldText}>{Resources.Texts.MuscleGroups}</Text>
             {trainingPlan.muscleGroups?.length > 0 ? trainingPlan.muscleGroups.map((x, i) => {
-              return <Text key={i} style={styles.text}>{x}</Text>;
+              return <Text key={i} style={styles({theme: theme}).text}>{x}</Text>;
             })
             : null}
           </View>
           <View
             style={{
-              ...styles.subView,
+              ...styles({theme: theme}).subView,
               paddingRight: scale(10),
               alignItems: 'flex-end',
             }}>
-            <Text style={styles.boldText}>{Resources.Texts.Equipment}</Text>
+            <Text style={styles({theme: theme}).boldText}>{Resources.Texts.Equipment}</Text>
             {trainingPlan.equipment?.length > 0 ? (
               trainingPlan.equipment.map((x, i) => {
-                return <Text key={i} style={styles.text}>{x.name}</Text>;
+                return <Text key={i} style={styles({theme: theme}).text}>{x.name}</Text>;
               })
             ) : (
               <Text
-                style={styles.text}>{`${Resources.Texts.NoEquipment}`}</Text>
+                style={styles({theme: theme}).text}>{`${Resources.Texts.NoEquipment}`}</Text>
             )}
           </View>
         </View>

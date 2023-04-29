@@ -1,11 +1,10 @@
 import { View, Text, ScrollView } from 'react-native'
 import React from 'react'
 import styles from './styles'
-import CustomButton from '../customButton'
 import Resources from '../../Resources'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-const TrainerCard = ({data, navigation}) => {
+const TrainerCard = ({data, navigation, theme}) => {
 console.log(data)
 
 const ValueIsNotEmpty = (val) => {
@@ -15,16 +14,16 @@ const ValueIsNotEmpty = (val) => {
   return (
     <TouchableOpacity
     onPress={() => navigation.navigate({name: 'Trainer', params: {trainerId: data.id}})}
-     style={styles.card}>
-        <View style={styles.titleView}>
-            <Text style={styles.titleText}>{`${data.name} ${data.lastName} (${data.username})`}</Text>
+     style={styles({theme: theme}).card}>
+        <View style={styles({theme: theme}).titleView}>
+            <Text style={styles({theme: theme}).titleText}>{`${data.name} ${data.lastName} (${data.username})`}</Text>
         </View>
-        <ScrollView style={styles.detailsScrollView} contentContainerStyle={styles.detailsView}>
-            {ValueIsNotEmpty(data.email) && <Text style={styles.detailsText}>Email: {data.email}</Text>}
-            {ValueIsNotEmpty(data.phone) && <Text style={styles.detailsText}>Phone: {data.phone}</Text>}
-            <Text style={styles.detailsText}>Rating: {data.averageRating ?? 'Not rated'}</Text>
-            <Text style={styles.detailsText}>Reviews: {data.reviewsCount === 0 ? 'No reviews' : data.reviewsCount}</Text>
-        </ScrollView>
+        <View style={styles({theme: theme}).detailsView}>
+            {ValueIsNotEmpty(data.email) && <Text style={styles({theme: theme}).detailsText}>Email: {data.email}</Text>}
+            {ValueIsNotEmpty(data.phone) && <Text style={styles({theme: theme}).detailsText}>Phone: {data.phone}</Text>}
+            <Text style={styles({theme: theme}).detailsText}>Rating: {data.averageRating ?? 'Not rated'}</Text>
+            <Text style={styles({theme: theme}).detailsText}>Reviews: {data.reviewsCount === 0 ? 'No reviews' : data.reviewsCount}</Text>
+        </View>
     </TouchableOpacity>
   )
 }

@@ -9,10 +9,13 @@ import {TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {useMemo} from 'react';
 import Animated, {FadeInDown, FadeOutDown} from 'react-native-reanimated';
+import { useTheme } from '@rneui/themed';
 
 const ExerciseSelectionList = ({exercises, exerciseState}) => {
   const [hidden, setHidden] = useState(false);
   const [exercise, setExercise] = exerciseState;
+
+  const {theme} = useTheme();
 
   const [query, setQuery] = useState(null);
 
@@ -21,36 +24,35 @@ const ExerciseSelectionList = ({exercises, exerciseState}) => {
       return exercises;
     }
 
-    return exercises.filter(x => x.name.includes(query));
+    return exercises.filter(x => String(x.name).toLowerCase().includes(query.toLowerCase()));
   }, [query]);
 
   const ExerciseItem = ({data}) => {
-    // {"createdBy": 4002, "equipment": null, "exerciseType": "Other", "hasGuide": true, "id": 1, "muscleGroups": "all", "name": "test"}
     return (
       <TouchableOpacity
-        style={styles.card}
+        style={styles({theme: theme}).card}
         onPress={() => {
           setExercise(data);
           setHidden(true);
         }}>
-        <Text style={styles.exerciseHeader}>{data.name}</Text>
-        <View style={styles.infoView}>
+        <Text style={styles({theme: theme}).exerciseHeader}>{data.name}</Text>
+        <View style={styles({theme: theme}).infoView}>
           <View
             style={{
-              ...styles.subView,
+              ...styles({theme: theme}).subView,
               paddingLeft: scale(10),
             }}>
-            <Text style={{color: 'white'}}>{Resources.Texts.MuscleGroups}</Text>
-            <Text style={{color: 'white'}}>{data.muscleGroups}</Text>
+            <Text style={styles({theme: theme}).boldText}>{Resources.Texts.MuscleGroups}</Text>
+            <Text style={styles({theme: theme}).text}>{data.muscleGroups}</Text>
           </View>
           <View
             style={{
-              ...styles.subView,
+              ...styles({theme: theme}).subView,
               paddingRight: scale(10),
               alignItems: 'flex-end',
             }}>
-            <Text style={{color: 'white'}}>{Resources.Texts.Equipment}</Text>
-            <Text style={{color: 'white'}}>
+            <Text style={styles({theme: theme}).boldText}>{Resources.Texts.Equipment}</Text>
+            <Text style={styles({theme: theme}).text}>
               {data.equipment === null ? 'No equipment' : data.equipment.name}
             </Text>
           </View>
@@ -63,13 +65,13 @@ const ExerciseSelectionList = ({exercises, exerciseState}) => {
     <>
       {hidden === true ? null : (
         <Animated.View
-          style={styles.view}
+          style={styles({theme: theme}).view}
           entering={FadeInDown.delay(500)}
           exiting={FadeOutDown.delay(200)}>
-          <View style={styles.searchView}>
-            <Icon name="search" color="grey" size={15} />
+          <View style={styles({theme: theme}).searchView}>
+            <Icon name="search" color={theme.colors.black} size={15} />
             <TextInput
-              style={styles.searchText}
+              style={styles({theme: theme}).searchText}
               placeholder={Resources.Texts.Search}
               placeholderTextColor={Resources.Colors.PlaceholdersColor}
               value={query}
@@ -82,7 +84,7 @@ const ExerciseSelectionList = ({exercises, exerciseState}) => {
                 return <ExerciseItem key={i} data={x} />;
               })
             ) : (
-              <Text style={{color: 'white'}}>
+              <Text style={{color: theme.colors.black}}>
                 {Resources.Texts.NoExercises}
               </Text>
             )}

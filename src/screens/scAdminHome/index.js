@@ -13,6 +13,7 @@ import {scale} from 'react-native-size-matters';
 import {ApiConstants} from '../../api/ApiConstants';
 import {GetCall} from '../../api/GetCall';
 import {Image} from 'react-native';
+import { useTheme } from '@rneui/themed';
 
 const SCAdminHome = ({navigation}) => {
   const {tokenState, userDataState, roleSpecificDataState} =
@@ -21,6 +22,8 @@ const SCAdminHome = ({navigation}) => {
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
   console.log(roleSpecificData);
+  
+  const {theme} = useTheme();
 
   const ValueIsNotEmpty = (value) => {
     return value !== undefined && value !== null && value !== '' && value !== 'null'
@@ -30,12 +33,12 @@ const SCAdminHome = ({navigation}) => {
     <Suspense fallback={LoadingScreen()}>
       <Animated.ScrollView
         entering={FadeInLeft}
-        style={styles.view}
-        contentContainerStyle={styles.viewContainer}>
-        <View style={styles.sportsClubView}>
-          <Text style={styles.heading}>{roleSpecificData.name}</Text>
-          <View style={styles.flexRow}>
-            <View style={styles.imageView}>
+        style={styles({theme: theme}).view}
+        contentContainerStyle={styles({theme: theme}).viewContainer}>
+        <View style={styles({theme: theme}).sportsClubView}>
+          <Text style={styles({theme: theme}).heading}>{roleSpecificData.name}</Text>
+          <View style={styles({theme: theme}).flexRow}>
+            <View style={styles({theme: theme}).imageView}>
               <Image
                 source={{
                   uri: `${ApiConstants().Exercise_Endpoint}file/${String(
@@ -43,51 +46,51 @@ const SCAdminHome = ({navigation}) => {
                   )}`,
                   headers: {Authorization: `Bearer ${token}`},
                 }}
-                style={styles.image}
+                style={styles({theme: theme}).image}
               />
             </View>
-            <View style={styles.infoView}>
-              <Text style={styles.btnText}>
+            <View style={styles({theme: theme}).infoView}>
+              <Text style={styles({theme: theme}).text}>
                 Facilities: {roleSpecificData.facilitiesCount}
               </Text>
-              <Text style={styles.btnText}>
+              <Text style={styles({theme: theme}).text}>
                 Trainers: {roleSpecificData.trainersCount}
               </Text>
-              {ValueIsNotEmpty(roleSpecificData.email) ? <Text style={styles.btnText}>
+              {ValueIsNotEmpty(roleSpecificData.email) ? <Text style={styles({theme: theme}).text}>
                 Email: {roleSpecificData.email}
               </Text> : null}
-              {ValueIsNotEmpty(roleSpecificData.phoneNumber)  ? <Text style={styles.btnText}>
+              {ValueIsNotEmpty(roleSpecificData.phoneNumber)  ? <Text style={styles({theme: theme}).text}>
                 Phone: {roleSpecificData.phoneNumber}
               </Text> : null}
             </View>
           </View>
         </View>
-        <View style={styles.flexRow}>
+        <View style={styles({theme: theme}).flexRow}>
           <CustomButtonWithIcon
             icon={() => (
               <MaterialCommunityIcons
                 name="newspaper-variant-outline"
-                color={Resources.Colors.IconsColor}
+                color={theme.colors.black}
                 size={scale(20)}
               />
             )}
             btnText="My forms"
-            styles={styles}
+            styles={styles({theme: theme})}
           />
           <CustomButtonWithIcon
             icon={() => (
               <Ionicons
                 name="people"
-                color={Resources.Colors.IconsColor}
+                color={theme.colors.black}
                 size={scale(20)}
               />
             )}
             onPress={() => navigation.navigate('Trainers')}
             btnText="Trainers"
-            styles={styles}
+            styles={styles({theme: theme})}
           />
         </View>
-        <View style={styles.flexRow}>
+        <View style={styles({theme: theme}).flexRow}>
           
         </View>
       </Animated.ScrollView>

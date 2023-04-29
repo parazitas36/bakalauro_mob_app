@@ -8,36 +8,36 @@ import {View, Text} from 'react-native';
 import Resources from '../../Resources';
 import { scale } from 'react-native-size-matters';
 
-const TrainingPlanExerciseWithSets = ({data, exercise, editMode}) => {
+const TrainingPlanExerciseWithSets = ({data, exercise, editMode, theme}) => {
   const sets = JSON.parse(editMode ? data.Sets : data.sets)
 
   if (editMode === true) {
     return (
       <Animated.View
         entering={FadeInLeft.delay(200)}
-        style={styles.card}>
-        <Text style={styles.exerciseHeader}>{exercise?.name}</Text>
-        <View style={styles.infoView}>
+        style={styles({theme: theme}).card}>
+        <Text style={styles({theme: theme}).exerciseHeader}>{exercise?.name}</Text>
+        <View style={styles({theme: theme}).infoView}>
           <View
             style={{
-              ...styles.subView,
+              ...styles({theme: theme}).subView,
               paddingLeft: scale(10),
             }}>
-            <Text style={styles.boldText}>{Resources.Texts.MuscleGroups}</Text>
-            <Text style={styles.text}>{exercise.muscleGroups}</Text>
-            <Text style={styles.boldText}>{Resources.Texts.Equipment}</Text>
-            <Text style={styles.text}>
+            <Text style={styles({theme: theme}).boldText}>{Resources.Texts.MuscleGroups}</Text>
+            <Text style={styles({theme: theme}).text}>{exercise.muscleGroups}</Text>
+            <Text style={styles({theme: theme}).boldText}>{Resources.Texts.Equipment}</Text>
+            <Text style={styles({theme: theme}).text}>
               {exercise.equipment === null ? `${Resources.Texts.NoEquipment}`
               : exercise?.equipment?.name}
             </Text>
           </View>
           <View
             style={{
-              ...styles.subView,
+              ...styles({theme: theme}).subView,
               paddingRight: scale(10),
               alignItems: 'flex-end',
             }}>
-            <Text style={styles.boldText}>{Resources.Texts.Sets}</Text>
+            <Text style={styles({theme: theme}).boldText}>{Resources.Texts.Sets}</Text>
             {sets?.length > 0 ?
               sets.map((x, i) => {
                 return <Text 
@@ -57,29 +57,29 @@ const TrainingPlanExerciseWithSets = ({data, exercise, editMode}) => {
   return (
     <Animated.View
     entering={FadeInLeft.delay(200)}
-    style={styles.card}>
-    <Text style={styles.exerciseHeader}>{exercise?.name}</Text>
-    <View style={styles.infoView}>
+    style={styles({theme: theme}).card}>
+    <Text style={styles({theme: theme}).exerciseHeader}>{exercise?.name}</Text>
+    <View style={styles({theme: theme}).infoView}>
       <View
         style={{
-          ...styles.subView,
+          ...styles({theme: theme}).subView,
           paddingLeft: scale(10),
         }}>
-        <Text style={styles.boldText}>{Resources.Texts.MuscleGroups}</Text>
-        <Text style={styles.text}>{exercise?.muscleGroups}</Text>
-        <Text style={styles.boldText}>{Resources.Texts.Equipment}</Text>
-        <Text style={styles.text}>
+        <Text style={styles({theme: theme}).boldText}>{Resources.Texts.MuscleGroups}</Text>
+        <Text style={styles({theme: theme}).text}>{exercise?.muscleGroups}</Text>
+        <Text style={styles({theme: theme}).boldText}>{Resources.Texts.Equipment}</Text>
+        <Text style={styles({theme: theme}).text}>
           {exercise?.equipment === null ? `${Resources.Texts.NoEquipment}`
           : exercise?.equipment?.name}
         </Text>
       </View>
       <View
         style={{
-          ...styles.subView,
+          ...styles({theme: theme}).subView,
           paddingRight: scale(10),
           alignItems: 'flex-end',
         }}>
-        <Text style={styles.boldText}>{Resources.Texts.Sets}</Text>
+        <Text style={styles({theme: theme}).boldText}>{Resources.Texts.Sets}</Text>
         {sets?.length > 0 ?
           sets.map((x, i) => {
             return <Text 

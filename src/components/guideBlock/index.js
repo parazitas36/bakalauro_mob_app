@@ -7,7 +7,7 @@ import CustomButtonWithIcon from '../customButtonWithIcon';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {ScrollView} from 'react-native';
 
-const GuideBlock = ({data, id, blocksState, idState}) => {
+const GuideBlock = ({data, id, blocksState, idState, theme}) => {
   const type = data?.type;
 
   const first = () => data.id === 0;
@@ -57,8 +57,8 @@ const GuideBlock = ({data, id, blocksState, idState}) => {
   };
 
   return (
-    <View style={styles.block}>
-      <View style={styles.arrowView}>
+    <View style={styles({theme: theme}).block}>
+      <View style={styles({theme: theme}).arrowView}>
         <CustomButtonWithIcon
           icon={() => (
             <Icon
@@ -66,12 +66,12 @@ const GuideBlock = ({data, id, blocksState, idState}) => {
               size={Resources.Sizes.BlockButtonsSize}
               color={
                 first() === true
-                  ? Resources.Colors.DisabledIconColor
-                  : Resources.Colors.DefaultIconColor
+                  ? theme.colors.disabled
+                  : theme.colors.black
               }
             />
           )}
-          styles={styles}
+          styles={styles({theme: theme})}
           onPress={MoveUp}
           disabled={first() === true}
         />
@@ -82,33 +82,35 @@ const GuideBlock = ({data, id, blocksState, idState}) => {
               size={Resources.Sizes.BlockButtonsSize}
               color={
                 last() === true
-                  ? Resources.Colors.DisabledIconColor
-                  : Resources.Colors.DefaultIconColor
+                  ? theme.colors.disabled
+                  : theme.colors.black
               }
             />
           )}
-          styles={styles}
+          styles={styles({theme: theme})}
           onPress={MoveDown}
           disabled={last() === true}
         />
       </View>
-      <View style={styles.card}>
+      <View style={styles({theme: theme}).card}>
         {type === Resources.BlockType.Image ? (
           <Image
-            style={styles.image}
+            style={styles({theme: theme}).image}
             source={{uri: data.content.uri}}
             resizeMode="cover"
           />
         ) : type === Resources.BlockType.Video ? (
-          <Text style={styles.text}>Video</Text>
+          <Text style={styles({theme: theme}).text}>Video</Text>
         ) : (
-          <Text style={styles.text}>{data?.content}</Text>
+          <Text style={styles({theme: theme}).text}>{data?.content}</Text>
         )}
       </View>
-      <View style={styles.blockBtnView}>
+      <View style={styles({theme: theme}).blockBtnView}>
         <CustomButtonWithIcon
-          icon={() => <Icon name="trash" size={Resources.Sizes.BlockButtonsSize} color="white" />}
-          styles={styles}
+          icon={() => <Icon name="trash" 
+                            size={Resources.Sizes.BlockButtonsSize} 
+                            color={theme.colors.black} />}
+          styles={styles({theme: theme})}
           onPress={RemoveBlock}
         />
       </View>

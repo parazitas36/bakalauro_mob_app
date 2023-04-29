@@ -7,6 +7,7 @@ import {LoadingScreen, TrainerContext, UserContext} from '../../../App';
 import CustomButton from '../../components/customButton';
 import { TextInput } from 'react-native-gesture-handler';
 import { PostExerciseCall } from '../../api/PostExerciseCall';
+import { useTheme } from '@rneui/themed';
 
 const CreateExercise = ({navigation}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
@@ -21,6 +22,8 @@ const CreateExercise = ({navigation}) => {
   const [equipmentId, setEquipmentId] = useState(null);
   const [guide, setGuide] = guideState
   const [refreshExercises, setRefreshExercises] = refreshExercisesState
+
+  const {theme} = useTheme()
 
   const SavePress = async() => {
     const body = {
@@ -41,24 +44,28 @@ const CreateExercise = ({navigation}) => {
 
   return (
     <Suspense fallback={LoadingScreen()}>
-      <Animated.View style={styles.view} entering={FadeInDown.delay(100)} exiting={FadeOutUp}>
-        <Animated.Text style={styles.heading}>
+      <Animated.View style={styles({theme: theme}).view} entering={FadeInDown.delay(100)} exiting={FadeOutUp}>
+        <Animated.Text style={styles({theme: theme}).heading}>
         {Resources.Texts.AddExercise}
         </Animated.Text>
         <TextInput
-          style={styles.textInput}
+          style={styles({theme: theme}).textInput}
           placeholder={Resources.Placeholders.Name} 
           placeholderTextColor={Resources.Colors.PlaceholdersColor} 
           onChangeText={setName} value={name} />
         <TextInput
-          style={styles.textInput}
+          style={styles({theme: theme}).textInput}
           placeholder={'Muscle group'} 
           placeholderTextColor={Resources.Colors.PlaceholdersColor} 
           onChangeText={setMuscleGroups} value={muscleGroups} />
         <CustomButton 
           btnText={guide.length == 0 ? Resources.ButtonTexts.AddGuide : Resources.ButtonTexts.EditGuide} 
-          onPress={() => navigation.navigate(Resources.Screens.CreateExerciseGuide)} styles={styles}/>
-        <CustomButton btnText={Resources.ButtonTexts.SaveBtnText} onPress={async() => await SavePress()} styles={styles}/>
+          onPress={() => navigation.navigate(Resources.Screens.CreateExerciseGuide)} 
+          styles={styles({theme: theme})}/>
+        <CustomButton 
+          btnText={Resources.ButtonTexts.SaveBtnText} 
+          onPress={async() => await SavePress()} 
+          styles={styles({theme: theme})}/>
       </Animated.View>
     </Suspense>
   );

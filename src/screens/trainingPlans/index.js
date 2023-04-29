@@ -10,6 +10,7 @@ import {Text} from 'react-native';
 import {FlatList} from 'react-native';
 import {FAB} from '@rneui/base';
 import TrainingPlan from '../../components/trainingPlan';
+import { useTheme } from '@rneui/themed';
 
 const TrainingPlans = ({navigation}) => {
   const {tokenState, userDataState, roleSpecificDataState} =
@@ -19,6 +20,8 @@ const TrainingPlans = ({navigation}) => {
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
+
+  const {theme} = useTheme();
 
   const [trainingPlans, setTrainingPlans] = useState(null);
   const [exercises, setExercises] = exercisesState;
@@ -46,7 +49,6 @@ const TrainingPlans = ({navigation}) => {
         token: token,
       });
 
-      console.log(resp);
 
       if (resp.status === 200) {
         const data = await resp.json();
@@ -65,14 +67,14 @@ const TrainingPlans = ({navigation}) => {
         <LoadingScreen />
       ) : (
         <Animated.View
-          style={styles.view}
+          style={styles({theme}).view}
           entering={FadeInDown.delay(100)}
           exiting={FadeOutUp}>
-          <Animated.Text style={styles.heading}>
+          <Animated.Text style={styles({theme}).heading}>
             {Resources.Texts.TrainingPlans}
           </Animated.Text>
           {trainingPlans.length === 0 ? 
-            <Text style={styles.text}>{Resources.Texts.NoTrainingPlans}</Text>
+            <Text style={styles({theme}).text}>{Resources.Texts.NoTrainingPlans}</Text>
           : <FlatList
               data={trainingPlans}
               renderItem={({item, index}) => {
@@ -81,6 +83,7 @@ const TrainingPlans = ({navigation}) => {
                     key={index}
                     trainingPlan={item}
                     navigation={navigation}
+                    theme={theme}
                   />
                 );
               }}
@@ -88,7 +91,7 @@ const TrainingPlans = ({navigation}) => {
           }
           <FAB
             icon={{name: 'add', color: Resources.Colors.IconsColor}}
-            color="#2089DC"
+            color={theme.colors.primary}
             size="small"
             placement="right"
             onPress={() =>

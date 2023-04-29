@@ -12,7 +12,7 @@ import { scale } from 'react-native-size-matters';
 import CustomButtonWithIcon from '../customButtonWithIcon';
 import TrainingPlanExerciseWithSets from '../trainingPlanExerciseWithSets';
 
-const TrainingPlanDayExercises = ({navigation, planDay, planWeek, editMode, fetchedWeeklyPlan}) => {
+const TrainingPlanDayExercises = ({navigation, planDay, planWeek, editMode, fetchedWeeklyPlan, theme}) => {
   const {weeksState, keyState, exercisesState} = useContext(TrainerContext);
 
   const [weeks, setWeeks] = weeksState;
@@ -29,17 +29,17 @@ const TrainingPlanDayExercises = ({navigation, planDay, planWeek, editMode, fetc
 
   if (editMode === true) {
     return (
-      <View style={styles.view}>
-        <TouchableOpacity style={styles.dayTextView} onPress={() => setHidden(prev => !prev)}>
-          <Text style={styles.dayText}>{planDay}</Text>
-          <View style={styles.icon}>
+      <View style={styles({theme}).view}>
+        <TouchableOpacity style={styles({theme}).dayTextView} onPress={() => setHidden(prev => !prev)}>
+          <Text style={styles({theme}).dayText}>{planDay}</Text>
+          <View style={styles({theme}).icon}>
             <Icon 
               name={`${hidden ? 'chevron-down' : 'chevron-up'}`} 
-              color={Resources.Colors.IconsColor} 
+              color={theme.colors.black} 
               size={scale(18)} />
           </View>
         </TouchableOpacity>
-        <View style={hidden ? styles.hidden : null}>
+        <View style={hidden ? styles({theme}).hidden : null}>
           {ExerciseData !== null ? 
             ExerciseData.map((x, i) => {
               return <TrainingPlanExerciseWithSets 
@@ -47,6 +47,7 @@ const TrainingPlanDayExercises = ({navigation, planDay, planWeek, editMode, fetc
                         key={i}
                         editMode={editMode}
                         exercise={exercises.filter(y => y.id === x.Id)[0]}
+                        theme={theme}
                       />
             }) 
           : null}
@@ -60,8 +61,8 @@ const TrainingPlanDayExercises = ({navigation, planDay, planWeek, editMode, fetc
                 }
               })
             }
-            styles={styles}
-            icon={() => <Icon name='plus' color={Resources.Colors.IconsColor} size={20} />}
+            styles={styles({theme})}
+            icon={() => <Icon name='plus' color={theme.colors.black} size={20} />}
           />
         </View>
       </View>
@@ -69,17 +70,17 @@ const TrainingPlanDayExercises = ({navigation, planDay, planWeek, editMode, fetc
   }
 
   return (
-    <View style={styles.view}>
-        <TouchableOpacity style={styles.dayTextView} onPress={() => setHidden(prev => !prev)}>
-          <Text style={styles.dayText}>{planDay}</Text>
-          <View style={styles.icon}>
+    <View style={styles({theme}).view}>
+        <TouchableOpacity style={styles({theme}).dayTextView} onPress={() => setHidden(prev => !prev)}>
+          <Text style={styles({theme}).dayText}>{planDay}</Text>
+          <View style={styles({theme}).icon}>
             <Icon 
               name={`${hidden ? 'chevron-down' : 'chevron-up'}`} 
-              color={Resources.Colors.IconsColor} 
+              color={theme.colors.black} 
               size={scale(18)} />
           </View>
         </TouchableOpacity>
-        <View style={hidden ? styles.hidden : null}>
+        <View style={hidden ? styles({theme}).hidden : null}>
           {ExerciseData !== null ? 
             ExerciseData.length > 0 ? ExerciseData.map((x, i) => {
               return <TrainingPlanExerciseWithSets 
@@ -87,8 +88,9 @@ const TrainingPlanDayExercises = ({navigation, planDay, planWeek, editMode, fetc
                         data={x} 
                         exercise={exercises.filter(y => y.id === x.exerciseId)[0]}
                         editMode={editMode}
+                        theme={theme}
                      />
-            }) : <Text style={styles.text}>Rest day</Text>
+            }) : <Text style={styles({theme}).text}>Rest day</Text>
           : null}
         </View>
       </View>

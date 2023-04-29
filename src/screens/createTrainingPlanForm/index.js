@@ -12,6 +12,7 @@ import { Text } from 'react-native';
 import { scale, verticalScale } from 'react-native-size-matters';
 import { PostCall } from '../../api/PostCall';
 import { ApiConstants } from '../../api/ApiConstants';
+import { useTheme } from '@rneui/themed';
 
 const CreateTrainingPlanForm = ({navigation}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
@@ -19,6 +20,7 @@ const CreateTrainingPlanForm = ({navigation}) => {
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
 
+  const {theme} = useTheme();
 
   const [goal, setGoal] = useState('');
   const [details, setDetails] = useState(null);
@@ -45,7 +47,6 @@ const CreateTrainingPlanForm = ({navigation}) => {
     console.log(resp)
 
     if(resp.status === 201) {
-      //setGuide([]);
       navigation.goBack();
       //setRefreshExercises(true)
     }
@@ -53,14 +54,14 @@ const CreateTrainingPlanForm = ({navigation}) => {
 
   return (
     <Suspense fallback={LoadingScreen()}>
-      <Animated.View style={styles.view} entering={FadeInDown.delay(100)} exiting={FadeOutUp}>
-        <Animated.Text style={styles.heading}>
+      <Animated.View style={styles({theme: theme}).view} entering={FadeInDown.delay(100)} exiting={FadeOutUp}>
+        <Animated.Text style={styles({theme: theme}).heading}>
         Fill the data of what kind of training plan you are looking for
         </Animated.Text>
         <TextInput
           multiline={true}
           numberOfLines={2}
-          style={styles.textInput}
+          style={styles({theme: theme}).textInput}
           placeholder={Resources.Placeholders.Details} 
           placeholderTextColor={Resources.Colors.PlaceholdersColor} 
           onChangeText={setDetails} 
@@ -68,25 +69,25 @@ const CreateTrainingPlanForm = ({navigation}) => {
         <TextInput
           multiline={true}
           numberOfLines={2}
-          style={styles.textInput}
+          style={styles({theme: theme}).textInput}
           placeholder={'Health issues (optional)'} 
           placeholderTextColor={Resources.Colors.PlaceholdersColor} 
           onChangeText={setHealthIssues} 
           value={healthIssues} />
         <SelectList
           boxStyles={{marginVertical: verticalScale(5)}}
-          inputStyles={{color: 'white', width: scale(200)}}
+          inputStyles={styles({theme: theme}).selectListInputStyle}
           placeholder='Select goal'
           search={false}
-          dropdownTextStyles={{color: 'white'}}
-          setSelected={(val) => {console.log(val); setGoal(val)}}
+          dropdownTextStyles={styles({theme: theme}).selectListDropdownTextStyle}
+          setSelected={(val) => setGoal(val)}
           data={goals}
           save="value"
         />
         <CustomButton
           btnText={Resources.ButtonTexts.SaveBtnText}
           onPress={async() => await SavePress()}
-          styles={styles}
+          styles={styles({theme: theme})}
         />
       </Animated.View>
     </Suspense>

@@ -10,6 +10,7 @@ import { Text } from 'react-native';
 import { FlatList } from 'react-native';
 import ExerciseCard from '../../components/exerciseCard';
 import { FAB } from '@rneui/base';
+import { useTheme } from '@rneui/themed';
 
 const Exercises = ({navigation}) => {
   const {tokenState, userDataState, roleSpecificDataState} =
@@ -21,6 +22,7 @@ const Exercises = ({navigation}) => {
   const [refreshExercises, setRefreshExercises] = refreshExercisesState
 
   const [exercises, setExercises] = useState(null);
+  const {theme} = useTheme()
 
   useEffect(() => {
     (async () => {
@@ -46,12 +48,12 @@ const Exercises = ({navigation}) => {
         <LoadingScreen />
       ) : (
         <Animated.View
-          style={styles.view}
+          style={styles({theme: theme}).view}
           entering={FadeInDown.delay(100)}
           exiting={FadeOutUp}>
-          <Animated.Text style={styles.heading}>{Resources.Texts.Exercises}</Animated.Text>
-          {exercises?.length === 0 ? <Text style={styles.text}>{Resources.Texts.NoExercises}</Text> :
-          <FlatList data={exercises} renderItem={({item}) => ExerciseCard({data: item, navigation: navigation})}/>}
+          <Animated.Text style={styles({theme: theme}).heading}>{Resources.Texts.Exercises}</Animated.Text>
+          {exercises?.length === 0 ? <Text style={styles({theme: theme}).text}>{Resources.Texts.NoExercises}</Text> :
+          <FlatList data={exercises} renderItem={({item}) => ExerciseCard({data: item, navigation: navigation, theme: theme})}/>}
           <FAB
             icon={{name: 'add', color: Resources.Colors.IconsColor}}
             color="#2089DC"

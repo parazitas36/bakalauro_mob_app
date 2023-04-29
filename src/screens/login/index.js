@@ -8,17 +8,20 @@ import Animated, {FadeInLeft, FadeOutLeft} from 'react-native-reanimated';
 import {Validation} from './validation';
 import { LoginCall } from '../../api/LoginCall';
 import { UserContext } from '../../../App';
+import { useTheme } from '@rneui/themed';
 
 const Login = (props) => {
   const {tokenState, userDataState} = useContext(UserContext);
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
 
-  const [username, setUsername] = useState('regularuser');
+  const [username, setUsername] = useState('scadmin1');
   const [password, setPassword] = useState('12345678');
   const [validation, setValidation] = useState(null);
   const [error, setError] = props?.errorState?.state;
   const [loading, setLoading] = props?.loadingState?.state;
+
+  const {theme} = useTheme();
 
   const LoginPress = async () => {
     setError(null);
@@ -48,17 +51,17 @@ const Login = (props) => {
     <View style={styles.view}>
       {error !== null && (
         <Animated.Text
-          style={{...styles.errors, alignSelf: 'center'}}
+          style={{...styles({theme: theme}).errors, alignSelf: 'center'}}
           entering={FadeInLeft}
           exiting={FadeOutLeft}>
           {error}
         </Animated.Text>
       )}
       <TextInput
-        style={styles.usernameInput}
+        style={styles({theme: theme}).usernameInput}
         onChangeText={setUsername}
         placeholder={Resources.Placeholders.Username}
-        placeholderTextColor={Resources.Colors.PlaceholdersColor}
+        placeholderTextColor={theme.colors.grey2}
       />
       {(validation?.usernameMessage ?? null) !== null && (
         <Animated.Text
@@ -71,13 +74,13 @@ const Login = (props) => {
       <TextInput
         secureTextEntry={true}
         onChangeText={setPassword}
-        style={styles.passwordInput}
+        style={styles({theme: theme}).passwordInput}
         placeholder={Resources.Placeholders.Password}
-        placeholderTextColor={Resources.Colors.PlaceholdersColor}
+        placeholderTextColor={theme.colors.grey2}
       />
       {(validation?.passwordMessage ?? null) !== null && (
         <Animated.Text
-          style={styles.errors}
+          style={styles({theme: theme}).errors}
           entering={FadeInLeft}
           exiting={FadeOutLeft}>
           {validation?.passwordMessage}
@@ -85,7 +88,7 @@ const Login = (props) => {
       )}
       <CustomButton
         btnText={Resources.ButtonTexts.LoginBtnText}
-        styles={styles}
+        styles={styles({theme: theme})}
         onPress={async() => await LoginPress()}
         loading={loading===true}
         disabled={loading === true}

@@ -1,8 +1,7 @@
-import {DarkTheme, NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React, {createContext, Suspense, useState} from 'react';
-import {MD3DarkTheme, Provider as PaperProvider} from 'react-native-paper';
-import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import {SafeAreaView, StatusBar} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import Resources from './src/Resources';
 
@@ -11,6 +10,8 @@ import Welcome from './src/screens/welcome';
 import Loading from './src/screens/loading';
 import TrainerStack from './src/navigation/TrainerStack';
 import UserStack from './src/navigation/UserStack';
+import { createTheme, ThemeProvider, useTheme, useThemeMode } from '@rneui/themed';
+import { View } from 'react-native';
 
 export const LoadingScreen = () => <Loading />
 export const UserContext = createContext();
@@ -41,6 +42,28 @@ const AuthStack = () => {
   );
 };
 
+const theme = createTheme({
+  mode: 'light'
+})
+
+const ColorScheme = ({ children }) => {
+  const { theme } = useTheme();
+  const { setMode } = useThemeMode();
+
+  console.log('theme: ', theme)
+
+  React.useEffect(() => {
+    setMode(theme.mode);
+  }, [theme.mode]);
+
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background}}>
+      <StatusBar backgroundColor={theme.colors.background} />
+      <View style={{ backgroundColor: theme.colors.background, flex: 1 }}>{children}</View>
+    </SafeAreaView>
+  );
+};
+
 const App = () => {
   const [token, setToken] = useState(null);
   const [userData, setUserData] = useState(null);
@@ -52,13 +75,26 @@ const App = () => {
     roleSpecificDataState: [roleSpecificData, setRoleSpecificData],
   };
 
+  const colors = theme.mode === 'dark' ? theme.darkColors : theme.lightColors
+
+  const MyTheme = {
+    dark: false,
+    colors: {
+      primary: colors.primary,
+      background: colors.background,
+      card: colors.background,
+      text: colors.black,
+      border: colors.black,
+      notification: colors.error,
+    },
+  };
+
   return (
     <UserContext.Provider value={userContextData}>
+      <ThemeProvider theme={theme}>
         <SafeAreaProvider>
-          <SafeAreaView style={styles.safeAreaView}>
-            <StatusBar backgroundColor={Resources.Colors.BackgroundColorBlack} />
-            <PaperProvider theme={{...MD3DarkTheme, DarkTheme}}>
-              <NavigationContainer theme={DarkTheme}>
+            <ColorScheme>
+              <NavigationContainer theme={MyTheme}>
                 {userData === null && <AuthStack />}
                 {userData !== null && userData?.role === 'SportsClubAdmin' && (
                   <Suspense fallback={LoadingScreen()}>
@@ -76,18 +112,11 @@ const App = () => {
                   </Suspense>
                 )}
               </NavigationContainer>
-            </PaperProvider>
-          </SafeAreaView>
+            </ColorScheme>
         </SafeAreaProvider>
+      </ThemeProvider>
     </UserContext.Provider>
   );
 };
-
-const styles = StyleSheet.create({
-  safeAreaView: {
-    flex: 1,
-    backgroundColor: Resources.Colors.BackgroundColorBlack,
-  },
-});
 
 export default App;

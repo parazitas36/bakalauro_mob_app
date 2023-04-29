@@ -9,38 +9,41 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Resources from '../../Resources';
 import { scale } from 'react-native-size-matters';
 import Animated, { FadeInLeft } from 'react-native-reanimated';
+import { useTheme } from '@rneui/themed';
 
 const UserHome = ({navigation}) => {
+  const {theme} = useTheme();
+
   return (
     <Animated.ScrollView
       entering={FadeInLeft}
-      style={styles.view}
-      contentContainerStyle={styles.viewContainer}>
-      <View style={styles.flexRow}>
+      style={styles({theme: theme}).view}
+      contentContainerStyle={styles({theme: theme}).viewContainer}>
+      <View style={styles({theme: theme}).flexRow}>
         <CustomButtonWithIcon
-          icon={() => <MaterialCommunityIcons name="newspaper-variant-outline" color={Resources.Colors.IconsColor} size={scale(20)} />}
+          icon={() => <MaterialCommunityIcons name="newspaper-variant-outline" color={theme.colors.black} size={scale(20)} />}
           onPress={() => navigation.navigate('UserForms')}
           btnText="My forms"
-          styles={styles}
+          styles={styles({theme: theme})}
         />
         <CustomButtonWithIcon
-          icon={() => <FontAwesome5 name="weight" color={Resources.Colors.IconsColor} size={scale(20)} />}
+          icon={() => <FontAwesome5 name="weight" color={theme.colors.black} size={scale(20)} />}
           btnText="My body measurements"
-          styles={styles}
+          styles={styles({theme: theme})}
         />
       </View>
-      <View style={styles.flexRow}>
+      <View style={styles({theme: theme}).flexRow}>
       <CustomButtonWithIcon
-          icon={() => <Entypo name="sports-club" color={Resources.Colors.IconsColor} size={scale(20)} />}
+          icon={() => <Entypo name="sports-club" color={theme.colors.black} size={scale(20)} />}
           btnText="Sports clubs"
           onPress={() => navigation.navigate('SportsClubs')}
-          styles={styles}
+          styles={styles({theme: theme})}
         />
         <CustomButtonWithIcon
-          icon={() => <Ionicons name="people" color={Resources.Colors.IconsColor} size={scale(20)} />}
+          icon={() => <Ionicons name="people" color={theme.colors.black} size={scale(20)} />}
           btnText="Trainers"
           onPress={() => navigation.navigate('Trainers')}
-          styles={styles}
+          styles={styles({theme: theme})}
         />
       </View>
     </Animated.ScrollView>

@@ -9,11 +9,14 @@ import {GetCall} from '../../api/GetCall';
 import { Text } from 'react-native';
 import { FlatList } from 'react-native';
 import SportsClubCard from '../../components/sportsClubCard';
+import { useTheme } from '@rneui/themed';
 
 const SportsClubs = ({navigation}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
+
+  const {theme} = useTheme();
 
   const [sportsClubs, setSportsClubs] = useState(null);
 
@@ -40,12 +43,12 @@ const SportsClubs = ({navigation}) => {
         <LoadingScreen />
       ) : (
         <Animated.View
-          style={styles.view}
+          style={styles({theme: theme}).view}
           entering={FadeInDown.delay(100)}
           exiting={FadeOutUp}>
-          <Animated.Text style={styles.heading}>{'Sports Clubs'}</Animated.Text>
-          {sportsClubs?.length === 0 ? <Text style={styles.text}>{'No sports clubs'}</Text> :
-          <FlatList data={sportsClubs} renderItem={({item}) => SportsClubCard({data: item, navigation: navigation, token: token})}/>}
+          <Animated.Text style={styles({theme: theme}).heading}>{'Sports Clubs'}</Animated.Text>
+          {sportsClubs?.length === 0 ? <Text style={styles({theme: theme}).text}>{'No sports clubs'}</Text> :
+          <FlatList data={sportsClubs} renderItem={({item}) => SportsClubCard({data: item, navigation: navigation, token: token, theme: theme})}/>}
         </Animated.View>
       )}
     </Suspense>

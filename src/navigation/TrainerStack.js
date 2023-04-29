@@ -3,8 +3,9 @@ import {createStackNavigator} from '@react-navigation/stack';
 import React, {Suspense, useState} from 'react';
 import {LoadingScreen, TrainerContext} from '../../App';
 import Resources from '../Resources';
-import Icon from 'react-native-vector-icons/FontAwesome5'
-import { verticalScale } from 'react-native-size-matters';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import {verticalScale} from 'react-native-size-matters';
+import {useTheme} from '@rneui/themed';
 
 const TrainerTabNavigator = createMaterialBottomTabNavigator();
 const TrainerHomeStackNavigator = createStackNavigator();
@@ -15,11 +16,17 @@ const TrainerHome = React.lazy(() => import('../screens/trainerHome'));
 const CreateExercise = React.lazy(() => import('../screens/createExercise'));
 const Exercises = React.lazy(() => import('../screens/exercises'));
 const Exercise = React.lazy(() => import('../screens/exercise'));
-const CreateExerciseGuide = React.lazy(() => import('../screens/createExerciseGuide'));
+const CreateExerciseGuide = React.lazy(() =>
+  import('../screens/createExerciseGuide'),
+);
 const TrainingPlans = React.lazy(() => import('../screens/trainingPlans'));
-const CreateTrainingPlan = React.lazy(() => import('../screens/createTrainingPlan'));
+const CreateTrainingPlan = React.lazy(() =>
+  import('../screens/createTrainingPlan'),
+);
 const AddExerciseSets = React.lazy(() => import('../screens/addExerciseSets'));
-const TrainingPlanScreen = React.lazy(() => import('../screens/trainingPlanScreen'));
+const TrainingPlanScreen = React.lazy(() =>
+  import('../screens/trainingPlanScreen'),
+);
 
 const TrainerHomeStack = () => {
   return (
@@ -98,6 +105,7 @@ const TrainerTrainingPlansStack = () => {
 };
 
 const TrainerTab = () => {
+  const {theme} = useTheme();
   const [guide, setGuide] = useState([]);
   const [refreshExercises, setRefreshExercises] = useState(false);
   const [refreshTrainingPlans, setRefreshTrainingPlans] = useState(false);
@@ -118,15 +126,15 @@ const TrainerTab = () => {
     <TrainerContext.Provider value={context}>
       <TrainerTabNavigator.Navigator
         initialRouteName={'HomeStack'}
-        activeColor="#f0edf6"
-        inactiveColor="#2089DC"
-        barStyle={{backgroundColor: 'black'}}>
+        activeColor={theme.colors.primary}
+        inactiveColor={theme.mode === 'dark' ? theme.colors.greyOutline : theme.colors.secondary}
+        barStyle={{backgroundColor: theme.colors.background, borderTopColor: theme.colors.black, borderTopWidth: 0.2}}>
         <TrainerTabNavigator.Screen
           name={'HomeStack'}
           component={TrainerHomeStack}
           options={{
             tabBarLabel: Resources.Screens.Home,
-            tabBarIcon: ({ color }) => (
+            tabBarIcon: ({color}) => (
               <Icon name="home" color={color} size={verticalScale(18)} />
             ),
           }}
@@ -136,7 +144,7 @@ const TrainerTab = () => {
           component={TrainerExercisesStack}
           options={{
             tabBarLabel: Resources.Screens.Exercises,
-            tabBarIcon: ({ color }) => (
+            tabBarIcon: ({color}) => (
               <Icon name="dumbbell" color={color} size={verticalScale(18)} />
             ),
           }}
@@ -146,8 +154,12 @@ const TrainerTab = () => {
           component={TrainerTrainingPlansStack}
           options={{
             tabBarLabel: Resources.Screens.TrainingPlans,
-            tabBarIcon: ({ color }) => (
-              <Icon name="clipboard-list" color={color} size={verticalScale(18)} />
+            tabBarIcon: ({color}) => (
+              <Icon
+                name="clipboard-list"
+                color={color}
+                size={verticalScale(18)}
+              />
             ),
           }}
         />
@@ -158,7 +170,6 @@ const TrainerTab = () => {
 
 const TrainerNavigator = createStackNavigator();
 const TrainerStack = ({roleSpecificData}) => {
-
   return (
     <Suspense fallback={LoadingScreen()}>
       <TrainerNavigator.Navigator

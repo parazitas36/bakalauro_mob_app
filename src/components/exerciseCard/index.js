@@ -4,15 +4,15 @@ import styles from './styles'
 import CustomButton from '../customButton'
 import Resources from '../../Resources'
 
-const ExerciseCard = ({data, navigation}) => {
+const ExerciseCard = ({data, navigation, theme}) => {
 console.log(data)
   return (
-    <View style={styles.card}>
-        <View style={styles.titleView}>
-            <Text style={styles.titleText}>{data.name}</Text>
+    <View style={styles({theme: theme}).card}>
+        <View style={styles({theme: theme}).titleView}>
+            <Text style={styles({theme: theme}).titleText}>{data.name}</Text>
         </View>
         {data.hasGuide ? <CustomButton 
-          styles={styles}
+          styles={styles({theme: theme})}
           btnText='Show guide'
           onPress={() => navigation.navigate({name: 'Exercise', params: {exerciseId: data.id}})}/> : null}
     </View>

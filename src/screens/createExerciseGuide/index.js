@@ -16,6 +16,7 @@ import GuideBlock from '../../components/guideBlock';
 import TextInputModal from '../../components/textInputModal';
 import {launchImageLibrary} from 'react-native-image-picker';
 import CustomButton from '../../components/customButton';
+import { useTheme } from '@rneui/themed';
 
 const CreateExerciseGuide = ({navigation, route}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
@@ -30,6 +31,8 @@ const CreateExerciseGuide = ({navigation, route}) => {
   const [blocks, setBlocks] = useState(guide);
   const [currentId, setCurrentId] = useState(blocks?.length ?? 0);
 
+  const {theme} = useTheme();
+
   const blockList = useMemo(() => {
     return blocks.map((x, i) => (
       <GuideBlock
@@ -38,6 +41,7 @@ const CreateExerciseGuide = ({navigation, route}) => {
         data={x}
         blocksState={[blocks, setBlocks]}
         idState={[currentId, setCurrentId]}
+        theme={theme}
       />
     ));
   }, [blocks]);
@@ -107,37 +111,37 @@ const CreateExerciseGuide = ({navigation, route}) => {
         idState={[currentId, setCurrentId]}
       />
       <Animated.ScrollView
-        style={styles.view}
-        contentContainerStyle={styles.viewContainer}
+        style={styles({theme: theme}).view}
+        contentContainerStyle={styles({theme: theme}).viewContainer}
         entering={FadeInDown.delay(100)}
         exiting={FadeOutUp}>
-        <Animated.Text style={styles.heading}>{Resources.Texts.ExerciseGuideCreation}</Animated.Text>
+        <Animated.Text style={styles({theme: theme}).heading}>{Resources.Texts.ExerciseGuideCreation}</Animated.Text>
         {blocks.length > 0 ? blockList : null}
-        <View style={styles.addView}>
-          <Text style={styles.text}>{Resources.Texts.ChooseBlockToAdd}</Text>
-          <View style={styles.buttonsWindow}>
+        <View style={styles({theme: theme}).addView}>
+          <Text style={styles({theme: theme}).text}>{Resources.Texts.ChooseBlockToAdd}</Text>
+          <View style={styles({theme: theme}).buttonsWindow}>
             <CustomButtonWithIcon
               btnText={Resources.ButtonTexts.Image}
-              icon={() => { return <Icon name="image" size={verticalScale(Resources.Sizes.AddBlockIconSize)} color={Resources.Colors.IconsColor} /> }}
+              icon={() => { return <Icon name="image" size={verticalScale(Resources.Sizes.AddBlockIconSize)} color={theme.colors.black} /> }}
               onPress={async() => await addImage()}
-              styles={styles}
+              styles={styles({theme: theme})}
             />
             <CustomButtonWithIcon
               btnText={Resources.ButtonTexts.Text}
-              icon={() => { return <Icon name="keyboard" size={verticalScale(Resources.Sizes.AddBlockIconSize)} color={Resources.Colors.IconsColor} /> }}
+              icon={() => { return <Icon name="keyboard" size={verticalScale(Resources.Sizes.AddBlockIconSize)} color={theme.colors.black} /> }}
               onPress={() => setTextInputVisible(true)}
-              styles={styles}
+              styles={styles({theme: theme})}
             />
             <CustomButtonWithIcon
               btnText={Resources.ButtonTexts.Video}
-              icon={() => { return <Icon name="video" size={verticalScale(Resources.Sizes.AddBlockIconSize)} color={Resources.Colors.IconsColor} /> }}
+              icon={() => { return <Icon name="video" size={verticalScale(Resources.Sizes.AddBlockIconSize)} color={theme.colors.black} /> }}
               onPress={async () => await addVideo()}
-              styles={styles}
+              styles={styles({theme: theme})}
             />
           </View>
         </View>
         <CustomButton
-          styles={{btnText: styles.btnText, button: styles.saveButton}}
+          styles={{btnText: styles({theme: theme}).btnText, button: styles({theme: theme}).saveButton}}
           btnText={Resources.ButtonTexts.SaveBtnText}
           onPress={SavePress} />
       </Animated.ScrollView>

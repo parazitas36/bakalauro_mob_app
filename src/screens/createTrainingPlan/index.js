@@ -15,6 +15,7 @@ import {GetCall} from '../../api/GetCall';
 import TrainingPlanWeeklyExercises from '../../components/trainingPlanWeeklyExercises';
 import CustomButton from '../../components/customButton';
 import { PostCall } from '../../api/PostCall';
+import { useTheme } from '@rneui/themed';
 
 export const TrainingPlanContext = createContext();
 
@@ -26,6 +27,7 @@ const CreateTrainingPlan = ({navigation}) => {
   const {keyState, weeksState, exercisesState,refreshTrainingPlansState} = useContext(TrainerContext);
   const [refreshTrainingPlans, setRefreshTrainingPlans] = refreshTrainingPlansState;
   const [exercises, setExercises] = exercisesState;
+  const {theme} = useTheme()
 
   const [trainingPlanName, setTrainingPlanName] = useState(null);
   const [trainingPlanType, setTrainingPlanType] = useState(null);
@@ -174,14 +176,14 @@ const CreateTrainingPlan = ({navigation}) => {
       <TrainingPlanContext.Provider value={contextData}>
         {exercises === null ? <LoadingScreen /> : 
           <ScrollView
-            style={styles.view}
-            contentContainerStyle={styles.viewContent}>
+            style={styles({theme: theme}).view}
+            contentContainerStyle={styles({theme: theme}).viewContent}>
             <TextInput
               value={trainingPlanName}
               onChangeText={setTrainingPlanName}
               placeholder={Resources.Placeholders.TrainingPlanName}
               placeholderTextColor={Resources.Colors.PlaceholdersColor}
-              style={styles.textInput}
+              style={styles({theme: theme}).textInput}
             />
             {TargetedMuscleGroups.length > 0 && <TrainingPlanExercisesInfo muscleGroups={TargetedMuscleGroups}/>}
             {weeks?.map((x, i) => {
@@ -191,19 +193,20 @@ const CreateTrainingPlan = ({navigation}) => {
                   planWeek={x.Week}
                   navigation={navigation}
                   editMode={true}
+                  theme={theme}
                 />
               );
             })}
-            <View style={styles.flexRow}>
+            <View style={styles({theme: theme}).flexRow}>
               {ExercisesCount > 0 && <CustomButton
                 btnText={Resources.ButtonTexts.Confirm}
                 onPress={async() => await SaveTrainingPlan()}
-                styles={styles}
+                styles={styles({theme: theme})}
               />}
               <CustomButton
                 btnText={'Next week'}
                 onPress={AddNextWeek}
-                styles={styles}
+                styles={styles({theme: theme})}
               />
             </View>
           </ScrollView>

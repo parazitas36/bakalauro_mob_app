@@ -1,9 +1,8 @@
-import {Text, ToastAndroid, View} from 'react-native';
+import {Text} from 'react-native';
 import React, {Suspense} from 'react';
 import styles from './styles';
 import {LoadingScreen, TrainerContext, UserContext} from '../../../App';
 import {useContext} from 'react';
-import {TextInput} from 'react-native-gesture-handler';
 import {useState, useMemo} from 'react';
 import Resources from '../../Resources';
 import {ScrollView} from 'react-native';
@@ -11,8 +10,8 @@ import {useEffect} from 'react';
 import {ApiConstants} from '../../api/ApiConstants';
 import {GetCall} from '../../api/GetCall';
 import TrainingPlanWeeklyExercises from '../../components/trainingPlanWeeklyExercises';
-import CustomButton from '../../components/customButton';
 import { PostCall } from '../../api/PostCall';
+import { useTheme } from '@rneui/themed';
 
 
 const TrainingPlanScreen = ({navigation, route}) => {
@@ -27,6 +26,8 @@ const TrainingPlanScreen = ({navigation, route}) => {
   const [exercises, setExercises] = exercisesState;
 
   const [trainingPlanData, setTrainingPlanData] = useState(null)
+
+  const {theme} = useTheme();
 
   const ExercisesCount = useMemo(() => {
     // if(weeks?.length > 0) {
@@ -99,9 +100,9 @@ const TrainingPlanScreen = ({navigation, route}) => {
     <Suspense fallback={LoadingScreen()}>
         {trainingPlanData === null ? <LoadingScreen /> : 
           <ScrollView
-            style={styles.view}
-            contentContainerStyle={styles.viewContent}>
-              <Text style={styles.heading}>{trainingPlanData.name}</Text>
+            style={styles({theme: theme}).view}
+            contentContainerStyle={styles({theme: theme}).viewContent}>
+              <Text style={styles({theme: theme}).heading}>{trainingPlanData.name}</Text>
             {trainingPlanData?.weeklyPlan?.map((x, i) => {
               return (
                 <TrainingPlanWeeklyExercises
@@ -110,6 +111,7 @@ const TrainingPlanScreen = ({navigation, route}) => {
                   navigation={navigation}
                   fetchedWeeklyPlan={trainingPlanData?.weeklyPlan}
                   editMode={false}
+                  theme={theme}
                 />
               );
             })}

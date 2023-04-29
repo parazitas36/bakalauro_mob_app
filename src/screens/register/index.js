@@ -1,6 +1,5 @@
 import {View, Text, Switch} from 'react-native';
 import React, {useMemo, useState} from 'react';
-import styles from './styles';
 import Resources from '../../Resources';
 import {TextInput} from 'react-native-gesture-handler';
 import {Validation} from './validation';
@@ -17,48 +16,24 @@ import {ScrollView} from 'react-native';
 import {RegisterCall} from '../../api/RegisterCall';
 import {ToastAndroid} from 'react-native';
 import {LogBox} from 'react-native';
-import { RadioGroup } from 'react-native-radio-buttons-group';
+import styles from './styles';
+import { ButtonGroup, useTheme } from '@rneui/themed';
 
 const Register = ({navigation}) => {
   LogBox.ignoreLogs([
     'We can not support a function callback. See Github Issues for details https://github.com/adobe/react-spectrum/issues/2320',
   ]);
+
+  const {theme} = useTheme();
+
   const [name, setName] = useState(null);
   const [surname, setSurname] = useState(null);
   const [username, setUsername] = useState(null);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
-  const [role, setRole] = useState(null)
+  const [role, setRole] = useState(0)
   const [repeatPassword, setRepeatPassword] = useState(null);
-  const [radioButtons, setRadioButtons] = useState([
-    {
-      id: '0',
-      label: 'Sports Club Admin',
-      value: 0,
-      labelStyle: {
-        color: Resources.Colors.TextColorWhite,
-        fontSize: Resources.FontSize.regularText *.8,
-      }
-    },
-    {
-      id: '1',
-      label: 'Trainer',
-      value: 1,
-      labelStyle: {
-        color: Resources.Colors.TextColorWhite,
-        fontSize: Resources.FontSize.regularText *.8,
-      }
-    },
-    {
-      id: '2',
-      label: 'User',
-      value: 2,
-      labelStyle: {
-        color: Resources.Colors.TextColorWhite,
-        fontSize: Resources.FontSize.regularText *.8,
-      }
-    }
-  ]);
+
   const [validation, setValidation] = useState(null);
   const [loading, setLoading] = useState(false);
   const [registerError, setRegisterError] = useState(null);
@@ -85,11 +60,6 @@ const Register = ({navigation}) => {
     validationMemo?.validRepeatPassword &&
     validationMemo?.validUsername &&
     validationMemo?.validRole;
-
-  const onPressRadioButton = (radioButtonsArray) => {
-    setRole(radioButtons?.find(x => x.selected === true)?.value)
-    setRadioButtons(radioButtonsArray)
-  }
 
   const RegisterPress = async () => {
     setRegisterError(false);
@@ -129,12 +99,14 @@ const Register = ({navigation}) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollView}>
+    <ScrollView
+      style={styles({theme: theme}).scrollViewBackground}
+      contentContainerStyle={styles({theme: theme}).scrollView}>
       <Animated.View
         entering={FadeInDown.delay(100)}
         exiting={FadeOutDown}
         style={styles.view}>
-        <Text style={styles.heading}>
+        <Text style={styles({theme: theme}).heading}>
           {Resources.Texts.RegisterHeadingText}
         </Text>
         {registerError !== null && (
@@ -145,35 +117,35 @@ const Register = ({navigation}) => {
             {registerError}
           </Animated.Text>
         )}
-        <View style={styles.dividedView}>
-          <View style={styles.partOfDividedView}>
+        <View style={styles({theme: theme}).dividedView}>
+          <View style={styles({theme: theme}).partOfDividedView}>
             <TextInput
-              style={styles.dividedTextInput}
+              style={styles({theme: theme}).dividedTextInput}
               onChangeText={setName}
               maxLength={15}
               placeholder={Resources.Placeholders.Name}
-              placeholderTextColor={Resources.Colors.PlaceholdersColor}
+              placeholderTextColor={theme.colors.grey2}
             />
             {validation?.validName === false && (
               <Animated.Text
-                style={styles.errors}
+                style={styles({theme: theme}).errors}
                 entering={FadeInLeft}
                 exiting={FadeOutLeft}>
                 {Resources.ValidationMessages.NameInvalid}
               </Animated.Text>
             )}
           </View>
-          <View style={styles.partOfDividedView}>
+          <View style={styles({theme: theme}).partOfDividedView}>
             <TextInput
-              style={styles.dividedTextInput}
+              style={styles({theme: theme}).dividedTextInput}
               onChangeText={setSurname}
               maxLength={15}
               placeholder={Resources.Placeholders.Surname}
-              placeholderTextColor={Resources.Colors.PlaceholdersColor}
+              placeholderTextColor={theme.colors.grey2}
             />
             {validation?.validSurname === false && (
               <Animated.Text
-                style={styles.errors}
+                style={styles({theme: theme}).errors}
                 entering={FadeInRight}
                 exiting={FadeOutRight}>
                 {Resources.ValidationMessages.SurnameInvalid}
@@ -182,68 +154,77 @@ const Register = ({navigation}) => {
           </View>
         </View>
         <TextInput
-          style={styles.textInput}
+          style={styles({theme: theme}).textInput}
           onChangeText={setUsername}
           maxLength={15}
           placeholder={Resources.Placeholders.Username}
-          placeholderTextColor={Resources.Colors.PlaceholdersColor}
+          placeholderTextColor={theme.colors.grey2}
         />
         {validation?.validUsername === false && (
           <Animated.Text
-            style={styles.errorsFlexStart}
+            style={styles({theme: theme}).errorsFlexStart}
             entering={FadeInLeft}
             exiting={FadeOutRight}>
             {Resources.ValidationMessages.UsernameInvalid}
           </Animated.Text>
         )}
         <TextInput
-          style={styles.textInput}
+          style={styles({theme: theme}).textInput}
           onChangeText={setEmail}
           maxLength={50}
           placeholder={Resources.Placeholders.Email}
-          placeholderTextColor={Resources.Colors.PlaceholdersColor}
+          placeholderTextColor={theme.colors.grey2}
         />
         {validation?.validEmail === false && (
           <Animated.Text
-            style={styles.errorsFlexStart}
+            style={styles({theme: theme}).errorsFlexStart}
             entering={FadeInLeft}
             exiting={FadeOutRight}>
             {Resources.ValidationMessages.EmailInvalid}
           </Animated.Text>
         )}
         <TextInput
-          style={styles.textInput}
+          style={styles({theme: theme}).textInput}
           onChangeText={setPassword}
           secureTextEntry={true}
           maxLength={15}
           placeholder={Resources.Placeholders.Password}
-          placeholderTextColor={Resources.Colors.PlaceholdersColor}
+          placeholderTextColor={theme.colors.grey2}
         />
         {validation?.validPassword === false && (
           <Animated.Text
-            style={styles.errorsFlexStart}
+            style={styles({theme: theme}).errorsFlexStart}
             entering={FadeInLeft}
             exiting={FadeOutRight}>
             {Resources.ValidationMessages.PasswordInvalid}
           </Animated.Text>
         )}
         <TextInput
-          style={styles.textInput}
+          style={styles({theme: theme}).textInput}
           onChangeText={setRepeatPassword}
           secureTextEntry={true}
           maxLength={15}
           placeholder={Resources.Placeholders.RepeatPassword}
-          placeholderTextColor={Resources.Colors.PlaceholdersColor}
+          placeholderTextColor={theme.colors.grey2}
         />
         {validation?.validRepeatPassword === false && (
           <Animated.Text
-            style={styles.errorsFlexStart}
+            style={styles({theme: theme}).errorsFlexStart}
             entering={FadeInLeft}
             exiting={FadeOutRight}>
             {Resources.ValidationMessages.RepeatPasswordInvalid}
           </Animated.Text>
         )}
-        <RadioGroup radioButtons={radioButtons} onPress={onPressRadioButton} layout="row" />
+        <ButtonGroup
+          buttons={[Resources.Roles.SportsClubAdmin, Resources.Roles.Trainer, Resources.Roles.User]}
+          selectedIndex={role}
+          onPress={(value) => setRole(value)}
+          selectedTextStyle={{color: theme.colors.white, fontWeight: '700'}}
+          selectedButtonStyle={{backgroundColor: theme.colors.black}}
+          disabledSelectedStyle={{backgroundColor: theme.colors.grey5}}
+          buttonStyle={{backgroundColor: theme.colors.grey4}}
+          textStyle={{color: theme.colors.black, textAlign: 'center'}}
+        />
         {validation?.validRole === false && (
           <Animated.Text
             style={styles.errors}
@@ -255,17 +236,17 @@ const Register = ({navigation}) => {
         <View style={{flexDirection: 'row', gap: 10, justifyContent: 'center', alignItems: 'center'}}>
           <Text
             style={{
-              ...styles.btnText,
+              ...styles({theme: theme}).btnText,
               color:
                 imperialSystem === false
-                  ? Resources.Colors.TextColorWhite
-                  : Resources.Colors.PlaceholdersColor,
+                  ? theme.colors.black
+                  : theme.colors.grey3,
             }}>
             {Resources.Texts.MetricSystem}
           </Text>
           <Switch
-            trackColor={{false: Resources.Colors.TrackColorFalse, true: Resources.Colors.TrackColorTrue}}
-            thumbColor={Resources.Colors.ThumbColor}
+            trackColor={{false: theme.colors.grey2, true: theme.colors.grey3}}
+            thumbColor={theme.colors.black}
             onValueChange={value => {
               setImperialSystem(value);
             }}
@@ -273,17 +254,17 @@ const Register = ({navigation}) => {
           />
           <Text
             style={{
-              ...styles.btnText,
+              ...styles({theme: theme}).btnText,
               color:
                 imperialSystem === true
-                  ? Resources.Colors.TextColorWhite
-                  : Resources.Colors.PlaceholdersColor,
+                  ? theme.colors.black
+                  : theme.colors.grey3,
             }}>
             {Resources.Texts.ImperialSystem}
           </Text>
         </View>
         <CustomButton
-          styles={styles}
+          styles={styles({theme: theme})}
           btnText={Resources.ButtonTexts.RegisterBtnText}
           onPress={async () => await RegisterPress()}
           loading={loading === true}
