@@ -16,14 +16,16 @@ import { ToastAndroid } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { Image } from 'react-native';
 import { PostFormData } from '../../api/PostFormData';
+import { useTheme } from '@rneui/themed';
 
 const CreateFacility = ({navigation}) => {
-  const {tokenState, userDataState, roleSpecificDataState} =
-    useContext(UserContext);
+  const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
   const [modalVisible, setModalVisible] = useState(false);
+
+  const {theme} = useTheme();
 
   const {reloadFacilitiesState} = useContext(SportsClubContext)
   const [reloadFacilities, setReloadFacilities] = reloadFacilitiesState;
@@ -125,8 +127,8 @@ const CreateFacility = ({navigation}) => {
 
   return (
     <Suspense fallback={LoadingScreen()}>
-      <Animated.View style={styles.view} entering={FadeInDown.delay(100)} exiting={FadeOutUp}>
-        <Animated.Text style={styles.heading}>
+      <Animated.View style={styles({theme: theme}).view} entering={FadeInDown.delay(100)} exiting={FadeOutUp}>
+        <Animated.Text style={styles({theme: theme}).heading}>
           {Resources.Texts.FillFacilityInfo}
         </Animated.Text>
         <CountriesModal
@@ -136,49 +138,49 @@ const CreateFacility = ({navigation}) => {
           country={country}
         />
         <TouchableOpacity onPress={() => setModalVisible(prev => !prev)}>
-          <Text style={styles.countryButton}>
+          <Text style={styles({theme: theme}).countryButton}>
             {country === null ? Resources.Texts.PickCountryText
             : `${Resources.Texts.SelectedCountryText}: ${country}`}
           </Text>
         </TouchableOpacity>
         {validation?.validCountry === false && (
                 <Animated.Text
-                  style={styles.errors}
+                  style={styles({theme: theme}).errors}
                   entering={FadeInLeft}
                   exiting={FadeOutLeft}>
                 {Resources.ValidationMessages.CountryInvalid}
                 </Animated.Text>
               )}
         <TextInput
-          style={styles.textInput}
+          style={styles({theme: theme}).textInput}
           placeholder={Resources.Placeholders.City}
           placeholderTextColor={Resources.Colors.PlaceholdersColor}
           onChangeText={setCity}
         />
         {validation?.validCity === false && (
               <Animated.Text
-                style={styles.errors}
+                style={styles({theme: theme}).errors}
                 entering={FadeInLeft}
                 exiting={FadeOutLeft}>
                 {Resources.ValidationMessages.CityInvalid}
               </Animated.Text>
             )}
         <TextInput
-          style={styles.textInput}
+          style={styles({theme: theme}).textInput}
           placeholder={Resources.Placeholders.StreetAddress}
           placeholderTextColor={Resources.Colors.PlaceholdersColor}
           onChangeText={setAddress}
         />
         {validation?.validAddress === false && (
               <Animated.Text
-                style={styles.errors}
+                style={styles({theme: theme}).errors}
                 entering={FadeInLeft}
                 exiting={FadeOutLeft}>
                 {Resources.ValidationMessages.StreetAddressInvalid}
               </Animated.Text>
             )}
         <TextInput
-          style={styles.textInput}
+          style={styles({theme: theme}).textInput}
           placeholder={Resources.Placeholders.Email}
           placeholderTextColor={Resources.Colors.PlaceholdersColor}
           onChangeText={setEmail}
@@ -186,14 +188,14 @@ const CreateFacility = ({navigation}) => {
         />
         {validation?.validEmail === false && (
               <Animated.Text
-                style={styles.errors}
+                style={styles({theme: theme}).errors}
                 entering={FadeInLeft}
                 exiting={FadeOutLeft}>
                 {Resources.ValidationMessages.EmailInvalid}
               </Animated.Text>
             )}
         <TextInput
-          style={styles.textInput}
+          style={styles({theme: theme}).textInput}
           placeholder={Resources.Placeholders.Phone}
           placeholderTextColor={Resources.Colors.PlaceholdersColor}
           onChangeText={setPhone}
@@ -201,7 +203,7 @@ const CreateFacility = ({navigation}) => {
         />
         {validation?.validPhone === false && (
               <Animated.Text
-                style={styles.errors}
+                style={styles({theme: theme}).errors}
                 entering={FadeInLeft}
                 exiting={FadeOutLeft}>
                 {Resources.ValidationMessages.PhoneNumberInvalid}
@@ -209,11 +211,14 @@ const CreateFacility = ({navigation}) => {
             )}
         {image !== null ? <Image source={{uri: image?.uri}} style={{height: 100, width: 100}} /> : null}
         <CustomButton
-          styles={styles}
+          styles={styles({theme: theme})}
           btnText={image === null ? 'Select image' : 'Change image'}
           onPress={async () => await addImage()}
         />
-        <CustomButton btnText={Resources.ButtonTexts.SaveBtnText} onPress={async() => await SavePress()} styles={styles}/>
+        <CustomButton 
+          btnText={Resources.ButtonTexts.SaveBtnText}
+          onPress={async() => await SavePress()}
+          styles={styles({theme: theme})}/>
       </Animated.View>
     </Suspense>
   );

@@ -16,6 +16,7 @@ import CustomButton from '../../components/customButton';
 import { PostCall } from '../../api/PostCall';
 import { ToastAndroid } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { useTheme } from '@rneui/themed';
 
 const Trainer = ({navigation, route}) => {
   const trainerId = route?.params?.trainerId;
@@ -24,6 +25,8 @@ const Trainer = ({navigation, route}) => {
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
+
+  const {theme} = useTheme();
 
   const [trainerData, setTrainerData] = useState(null);
   const [rating, setRating] = useState(null);
@@ -36,7 +39,7 @@ const Trainer = ({navigation, route}) => {
     return (
       <TouchableOpacity onPress={() => setRating(starRating)}>
         <FontAwesome 
-          color={Resources.Colors.IconsColor} 
+          color={theme.colors.warning} 
           size={20} 
           name={starRating > rating || rating === null ? 'star-o' : 'star'} />
       </TouchableOpacity>
@@ -91,31 +94,31 @@ const Trainer = ({navigation, route}) => {
   return (
     <Suspense fallback={LoadingScreen()}>
       {trainerData === null ? LoadingScreen() : 
-      <View style={styles.view}>
-        <Text style={styles.heading}>{trainerData?.trainer?.username}</Text>
-        <View style={styles.details}>
-          <View style={styles.flexRow}>
-            <View style={styles.subView}>
-              <Text style={styles.boldText}>Contacts</Text>
+      <View style={styles({theme: theme}).view}>
+        <Text style={styles({theme: theme}).heading}>{trainerData?.trainer?.username}</Text>
+        <View style={styles({theme: theme}).details}>
+          <View style={styles({theme: theme}).flexRow}>
+            <View style={styles({theme: theme}).subView}>
+              <Text style={styles({theme: theme}).boldText}>Contacts</Text>
               {trainerData?.trainer?.email && 
-              <Text style={styles.text}>{trainerData?.trainer?.email}</Text>}
+              <Text style={styles({theme: theme}).text}>{trainerData?.trainer?.email}</Text>}
               {trainerData?.trainer?.phone && 
-              <Text style={styles.text}>{trainerData?.trainer?.phone}</Text>}
+              <Text style={styles({theme: theme}).text}>{trainerData?.trainer?.phone}</Text>}
             </View>
-            <View style={{...styles.subView, alignItems: 'flex-end'}}>
-              <View style={styles.flexRow}>
-                <Text style={styles.text}>
+            <View style={{...styles({theme: theme}).subView, alignItems: 'flex-end'}}>
+              <View style={styles({theme: theme}).flexRow}>
+                <Text style={styles({theme: theme}).text}>
                   Rating:  {trainerData?.trainer?.averageRating ?? 0}
                 </Text>
-                <Icon name='star' color={Resources.Colors.IconsColor} size={20} />
+                <Icon name='star' color={theme.colors.warning} size={20} />
               </View>
             </View>
           </View>
         </View>
         <ReviewsList reviews={trainerData?.reviews}/>
-        <View style={styles.reviewView}>
-          <View style={styles.flexRow}>
-            <Text style={styles.ratingText}>Rating </Text>
+        <View style={styles({theme: theme}).reviewView}>
+          <View style={styles({theme: theme}).flexRow}>
+            <Text style={styles({theme: theme}).ratingText}>Rating </Text>
             {ratings.map(x => {
               return <RatingStar starRating={x} key={x} />
             })}
@@ -124,15 +127,15 @@ const Trainer = ({navigation, route}) => {
             multiline={true}
             numberOfLines={5}
             placeholder='Enter your review' 
-            placeholderTextColor={Resources.Colors.PlaceholdersColor}
+            placeholderTextColor={theme.mode === 'dark' ? theme.colors.black : theme.colors.white}
             value={reviewText}
             onChangeText={setReviewText}
-            style={styles.reviewText} />
+            style={styles({theme: theme}).reviewText} />
           <CustomButton
             btnText={trainerData?.reviews.filter(x => x.user.id === userData.id)?.length > 0 ? 
               'Update' : Resources.ButtonTexts.SaveBtnText}
             onPress={async() => await SendReview()}
-            styles={styles}
+            styles={styles({theme: theme})}
             disabled={reload === true}
             loading={reload === true}
           />

@@ -12,6 +12,7 @@ import { FAB } from '@rneui/base';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { PostCall } from '../../api/PostCall';
 import DialogInput from 'react-native-dialog-input';
+import { useTheme } from '@rneui/themed';
 
 const EquipmentList = ({facilityId, navigation, route}) => {
   const [reload, setReload] = useState(false);
@@ -22,6 +23,8 @@ const EquipmentList = ({facilityId, navigation, route}) => {
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
   const [selectedEquipmentId, setSelectedEquipmentId] = useState(null);
+
+  const {theme} = useTheme();
 
   const editAmountMode = route?.params?.editAmountMode;
 
@@ -64,13 +67,13 @@ const EquipmentList = ({facilityId, navigation, route}) => {
 
   const EquipmentItem = ({item}) => {
     if(!editAmountMode){
-      return Equipment({equipment: item, token: token})
+      return Equipment({equipment: item, token: token, theme: theme})
     }
 
     if(editAmountMode){
       return (
         <TouchableOpacity onPress={() => setSelectedEquipmentId(item.id)}>
-          {Equipment({equipment: item})}
+          {Equipment({equipment: item, theme: theme})}
         </TouchableOpacity>
       )
     }
@@ -86,7 +89,7 @@ const EquipmentList = ({facilityId, navigation, route}) => {
     <>
       {equipment === null ? LoadingScreen() : 
         <Animated.View
-          style={styles.view}
+          style={styles({theme: theme}).view}
           entering={FadeInUp.delay(300)}
           exiting={FadeOutDown}>
             <DialogInput isDialogVisible={selectedEquipmentId !== null}
@@ -97,8 +100,8 @@ const EquipmentList = ({facilityId, navigation, route}) => {
               keyboardType: 'numeric'
             }}
             closeDialog={() => setSelectedEquipmentId(null)}/>
-          {equipment !== null && <Text style={styles.equipmentText}>{`Equipment (${equipment?.length})`}</Text>}
-          {editAmountMode === true && <Text style={styles.instructionText}>{`Click on equipment to enter the amount`}</Text>}
+          {equipment !== null && <Text style={styles({theme: theme}).equipmentText}>{`Equipment (${equipment?.length})`}</Text>}
+          {editAmountMode === true && <Text style={styles({theme: theme}).instructionText}>{`Click on equipment to enter the amount`}</Text>}
           {equipment?.length > 0 ? 
             <FlatList 
               refreshControl={
@@ -109,12 +112,12 @@ const EquipmentList = ({facilityId, navigation, route}) => {
               } 
               data={equipment} 
               renderItem={({item, index}) => <EquipmentItem item={item} key={index} />} />
-            : <Text style={styles.noEquipmentText}>No equipment</Text>
+            : <Text style={styles({theme: theme}).noEquipmentText}>No equipment</Text>
           }
           {!editAmountMode && !facilityId && userData?.role === 'SportsClubAdmin' && 
           <FAB
             icon={{name: 'add', color: 'white'}}
-            color="#2089DC"
+            color={theme.colors.primary}
             size='small'
             placement='right'
             onPress={() => navigation.navigate({

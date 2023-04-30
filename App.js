@@ -58,7 +58,7 @@ const ColorScheme = ({ children }) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background}}>
-      <StatusBar backgroundColor={theme.colors.background} />
+      <StatusBar backgroundColor={theme.colors.white} barStyle={theme.mode === 'dark' ? 'light-content' : 'dark-content'} />
       <View style={{ backgroundColor: theme.colors.background, flex: 1 }}>{children}</View>
     </SafeAreaView>
   );

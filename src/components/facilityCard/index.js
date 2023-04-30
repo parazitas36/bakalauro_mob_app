@@ -3,7 +3,7 @@ import React from 'react'
 import styles from './styles'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-const FacilityCard = ({navigation, facility, sportsClubName}) => {
+const FacilityCard = ({navigation, facility, sportsClubName, theme}) => {
   const navigateToFacilityComponent = () => {
     navigation.navigate({
       name: 'Facility',
@@ -13,14 +13,14 @@ const FacilityCard = ({navigation, facility, sportsClubName}) => {
 
   return (
     <TouchableOpacity onPress={() => navigateToFacilityComponent()}>
-      <View style={styles.card}>
-          <View style={styles.cityView}>
-              <Text style={styles.cityText}>{facility.country}, {facility.city}</Text>
+      <View style={styles({theme: theme}).card}>
+          <View style={styles({theme: theme}).cityView}>
+              <Text style={styles({theme: theme}).cityText}>{facility.country}, {facility.city}</Text>
           </View>
-          <View style={styles.contactsView}>
-              <Text style={styles.contactsText}>Address: {facility.coordinates}</Text>
-              <Text style={styles.contactsText}>Email: {facility.contactInfo?.email}</Text>
-              <Text style={styles.contactsText}>Phone: {facility.contactInfo?.phoneNumber}</Text>
+          <View style={styles({theme: theme}).contactsView}>
+              <Text style={styles({theme: theme}).contactsText}>Address: {facility.coordinates}</Text>
+              <Text style={styles({theme: theme}).contactsText}>Email: {facility.contactInfo?.email}</Text>
+              <Text style={styles({theme: theme}).contactsText}>Phone: {facility.contactInfo?.phoneNumber}</Text>
           </View>
       </View>
     </TouchableOpacity>

@@ -8,12 +8,15 @@ import CustomButton from '../../components/customButton';
 import { ApiConstants } from '../../api/ApiConstants';
 import { PostCall } from '../../api/PostCall';
 import { ToastAndroid } from 'react-native';
+import { useTheme } from '@rneui/themed';
 
 const CreateSubscription = ({navigation}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
+
+  const {theme} = useTheme();
 
   const {reloadSubscriptionsState} = useContext(SportsClubContext)
   const [reloadSubscriptions, setReloadSubscriptions] = reloadSubscriptionsState;
@@ -50,28 +53,28 @@ const CreateSubscription = ({navigation}) => {
 
   return (
     <Suspense fallback={LoadingScreen()}>
-      <Animated.View style={styles.view} entering={FadeInDown.delay(100)} exiting={FadeOutUp}>
-        <Text style={styles.heading}>{Resources.Texts.CreateSubscription}</Text>
+      <Animated.View style={styles({theme: theme}).view} entering={FadeInDown.delay(100)} exiting={FadeOutUp}>
+        <Text style={styles({theme: theme}).heading}>{Resources.Texts.CreateSubscription}</Text>
         <TextInput
-          style={styles.textInput}
+          style={styles({theme: theme}).textInput}
           onChangeText={setName}
           placeholder={Resources.Placeholders.Name}
           placeholderTextColor={Resources.Colors.PlaceholdersColor}
         />
         <TextInput
-          style={styles.textInput}
+          style={styles({theme: theme}).textInput}
           onChangeText={setDetails}
           placeholder={Resources.Placeholders.Details}
           placeholderTextColor={Resources.Colors.PlaceholdersColor}
         />
         <TextInput
-          style={styles.textInput}
+          style={styles({theme: theme}).textInput}
           onChangeText={setPrice}
           placeholder={Resources.Placeholders.Price}
           placeholderTextColor={Resources.Colors.PlaceholdersColor}
         />
         <CustomButton
-          styles={styles}
+          styles={styles({theme: theme})}
           btnText={Resources.ButtonTexts.SaveBtnText} 
           onPress={async() => await SavePress()}/>
       </Animated.View>

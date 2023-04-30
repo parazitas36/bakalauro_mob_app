@@ -13,10 +13,10 @@ import {GetCall} from '../../api/GetCall';
 import {TextInput} from 'react-native-gesture-handler';
 import CustomButton from '../../components/customButton';
 import {Validation} from './validation';
-import { PostCall } from '../../api/PostCall';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { Image, ToastAndroid } from 'react-native';
 import { PostSportsClub } from '../../api/PostSportsClub';
+import { useTheme } from '@rneui/themed';
 
 const SportsClubCreation = ({navigation}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
@@ -31,6 +31,8 @@ const SportsClubCreation = ({navigation}) => {
   const [email, setEmail] = useState(userData?.contactInfo?.email);
   const [phone, setPhone] = useState(userData?.contactInfo?.phoneNumber);
   const [image, setImage] = useState(null)
+
+  const {theme} = useTheme();
 
   const validationMemo = useMemo(() => {
     return Validation(sportsClubName, description, email);
@@ -117,8 +119,8 @@ const SportsClubCreation = ({navigation}) => {
   return (
     <Suspense fallback={LoadingScreen()}>
       <Animated.ScrollView
-        style={styles.view}
-        contentContainerStyle={styles.container}
+        style={styles({theme: theme}).view}
+        contentContainerStyle={styles({theme: theme}).container}
         entering={FadeInLeft}
         exiting={FadeOutRight}>
         {roleSpecificData === null ? (
@@ -128,14 +130,14 @@ const SportsClubCreation = ({navigation}) => {
         ) : (
           <>
             <Animated.Text
-              style={styles.heading}
+              style={styles({theme: theme}).heading}
               entering={FadeInLeft.delay(300)}
               exiting={FadeOutRight}>
               {Resources.Texts.SportsClubCreationHeading}
             </Animated.Text>
             {error !== null && (
                 <Animated.Text
-                  style={styles.errors}
+                  style={styles({theme: theme}).errors}
                   entering={FadeInLeft}
                   exiting={FadeOutLeft}>
                   {error}
@@ -144,23 +146,23 @@ const SportsClubCreation = ({navigation}) => {
             <Animated.View
               entering={FadeInLeft.delay(300)}
               exiting={FadeOutRight}
-              style={styles.animatedView}>
+              style={styles({theme: theme}).animatedView}>
               <TextInput
-                style={styles.textInput}
+                style={styles({theme: theme}).textInput}
                 onChangeText={setSportsClubName}
                 placeholder={Resources.Placeholders.SportsClubName}
                 placeholderTextColor={Resources.Colors.PlaceholdersColor}
               />
               {validation?.validSportsClubName === false && (
                 <Animated.Text
-                  style={styles.errors}
+                  style={styles({theme: theme}).errors}
                   entering={FadeInLeft}
                   exiting={FadeOutLeft}>
                   {Resources.ValidationMessages.SportsClubName}
                 </Animated.Text>
               )}
               <TextInput
-                style={{...styles.description, verticalAlign: 'bottom'}}
+                style={{...styles({theme: theme}).description, verticalAlign: 'bottom'}}
                 onChangeText={setDescription}
                 multiline={true}
                 numberOfLines={3}
@@ -169,14 +171,14 @@ const SportsClubCreation = ({navigation}) => {
               />
               {validation?.validDescription === false && (
                 <Animated.Text
-                  style={styles.errors}
+                  style={styles({theme: theme}).errors}
                   entering={FadeInLeft}
                   exiting={FadeOutLeft}>
                   {Resources.ValidationMessages.Description}
                 </Animated.Text>
               )}
               <TextInput
-                style={styles.textInput}
+                style={styles({theme: theme}).textInput}
                 onChangeText={setEmail}
                 defaultValue={userData?.contactInfo?.email}
                 placeholder={Resources.Placeholders.Email}
@@ -184,14 +186,14 @@ const SportsClubCreation = ({navigation}) => {
               />
               {validation?.validEmail === false && (
                 <Animated.Text
-                  style={styles.errors}
+                  style={styles({theme: theme}).errors}
                   entering={FadeInLeft}
                   exiting={FadeOutLeft}>
                   {Resources.ValidationMessages.EmailInvalid}
                 </Animated.Text>
               )}
               <TextInput
-                style={styles.textInput}
+                style={styles({theme: theme}).textInput}
                 onChangeText={setPhone}
                 defaultValue={userData?.contactInfo?.phoneNumber}
                 placeholder={Resources.Placeholders.Phone}
@@ -203,13 +205,13 @@ const SportsClubCreation = ({navigation}) => {
                 style={{height: 100, width: 100}}
               /> : null}
               <CustomButton
-                styles={styles}
+                styles={styles({theme: theme})}
                 btnText={image === null ? 'Select logo' : 'Change logo'}
                 onPress={async() => await addImage()}
                 disabled={loading === true}
               />
               <CustomButton
-                styles={styles}
+                styles={styles({theme: theme})}
                 btnText={Resources.ButtonTexts.SaveBtnText}
                 onPress={async() => await savePress()}
                 disabled={loading === true}

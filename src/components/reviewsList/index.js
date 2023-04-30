@@ -7,6 +7,7 @@ import Animated, {FadeInUp, FadeOutDown} from 'react-native-reanimated';
 import Resources from '../../Resources';
 import { View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { useTheme } from '@rneui/themed';
 
 const ReviewsList = ({reviews}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
@@ -14,22 +15,24 @@ const ReviewsList = ({reviews}) => {
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
 
+  const {theme} = useTheme();
+
   const stars = [1, 2, 3, 4, 5]
 
   const ReviewsItem = ({item}) => {
     return (
-      <View style={styles.card}>
-        <View style={styles.nameView}>
-          <View style={styles.nameSubView}>
-            <Text style={{color: 'white'}}>{item.user.username}</Text>
+      <View style={styles({theme: theme}).card}>
+        <View style={styles({theme: theme}).nameView}>
+          <View style={styles({theme: theme}).nameSubView}>
+            <Text style={{color: theme.colors.black}}>{item.user.username}</Text>
           </View>
-          <View style={{...styles.nameSubView, alignItems: 'flex-end'}}>
-            <View style={styles.flexRow}>
+          <View style={{...styles({theme: theme}).nameSubView, alignItems: 'flex-end'}}>
+            <View style={styles({theme: theme}).flexRow}>
               {stars.map((x, i) => {
                 return (
                   <Icon 
                     key={i}
-                    color={Resources.Colors.IconsColor}
+                    color={theme.colors.warning}
                     size={20}
                     name={x <= item.rating ? 'star' : 'star-o'}
                   />
@@ -38,8 +41,8 @@ const ReviewsList = ({reviews}) => {
             </View>
           </View>
         </View>
-        {item.review !== null && item.review !== '' ? <View style={styles.reviewView}>
-          <Text style={styles.reviewTextInCard}>{item.review}</Text>
+        {item.review !== null && item.review !== '' ? <View style={styles({theme: theme}).reviewView}>
+          <Text style={styles({theme: theme}).reviewTextInCard}>{item.review}</Text>
         </View> : null}
       </View>
     )
@@ -49,15 +52,15 @@ const ReviewsList = ({reviews}) => {
     <>
       {reviews === null ? LoadingScreen() : 
         <Animated.View
-          style={styles.view}
+          style={styles({theme: theme}).view}
           entering={FadeInUp.delay(300)}
           exiting={FadeOutDown}>
-          {reviews !== null && <Text style={styles.reviewText}>{`Reviews (${reviews?.length})`}</Text>}
+          {reviews !== null && <Text style={styles({theme: theme}).reviewText}>{`Reviews (${reviews?.length})`}</Text>}
           {reviews?.length > 0 ? 
             <FlatList 
               data={reviews} 
               renderItem={({item, index}) => <ReviewsItem item={item} key={index} />} />
-            : <Text style={styles.noReviewText}>No reviews</Text>
+            : <Text style={styles({theme: theme}).noReviewText}>No reviews</Text>
           }
         </Animated.View>
       }

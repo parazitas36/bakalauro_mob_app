@@ -20,6 +20,7 @@ import {ToastAndroid} from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import { Image } from 'react-native';
 import { PostFormData } from '../../api/PostFormData';
+import { useTheme } from '@rneui/themed';
 
 const CreateEquipment = ({navigation, route}) => {
   const [reload, setReload] = route?.params?.reloadState;
@@ -27,6 +28,8 @@ const CreateEquipment = ({navigation, route}) => {
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
+
+  const {theme} = useTheme();
 
   const {reloadFacilitiesState} = useContext(SportsClubContext);
   const [reloadFacilities, setReloadFacilities] = reloadFacilitiesState;
@@ -117,21 +120,21 @@ const CreateEquipment = ({navigation, route}) => {
   return (
     <Suspense fallback={LoadingScreen()}>
       <Animated.View
-        style={styles.view}
+        style={styles({theme: theme}).view}
         entering={FadeInDown.delay(100)}
         exiting={FadeOutUp}>
-        <Animated.Text style={styles.heading}>
+        <Animated.Text style={styles({theme: theme}).heading}>
           {Resources.Texts.FillEquipmentInfo}
         </Animated.Text>
         <TextInput
-          style={styles.textInput}
+          style={styles({theme: theme}).textInput}
           value={name}
           placeholder={Resources.Placeholders.Name}
           onChangeText={setName}
           placeholderTextColor={Resources.Colors.PlaceholdersColor}
         />
         <TextInput
-          style={styles.textInput}
+          style={styles({theme: theme}).textInput}
           value={description}
           placeholder={Resources.Placeholders.Description}
           onChangeText={setDescription}
@@ -139,14 +142,14 @@ const CreateEquipment = ({navigation, route}) => {
         />
         {image !== null ? <Image source={{uri: image?.uri}} style={{height: 100, width: 100}} /> : null}
         <CustomButton
-          styles={styles}
+          styles={styles({theme: theme})}
           btnText={image === null ? 'Select image' : 'Change image'}
           onPress={async () => await addImage()}
         />
         <CustomButton
           btnText={Resources.ButtonTexts.SaveBtnText}
           onPress={async () => await SavePress()}
-          styles={styles}
+          styles={styles({theme: theme})}
         />
       </Animated.View>
     </Suspense>
