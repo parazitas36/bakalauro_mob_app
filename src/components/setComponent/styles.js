@@ -7,11 +7,6 @@ export default styles = ({theme}) => {
     view: {
       width: scale(280),
       borderRadius: moderateScale(5),
-      justifyContent: 'center',
-      alignItems: 'center',
-      paddingVertical: verticalScale(15),
-      backgroundColor: theme.mode === 'dark' ? theme.colors.grey4 : theme.colors.grey2,
-      gap: verticalScale(10),
     },
     header: {
       color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white,
@@ -24,7 +19,7 @@ export default styles = ({theme}) => {
     infoView: {
       width: '100%',
       flexDirection: 'row',
-      justifyContent: 'center',
+      justifyContent: 'space-evenly',
       alignItems: 'center',
     },
     subView: {
@@ -34,7 +29,6 @@ export default styles = ({theme}) => {
       gap: verticalScale(5),
     },
     boldText: {
-      color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white,
       fontSize: Resources.FontSize.regularText,
       fontWeight: 'bold',
     },

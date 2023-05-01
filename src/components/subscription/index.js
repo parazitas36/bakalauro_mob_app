@@ -21,6 +21,7 @@ console.log(subscription)
         backgroundColor: theme.colors.background,
         width: '100%',
         borderWidth: moderateScale(2),
+        elevation: 5
       }}
       pricingStyle={{
         color: theme.colors.black

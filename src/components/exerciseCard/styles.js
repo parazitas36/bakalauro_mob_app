@@ -6,14 +6,7 @@ export default styles = ({theme}) => {
   return StyleSheet.create({
     card: {
       width: scale(250),
-      borderWidth: 1,
-      borderColor: 'white',
-      borderRadius: moderateScale(10),
-      marginHorizontal: scale(10),
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginVertical: verticalScale(10),
-      borderColor: theme.colors.black,
+      borderRadius: moderateScale(5),
     },
     titleView: {
       justifyContent: 'center',

@@ -92,6 +92,7 @@ const CreateFacility = ({navigation}) => {
       formData.append('Email', String(email));
       formData.append('Country', String(country));
       formData.append('City', String(city));
+      formData.append('Address', String(address));
       formData.append('Image', {
         uri: String(image.uri),
         type: String(image.type),

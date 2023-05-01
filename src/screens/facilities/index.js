@@ -8,7 +8,8 @@ import styles from './styles';
 import Resources from '../../Resources';
 import CustomButton from '../../components/customButton';
 import FacilityCard from '../../components/facilityCard';
-import { useTheme } from '@rneui/themed';
+import { FAB, useTheme } from '@rneui/themed';
+import { verticalScale } from 'react-native-size-matters';
 
 const Facilities = ({navigation}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
@@ -45,25 +46,30 @@ const Facilities = ({navigation}) => {
 
   return (
     <Suspense fallback={LoadingScreen()}>
-      {facilities === null ? LoadingScreen() :
-      <Animated.ScrollView
-        style={styles({theme: theme}).view}
-        contentContainerStyle={styles({theme: theme}).viewContent} 
-        entering={FadeInLeft.delay(300)} 
-        exiting={FadeOutLeft}>
-        <Text style={styles({theme: theme}).heading}>{`${sportsClubName} ${Resources.Texts.Facilities.toLowerCase()} (${facilities?.length ?? 0})`}</Text>
-        {(facilities.length === 0 ? <Text style={styles({theme: theme}).text}>{Resources.Texts.NoFacilities}</Text>
-        : facilities.map((facility) => {
-          return <FacilityCard key={facility.id} navigation={navigation} facility={facility} sportsClubName={sportsClubName} theme={theme}/>
-        }))}
-        {facilities !== null ? (
-          <CustomButton
-            btnText={Resources.ButtonTexts.AddNewBtnText}
-            styles={styles({theme: theme})}
-            onPress={() => navigation.navigate(Resources.Screens.CreateFacility)}
-          />
-        ) : null}
-      </Animated.ScrollView>}
+      <>
+        {facilities === null ? LoadingScreen() :
+        <Animated.ScrollView
+          style={styles({theme: theme}).view}
+          contentContainerStyle={styles({theme: theme}).viewContent} 
+          entering={FadeInLeft.delay(300)} 
+          exiting={FadeOutLeft}>
+          <Text style={styles({theme: theme}).heading}>{`${sportsClubName} ${Resources.Texts.Facilities.toLowerCase()} (${facilities?.length ?? 0})`}</Text>
+          {(facilities.length === 0 ? <Text style={styles({theme: theme}).text}>{Resources.Texts.NoFacilities}</Text>
+          : facilities.map((facility) => {
+            return <FacilityCard key={facility.id} navigation={navigation} facility={facility} sportsClubName={sportsClubName} theme={theme}/>
+          }))}
+          
+        </Animated.ScrollView>}
+        <FAB
+          icon={{name: 'add', color: Resources.Colors.IconsColor}}
+          color={theme.colors.primary}
+          size="small"
+          placement="right"
+          onPress={() =>
+            navigation.navigate(Resources.Screens.CreateFacility)
+          }
+        />
+      </>
     </Suspense>
   );
 };

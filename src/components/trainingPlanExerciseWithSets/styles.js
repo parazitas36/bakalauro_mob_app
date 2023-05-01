@@ -5,17 +5,17 @@ import Resources from '../../Resources';
 export default styles = ({theme}) => {
   return StyleSheet.create({
     infoView: {
-      width: scale(280),
+      width: '100%',
       flexDirection: 'row',
+      justifyContent: 'space-evenly'
     },
     card: {
       width: scale(280),
+      maxWidth: scale(280),
       borderRadius: moderateScale(5),
-      backgroundColor: theme.mode === 'dark' ? theme.colors.grey4 : theme.colors.grey2,
-      marginHorizontal: scale(10),
-      marginTop: verticalScale(10),
       alignSelf: 'center',
-      paddingVertical: verticalScale(5),
+      marginBottom: verticalScale(5),
+      elevation: 5
     },
     exerciseHeader: {
       fontSize: Resources.FontSize.heading2Text,
@@ -26,16 +26,13 @@ export default styles = ({theme}) => {
       maxHeight: verticalScale(50),
     },
     subView: {
-      width: scale(140),
+      width: '50%',
       flexDirection: 'column',
-      padding: scale(5),
     },
     text: {
-      color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white,
       fontSize: Resources.FontSize.regularText,
     },
     boldText: {
-      color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white,
       fontSize: Resources.FontSize.regularText,
       fontWeight: 'bold',
     },

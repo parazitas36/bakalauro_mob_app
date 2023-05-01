@@ -8,12 +8,23 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Resources from '../../Resources';
 import {scale} from 'react-native-size-matters';
 import Animated, {FadeInLeft} from 'react-native-reanimated';
-import { LoadingScreen } from '../../../App';
+import { LoadingScreen, UserContext } from '../../../App';
 import { useTheme } from '@rneui/themed';
+import { useContext } from 'react';
 
 const TrainerHome = () => {
+  const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
+  const [token, setToken] = tokenState;
+  const [userData, setUserData] = userDataState;
+  const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
 
   const {theme} = useTheme();
+
+  const Logout = () => {
+    setToken(null);
+    setUserData(null);
+    setRoleSpecificData(null);
+  };
 
   return (
     <Suspense fallback={LoadingScreen()}>
@@ -57,6 +68,18 @@ const TrainerHome = () => {
             btnText="My profile"
             styles={styles({theme: theme})}
           />
+           <CustomButtonWithIcon
+              icon={() => (
+                <Ionicons
+                  name="exit"
+                  color={theme.colors.black}
+                  size={scale(20)}
+                />
+              )}
+              onPress={() => Logout()}
+              btnText="Logout"
+              styles={styles({theme: theme})}
+            />
         </View>
       </Animated.ScrollView>
     </Suspense>

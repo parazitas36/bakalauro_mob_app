@@ -1,11 +1,11 @@
-import {View, Text, ToastAndroid} from 'react-native';
+import {View, ToastAndroid} from 'react-native';
 import React from 'react';
 import styles from './styles';
 import {TextInput} from 'react-native-gesture-handler';
-import CustomButton from '../customButton';
 import Resources from '../../Resources';
 import Animated, { FadeInUp } from 'react-native-reanimated';
-import { useTheme } from '@rneui/themed';
+import { Button, Card, Icon, Text, useTheme } from '@rneui/themed';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 
 const AddSetComponent = ({setState, setsState}) => {
   const [set, setSet] = setState;
@@ -53,11 +53,11 @@ const AddSetComponent = ({setState, setsState}) => {
   };
 
   return (
-    <Animated.View
-        entering={FadeInUp.delay(500)}
-        style={styles({theme: theme}).view}>
-      <Text style={styles({theme: theme}).header}>{`${Resources.Texts.Set} #${(sets?.length ?? 0) + 1}`}</Text>
-      <View style={styles({theme: theme}).infoView}>
+    <Animated.View entering={FadeInUp.delay(500)}>
+      <Card containerStyle={styles({theme: theme}).view}>
+        <Card.Title h4>{`${Resources.Texts.Set} #${(sets?.length ?? 0) + 1}`}</Card.Title>
+        <Card.Divider />
+        <View style={styles({theme: theme}).infoView}>
         <View style={styles({theme: theme}).subView}>
           <Text style={styles({theme: theme}).boldText}>{Resources.Texts.Repetitions}</Text>
           <TextInput
@@ -77,9 +77,32 @@ const AddSetComponent = ({setState, setsState}) => {
           />
         </View>
       </View>
-      <CustomButton styles={styles({theme: theme})} btnText={Resources.ButtonTexts.Add} onPress={AddSet}/>
+      <Button
+        icon={
+          <Icon
+            name='add' 
+            color={theme.colors.black} 
+            size={verticalScale(24)} />
+        }
+        buttonStyle={{
+          borderRadius: moderateScale(5),
+          backgroundColor: theme.colors.background,
+          borderColor: theme.colors.black,
+          borderWidth: moderateScale(1.25),
+          marginTop: verticalScale(10),
+          width: scale(100),
+          height: verticalScale(40),
+          alignSelf: 'center'
+        }}
+        titleStyle={{
+          color: theme.colors.white,
+          display: 'none'
+        }}
+        onPress={AddSet}
+      />
+      </Card>
     </Animated.View>
-  );
+  )
 };
 
 export default AddSetComponent;

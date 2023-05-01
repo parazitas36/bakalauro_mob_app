@@ -5,18 +5,15 @@ import Resources from '../../Resources';
 export default styles = ({theme}) => {
   return StyleSheet.create({
     infoView: {
-      width: scale(280),
+      width: '100%',
       flexDirection: 'row',
+      justifyContent: 'space-evenly',
     },
     card: {
       width: scale(280),
-      paddingVertical: verticalScale(15),
-      gap: verticalScale(10),
+      maxWidth: scale(280),
       borderRadius: moderateScale(5),
-      backgroundColor: theme.mode === 'dark' ? theme.colors.grey4 : theme.colors.grey2,
-      marginHorizontal: scale(10),
-      alignSelf: 'center',
-      marginVertical: verticalScale(10),
+      elevation: 5,
     },
     trainingPlanHeader: {
       fontSize: Resources.FontSize.heading2Text,
@@ -25,16 +22,13 @@ export default styles = ({theme}) => {
       textAlignVertical: 'center',
     },
     subView: {
-      width: scale(140),
       flexDirection: 'column',
-      paddingHorizontal: scale(5),
+      width: '50%',
     },
     text: {
-      color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white,
       fontSize: Resources.FontSize.regularText,
     },
     boldText: {
-      color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white,
       fontSize: Resources.FontSize.regularText * 1.05,
       fontWeight: 'bold',
     },

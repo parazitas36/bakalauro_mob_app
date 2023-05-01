@@ -2,12 +2,27 @@ import React from 'react';
 import Animated, {FadeInLeft} from 'react-native-reanimated';
 
 import styles from './styles';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import Resources from '../../Resources';
-import {scale} from 'react-native-size-matters';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import { Card, Divider, Text } from '@rneui/themed';
+import MuscleIcon from '../muscleIcon';
 
 const TrainingPlan = ({navigation, trainingPlan, theme}) => {
+  console.log(trainingPlan)
+
+  const muscleGroups = []
+
+  trainingPlan?.muscleGroups.forEach(arr => {
+    const groups = JSON.parse(arr);
+
+    groups.forEach(x => {
+      if(!muscleGroups.includes(x)) {
+        muscleGroups.push(x)
+      }
+    })
+  })
+
   return (
     <Animated.View entering={FadeInLeft.delay(200)}>
       <TouchableOpacity 
@@ -15,42 +30,37 @@ const TrainingPlan = ({navigation, trainingPlan, theme}) => {
           navigation.navigate({
             name: Resources.Screens.TrainingPlanScreen, 
             params: { trainingPlanId: trainingPlan.id }
-          })} 
-        style={styles({theme: theme}).card}
-      >
-        <Text style={styles({theme: theme}).trainingPlanHeader}>{trainingPlan?.name}</Text>
-        <View style={styles({theme: theme}).infoView}>
-          <View
-            style={{
-              ...styles({theme: theme}).subView,
-              paddingLeft: scale(10),
-            }}>
-            <Text style={styles({theme: theme}).boldText}>{Resources.Texts.MuscleGroups}</Text>
-            {trainingPlan.muscleGroups?.length > 0 ? trainingPlan.muscleGroups.map((x, i) => {
-              return <Text key={i} style={styles({theme: theme}).text}>{x}</Text>;
-            })
-            : null}
+          })}>
+        <Card containerStyle={styles({theme: theme}).card}>
+          <Card.Title h4>{trainingPlan?.name}</Card.Title>
+          <Card.Divider />
+          <View style={styles({theme: theme}).infoView}>
+            <View style={styles({theme: theme}).subView}>
+              <Text style={styles({theme: theme}).boldText}>{Resources.Texts.MuscleGroups}</Text>
+              <View style={{flexDirection: 'row', flexWrap: 'wrap', gap: 2, padding: 2}}>
+                {muscleGroups.length > 0 ? muscleGroups.map((x, i) => {
+                  return <MuscleIcon muscleName={x} key={i} size={30} />
+                })
+                : null}
+              </View>
+            </View>
+            <Divider orientation='vertical'/>
+            <View style={{...styles({theme: theme}).subView, alignItems: 'flex-end'}}>
+              <Text style={styles({theme: theme}).boldText}>{Resources.Texts.Equipment}</Text>
+              {trainingPlan.equipment?.length > 0 ? 
+                trainingPlan.equipment.map((x, i) => {
+                  return <Text key={i} style={styles({theme: theme}).text}>{x.name}</Text>;
+                }) : 
+                <Text style={styles({theme: theme}).text}>
+                  {`${Resources.Texts.NoEquipment}`}
+                </Text>
+              }
+            </View>
           </View>
-          <View
-            style={{
-              ...styles({theme: theme}).subView,
-              paddingRight: scale(10),
-              alignItems: 'flex-end',
-            }}>
-            <Text style={styles({theme: theme}).boldText}>{Resources.Texts.Equipment}</Text>
-            {trainingPlan.equipment?.length > 0 ? (
-              trainingPlan.equipment.map((x, i) => {
-                return <Text key={i} style={styles({theme: theme}).text}>{x.name}</Text>;
-              })
-            ) : (
-              <Text
-                style={styles({theme: theme}).text}>{`${Resources.Texts.NoEquipment}`}</Text>
-            )}
-          </View>
-        </View>
+        </Card>
       </TouchableOpacity>
     </Animated.View>
-  );
+  )
 };
 
 export default TrainingPlan;

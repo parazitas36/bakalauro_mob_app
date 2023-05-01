@@ -15,14 +15,13 @@ export default styles = ({theme}) => {
       backgroundColor: theme.colors.white,
       borderColor: theme.colors.black,
       borderWidth: moderateScale(2),
-      height: verticalScale(200),
     },
     text: {
-      color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white,
+      fontSize: Resources.FontSize.regularText
     },
     boldText: {
-        color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white,
-        fontWeight: 'bold'
+      fontSize: Resources.FontSize.regularText,
+      fontWeight: 'bold'
     },
     searchText: {
       color: theme.colors.black,
@@ -30,31 +29,23 @@ export default styles = ({theme}) => {
       width: '100%',
     },
     infoView: {
-      height: verticalScale(100),
-      maxHeight: verticalScale(100),
-      width: scale(250),
+      width: '100%',
       flexDirection: 'row',
+      justifyContent: 'space-evenly'
     },
     card: {
-      maxHeight: verticalScale(150),
       width: scale(250),
+      maxWidth: scale(250),
       borderRadius: moderateScale(5),
-      backgroundColor: theme.mode === 'dark' ? theme.colors.grey4 : theme.colors.grey2,
-      marginHorizontal: scale(10),
-      alignSelf: 'center',
     },
     exerciseHeader: {
       fontSize: Resources.FontSize.heading2Text,
-      color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white,
       textAlign: 'center',
       textAlignVertical: 'center',
-      minHeight: verticalScale(30),
-      maxHeight: verticalScale(50),
     },
     subView: {
-      width: scale(125),
+      width: '50%',
       flexDirection: 'column',
-      padding: scale(5),
     },
     searchView: {
       width: scale(280),

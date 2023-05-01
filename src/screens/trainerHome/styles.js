@@ -13,11 +13,12 @@ export default styles = ({theme}) => {
       borderRadius: moderateScale(10),
       backgroundColor: theme.colors.grey5,
       margin: scale(10),
-      width: scale(120),
-      height: scale(120),
+      width: scale(135),
+      height: scale(135),
       justifyContent: 'center',
       alignItems: 'center',
       gap: scale(5),
+      elevation: 5
     },
     view: {
       flex: 1,

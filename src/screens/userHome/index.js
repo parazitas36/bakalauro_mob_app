@@ -10,9 +10,22 @@ import Resources from '../../Resources';
 import { scale } from 'react-native-size-matters';
 import Animated, { FadeInLeft } from 'react-native-reanimated';
 import { useTheme } from '@rneui/themed';
+import { useContext } from 'react';
+import { UserContext } from '../../../App';
 
 const UserHome = ({navigation}) => {
+  const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
+  const [token, setToken] = tokenState;
+  const [userData, setUserData] = userDataState;
+  const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
+
   const {theme} = useTheme();
+
+  const Logout = () => {
+    setToken(null);
+    setUserData(null);
+    setRoleSpecificData(null);
+  };
 
   return (
     <Animated.ScrollView
@@ -43,6 +56,20 @@ const UserHome = ({navigation}) => {
           icon={() => <Ionicons name="people" color={theme.colors.black} size={scale(20)} />}
           btnText="Trainers"
           onPress={() => navigation.navigate('Trainers')}
+          styles={styles({theme: theme})}
+        />
+      </View>
+      <View style={styles({theme: theme}).flexRow}>
+        <CustomButtonWithIcon
+          icon={() => (
+            <Ionicons
+              name="exit"
+              color={theme.colors.black}
+              size={scale(20)}
+            />
+          )}
+          onPress={() => Logout()}
+          btnText="Logout"
           styles={styles({theme: theme})}
         />
       </View>

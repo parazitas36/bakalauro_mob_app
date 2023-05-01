@@ -20,11 +20,12 @@ export default styles = ({theme}) => {
       borderRadius: moderateScale(10),
       backgroundColor: theme.colors.grey5,
       margin: scale(10),
-      width: scale(120),
-      height: scale(120),
+      width: scale(135),
+      height: scale(135),
       justifyContent: 'center',
       alignItems: 'center',
       gap: scale(5),
+      elevation: 5,
     },
     view: {
       flex: 1,
@@ -38,12 +39,9 @@ export default styles = ({theme}) => {
     },
     sportsClubView: {
       width: scale(300),
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: verticalScale(150),
-      backgroundColor:  theme.mode === 'dark' ? theme.colors.grey3 : theme.colors.grey4,
-      borderRadius: moderateScale(10),
-      gap: verticalScale(5),
+      maxWidth: scale(300),
+      borderRadius: moderateScale(5),
+      elevation: 5
     },
     image: {
       width: scale(100),
@@ -55,10 +53,12 @@ export default styles = ({theme}) => {
       alignItems: 'center',
     },
     infoView: {
-      width: scale(170),
+      width: scale(180),
       alignItems: 'flex-end',
       justifyContent: 'center',
-      paddingHorizontal: scale(10),
+      paddingRight: scale(10),
+      paddingLeft: scale(20),
+      gap: verticalScale(2)
     },
     heading: {
       color: theme.colors.black,

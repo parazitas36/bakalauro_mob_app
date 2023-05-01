@@ -14,7 +14,7 @@ export default styles = ({theme}) => {
     button: {
       borderColor: theme.colors.black,
       borderWidth: moderateScale(1),
-      borderRadius: moderateScale(10),
+      borderRadius: moderateScale(5),
       marginVertical: scale(10),
       width: scale(135),
       height: verticalScale(30),
@@ -41,7 +41,8 @@ export default styles = ({theme}) => {
     },
     flexRow: {
       flexDirection: 'row',
-      gap: scale(30),
+      justifyContent: 'space-evenly',
+      width: scale(300)
     },
   });
 };

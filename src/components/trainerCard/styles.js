@@ -6,13 +6,9 @@ export default styles = ({theme}) => {
   return StyleSheet.create({
     card: {
       width: scale(250),
-      borderWidth: 1,
-      borderColor: theme.colors.black,
-      borderRadius: moderateScale(15),
-      marginHorizontal: scale(10),
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginVertical: verticalScale(5),
+      maxWidth: scale(250),
+      borderRadius: moderateScale(5),
+      elevation: 5,
     },
     titleView: {
       justifyContent: 'center',
@@ -37,5 +33,22 @@ export default styles = ({theme}) => {
       color: theme.colors.black,
       fontSize: Resources.FontSize.regularText,
     },
+    usernameText: {
+      textAlign: 'center',
+      fontSize: Resources.FontSize.regularText,
+      fontWeight: 'bold'
+    },
+    flexBox: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: scale(5),
+      maxWidth: scale(250),
+      paddingHorizontal: moderateScale(5),
+      alignSelf: 'flex-start',
+      marginVertical: verticalScale(2)
+    },
+    text: {
+      fontSize: Resources.FontSize.regularText,
+    }
   });
 };

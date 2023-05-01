@@ -56,7 +56,7 @@ const Exercises = ({navigation}) => {
           <FlatList data={exercises} renderItem={({item}) => ExerciseCard({data: item, navigation: navigation, theme: theme})}/>}
           <FAB
             icon={{name: 'add', color: Resources.Colors.IconsColor}}
-            color="#2089DC"
+            color={theme.colors.primary}
             size='small'
             placement='right'
             onPress={() => navigation.navigate(Resources.Screens.CreateExercise)}/>

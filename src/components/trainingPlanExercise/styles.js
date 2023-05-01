@@ -5,14 +5,14 @@ import Resources from '../../Resources';
 export default styles = ({theme}) => {
   return StyleSheet.create({
     infoView: {
-      width: scale(280),
+      width: '100%',
       flexDirection: 'row',
+      justifyContent: 'space-evenly'
     },
     card: {
-      paddingVertical: verticalScale(15),
       width: scale(280),
+      maxWidth: scale(280),
       borderRadius: moderateScale(5),
-      backgroundColor: theme.mode === 'dark' ? theme.colors.grey4 : theme.colors.grey2,
       alignSelf: 'center',
     },
     exerciseHeader: {
@@ -22,16 +22,15 @@ export default styles = ({theme}) => {
       textAlignVertical: 'center',
     },
     text: {
-      color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white,
+      fontSize: Resources.FontSize.regularText
     },
     boldText: {
-      color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white,
+      fontSize: Resources.FontSize.regularText,
       fontWeight: 'bold'
     },
     subView: {
-      width: scale(140),
+      width: '50%',
       flexDirection: 'column',
-      padding: scale(5),
     },
   });
 };

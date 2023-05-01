@@ -6,12 +6,9 @@ export default styles = ({theme}) => {
   return StyleSheet.create({
     card: {
       width: scale(250),
-      borderWidth: 1,
-      borderColor: theme.colors.black,
-      borderRadius: moderateScale(10),
-      marginVertical: scale(10),
-      justifyContent: 'center',
-      alignItems: 'center',
+      maxWidth: scale(250),
+      borderRadius: moderateScale(5),
+      elevation: 5,
     },
     cityView: {
       minHeight: verticalScale(30),
@@ -39,5 +36,18 @@ export default styles = ({theme}) => {
       color: theme.colors.black,
       fontSize: verticalScale(10),
     },
+    flexBox: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: scale(5),
+      maxWidth: scale(250),
+      paddingHorizontal: moderateScale(5),
+      alignSelf: 'flex-start',
+      marginVertical: verticalScale(2)
+    },
+    text: {
+      fontSize: Resources.FontSize.regularText,
+      maxWidth: scale(200),
+    }
   });
 };

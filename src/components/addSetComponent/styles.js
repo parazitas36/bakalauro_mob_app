@@ -7,11 +7,7 @@ export default styles = ({theme}) => {
     view: {
       width: scale(280),
       borderRadius: moderateScale(5),
-      justifyContent: 'center',
-      alignItems: 'center',
       paddingVertical: verticalScale(10),
-      backgroundColor: theme.mode === 'dark' ? theme.colors.grey4 : theme.colors.grey2,
-      gap: verticalScale(10),
     },
     header: {
       color: Resources.Colors.TextColorWhite,
@@ -34,26 +30,24 @@ export default styles = ({theme}) => {
       gap: verticalScale(5),
     },
     boldText: {
-      color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white,
       fontSize: Resources.FontSize.regularText,
       fontWeight: 'bold',
     },
     textInput: {
-      backgroundColor: theme.mode === 'dark' ? theme.colors.grey3 : theme.colors.grey3,
+      borderColor: theme.colors.black,
+      borderWidth: moderateScale(1.25),
       fontSize: Resources.FontSize.regularText,
+      color: theme.colors.black,
       width: scale(50),
       height: scale(30),
       padding: scale(5),
-      color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white,
       fontWeight: 'bold',
       textAlign: 'center',
       textAlignVertical: 'center',
       borderRadius: moderateScale(3),
     },
     button: {
-      borderColor: theme.mode === 'dark' ? theme.colors.black : theme.colors.white,
-      borderWidth: moderateScale(1),
-      backgroundColor: theme.mode === 'dark' ? theme.colors.grey3 : theme.colors.grey3,
+      backgroundColor: theme.colors.black,
       width: scale(90),
       height: verticalScale(30),
       borderRadius: moderateScale(10),
@@ -61,7 +55,7 @@ export default styles = ({theme}) => {
       alignItems: 'center',
     },
     btnText: {
-      color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white,
+      color: theme.colors.white,
       fontSize: Resources.FontSize.regularText,
     },
   });

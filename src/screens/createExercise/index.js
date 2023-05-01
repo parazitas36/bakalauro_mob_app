@@ -8,6 +8,9 @@ import CustomButton from '../../components/customButton';
 import { TextInput } from 'react-native-gesture-handler';
 import { PostExerciseCall } from '../../api/PostExerciseCall';
 import { useTheme } from '@rneui/themed';
+import MuscleIcon from '../../components/muscleIcon';
+import { View } from 'react-native';
+import { moderateScale, scale } from 'react-native-size-matters';
 
 const CreateExercise = ({navigation}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
@@ -16,19 +19,25 @@ const CreateExercise = ({navigation}) => {
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
 
-  const [muscleGroups, setMuscleGroups] = useState(null);
+  const [muscleGroups, setMuscleGroups] = useState([]);
   const [name, setName] = useState(null);
   const [exerciseType] = useState('Other');
   const [equipmentId, setEquipmentId] = useState(null);
   const [guide, setGuide] = guideState
   const [refreshExercises, setRefreshExercises] = refreshExercisesState
 
+  const muscles = [
+    'chest', 'upperback', 'shoulders',
+    'biceps', 'triceps', 'abs', 'lowerback',
+    'calves', 'glutes', 'hamstrings', 'quadriceps'
+  ];
+
   const {theme} = useTheme()
 
   const SavePress = async() => {
     const body = {
       name: name,
-      muscleGroups: muscleGroups,
+      muscleGroups: JSON.stringify(muscleGroups),
       exerciseTypes: "Other",
       equipmentId: null,
     }
@@ -53,11 +62,26 @@ const CreateExercise = ({navigation}) => {
           placeholder={Resources.Placeholders.Name} 
           placeholderTextColor={Resources.Colors.PlaceholdersColor} 
           onChangeText={setName} value={name} />
-        <TextInput
-          style={styles({theme: theme}).textInput}
-          placeholder={'Muscle group'} 
-          placeholderTextColor={Resources.Colors.PlaceholdersColor} 
-          onChangeText={setMuscleGroups} value={muscleGroups} />
+        <View style={{
+          flexDirection: 'row', 
+          flexWrap: 'wrap', 
+          maxWidth: scale(250), 
+          justifyContent: 'center',
+          gap: moderateScale(5)}}>
+          {muscles.map(x => {
+            return (
+              <MuscleIcon 
+                key={x}
+                editMode={true} 
+                muscleGroups={muscleGroups}
+                setMuscleGroups={setMuscleGroups}
+                muscleName={x}
+                theme={theme}
+                size={50}
+              />
+            );
+          })}
+        </View>
         <CustomButton 
           btnText={guide.length == 0 ? Resources.ButtonTexts.AddGuide : Resources.ButtonTexts.EditGuide} 
           onPress={() => navigation.navigate(Resources.Screens.CreateExerciseGuide)} 

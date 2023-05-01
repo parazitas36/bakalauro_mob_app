@@ -135,12 +135,10 @@ const CreateTrainingPlan = ({navigation}) => {
         weeks[i].Days.Sunday.forEach(x => exerciseIds.add(x?.Id));
       }
 
-      exerciseIds.forEach(id => 
-        muscleGroups.add(exercises
-          .filter(e => 
-            e.id === id)[0]
-            .muscleGroups
-      ));
+      exerciseIds.forEach(id => {
+        const parsedMuscleGroups = JSON.parse(exercises.filter(e => e.id === id)[0].muscleGroups)
+        parsedMuscleGroups.forEach(x => muscleGroups.add(x))
+        });
       
       const arr = []
       muscleGroups.forEach(x => arr.push(x))

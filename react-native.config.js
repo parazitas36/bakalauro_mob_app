@@ -2,5 +2,5 @@ module.exports = {
     project: {
 
     },
-    assets: ['./src/assets']
+    assets: ['./src/assets', './src/assets/images']
 }

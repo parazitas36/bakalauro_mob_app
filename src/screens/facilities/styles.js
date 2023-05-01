@@ -29,6 +29,7 @@ export default styles = ({theme}) => {
     viewContent: {
       justifyContent: 'center',
       alignItems: 'center',
+      paddingBottom: verticalScale(30)
     },
     heading: {
       color: theme.colors.black,

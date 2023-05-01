@@ -7,12 +7,8 @@ export default styles = ({theme}) => {
     card: {
       width: scale(250),
       maxWidth: scale(250),
-      borderWidth: 1,
-      borderColor: theme.colors.black,
-      borderRadius: moderateScale(10),
-      marginVertical: scale(10),
-      justifyContent: 'center',
-      alignItems: 'center',
+      borderRadius: moderateScale(5),
+      elevation: 5,
     },
     equipmentView: {
       minHeight: verticalScale(50),
@@ -24,6 +20,8 @@ export default styles = ({theme}) => {
       color: theme.colors.black,
       fontSize: verticalScale(14),
       marginVertical: verticalScale(10),
+      width: scale(250),
+      maxWidth: scale(250),
     },
     descriptionView: {
       justifyContent: 'center',
@@ -35,7 +33,10 @@ export default styles = ({theme}) => {
     },
     descriptionText: {
       color: theme.colors.black,
-      fontSize: verticalScale(10),
+      fontSize: Resources.FontSize.regularText,
+      textAlign: 'center',
+      marginTop: verticalScale(10),
+
     },
     image: {
       width: scale(100),

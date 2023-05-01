@@ -1,32 +1,32 @@
 import {View, Text} from 'react-native';
 import React from 'react';
-import styles from './styles';
 import Resources from '../../Resources';
-import { useTheme } from '@rneui/themed';
+import { Card, useTheme } from '@rneui/themed';
+import MuscleIcon from '../muscleIcon';
+import { moderateScale, scale } from 'react-native-size-matters';
 
 const TrainingPlanExercisesInfo = ({muscleGroups}) => {
 
   const {theme} = useTheme();
 
   return (
-    <View style={styles({theme: theme}).view}>
-      <View style={styles({theme: theme}).subView}>
-        <Text style={styles({theme: theme}).text}>
-          {Resources.Texts.TargetMuscleGroupsLabel}
-        </Text>
-      </View>
-      <View style={styles({theme: theme}).subView}>
-        {muscleGroups?.length > 0 ? muscleGroups.map((x, i) => {
-          return (
-            <Text key={i} style={styles({theme: theme}).text}>
-              {x}
-            </Text>
-          );
-        })
-        : null}
-      </View>
-    </View>
-  );
+    <Card containerStyle={{width: scale(280), borderRadius: moderateScale(5)}}>
+      <Card.Title>{Resources.Texts.TargetMuscleGroupsLabel}</Card.Title>
+      <Card.Divider />
+        <View style={{
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            gap: 2,
+          }}>
+            {muscleGroups?.length > 0 ? muscleGroups.map((x, i) => {
+              return (
+                <MuscleIcon muscleName={x} key={i} size={40} />
+              );
+            })
+            : null}
+          </View>
+    </Card>
+  )
 };
 
 export default TrainingPlanExercisesInfo;

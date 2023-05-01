@@ -1,15 +1,16 @@
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import Resources from '../../Resources';
 import styles from './styles';
 import {useState} from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
-import {scale} from 'react-native-size-matters';
+import {scale, verticalScale} from 'react-native-size-matters';
 import {TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {useMemo} from 'react';
 import Animated, {FadeInDown, FadeOutDown} from 'react-native-reanimated';
-import { useTheme } from '@rneui/themed';
+import { Card, Divider, Text, useTheme } from '@rneui/themed';
+import MuscleIcon from '../muscleIcon';
 
 const ExerciseSelectionList = ({exercises, exerciseState}) => {
   const [hidden, setHidden] = useState(false);
@@ -28,37 +29,44 @@ const ExerciseSelectionList = ({exercises, exerciseState}) => {
   }, [query]);
 
   const ExerciseItem = ({data}) => {
+    const muscleGroups = JSON.parse(data?.muscleGroups);
+
     return (
       <TouchableOpacity
-        style={styles({theme: theme}).card}
         onPress={() => {
           setExercise(data);
           setHidden(true);
         }}>
-        <Text style={styles({theme: theme}).exerciseHeader}>{data.name}</Text>
-        <View style={styles({theme: theme}).infoView}>
-          <View
-            style={{
-              ...styles({theme: theme}).subView,
-              paddingLeft: scale(10),
-            }}>
-            <Text style={styles({theme: theme}).boldText}>{Resources.Texts.MuscleGroups}</Text>
-            <Text style={styles({theme: theme}).text}>{data.muscleGroups}</Text>
+        <Card containerStyle={styles({theme: theme}).card}>
+          <Card.Title h4>{data.name}</Card.Title>
+          <Card.Divider />
+          <View style={styles({theme: theme}).infoView}>
+            <View
+              style={{
+                ...styles({theme: theme}).subView,
+              }}>
+              <Text style={styles({theme: theme}).boldText}>{Resources.Texts.MuscleGroups}</Text>
+              <View style={{flexDirection: 'row', flexWrap: 'wrap', gap: 2}}>
+                {muscleGroups ? muscleGroups.map((x, i) => {
+                  return <MuscleIcon muscleName={x} key={i} size={25} />
+                }) : null}
+              </View>
+            </View>
+            <Divider orientation='vertical' />
+            <View
+              style={{
+                ...styles({theme: theme}).subView,
+                alignItems: 'flex-end',
+              }}>
+              <Text style={styles({theme: theme}).boldText}>{Resources.Texts.Equipment}</Text>
+              <Text style={styles({theme: theme}).text}>
+                {data.equipment === null ? 'No equipment' : data.equipment.name}
+              </Text>
+            </View>
           </View>
-          <View
-            style={{
-              ...styles({theme: theme}).subView,
-              paddingRight: scale(10),
-              alignItems: 'flex-end',
-            }}>
-            <Text style={styles({theme: theme}).boldText}>{Resources.Texts.Equipment}</Text>
-            <Text style={styles({theme: theme}).text}>
-              {data.equipment === null ? 'No equipment' : data.equipment.name}
-            </Text>
-          </View>
-        </View>
+        </Card>
       </TouchableOpacity>
-    );
+    )
   };
 
   return (
@@ -78,7 +86,7 @@ const ExerciseSelectionList = ({exercises, exerciseState}) => {
               onChangeText={setQuery}
             />
           </View>
-          <ScrollView horizontal>
+          <ScrollView horizontal style={{paddingBottom: verticalScale(10)}}>
             {queriedExercises?.length > 0 ? (
               queriedExercises?.map((x, i) => {
                 return <ExerciseItem key={i} data={x} />;

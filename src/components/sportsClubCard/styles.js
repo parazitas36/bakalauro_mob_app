@@ -9,14 +9,9 @@ export default styles = ({theme}) => {
     },
     sportsClubView: {
       width: scale(300),
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: verticalScale(150),
-      borderWidth: moderateScale(1.5),
-      borderColor: theme.colors.black,
-      borderRadius: moderateScale(10),
-      gap: verticalScale(5),
-      marginVertical: verticalScale(5),
+      maxWidth: scale(300),
+      borderRadius: moderateScale(5),
+      elevation: 5,
     },
     image: {
       width: scale(100),
@@ -28,10 +23,12 @@ export default styles = ({theme}) => {
       alignItems: 'center',
     },
     infoView: {
-      width: scale(170),
+      width: scale(180),
       alignItems: 'flex-end',
       justifyContent: 'center',
-      paddingHorizontal: scale(10),
+      paddingRight: scale(5),
+      paddingLeft: scale(20),
+      gap: verticalScale(2)
     },
     heading: {
       color: theme.colors.black,
@@ -41,6 +38,9 @@ export default styles = ({theme}) => {
     },
     text: {
       color: theme.colors.black,
-    }
+      fontSize: Resources.FontSize.btnText,
+      paddingHorizontal: scale(5),
+      textAlign: 'center',
+    },
   });
 };

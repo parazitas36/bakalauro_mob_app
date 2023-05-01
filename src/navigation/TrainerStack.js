@@ -153,7 +153,7 @@ const TrainerTab = () => {
           name={'TrainingPlansStack'}
           component={TrainerTrainingPlansStack}
           options={{
-            tabBarLabel: Resources.Screens.TrainingPlans,
+            tabBarLabel: 'Training Plans',
             tabBarIcon: ({color}) => (
               <Icon
                 name="clipboard-list"

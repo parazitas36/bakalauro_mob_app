@@ -1,31 +1,45 @@
-import { View, Text, ScrollView } from 'react-native'
-import React from 'react'
-import styles from './styles'
-import Resources from '../../Resources'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import {View} from 'react-native';
+import React from 'react';
+import styles from './styles';
+import Resources from '../../Resources';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Card, Icon, Text} from '@rneui/themed';
+import {verticalScale} from 'react-native-size-matters';
 
 const TrainerCard = ({data, navigation, theme}) => {
-console.log(data)
+  console.log(data);
 
-const ValueIsNotEmpty = (val) => {
-  return val !== undefined && val !== null && val !== '' && val !== 'null'
-}
+  const ValueIsNotEmpty = val => {
+    return val !== undefined && val !== null && val !== '' && val !== 'null';
+  };
 
   return (
     <TouchableOpacity
-    onPress={() => navigation.navigate({name: 'Trainer', params: {trainerId: data.id}})}
-     style={styles({theme: theme}).card}>
-        <View style={styles({theme: theme}).titleView}>
-            <Text style={styles({theme: theme}).titleText}>{`${data.name} ${data.lastName} (${data.username})`}</Text>
-        </View>
-        <View style={styles({theme: theme}).detailsView}>
-            {ValueIsNotEmpty(data.email) && <Text style={styles({theme: theme}).detailsText}>Email: {data.email}</Text>}
-            {ValueIsNotEmpty(data.phone) && <Text style={styles({theme: theme}).detailsText}>Phone: {data.phone}</Text>}
-            <Text style={styles({theme: theme}).detailsText}>Rating: {data.averageRating ?? 'Not rated'}</Text>
-            <Text style={styles({theme: theme}).detailsText}>Reviews: {data.reviewsCount === 0 ? 'No reviews' : data.reviewsCount}</Text>
-        </View>
+      onPress={() =>
+        navigation.navigate({name: 'Trainer', params: {trainerId: data.id}})
+      }>
+      <Card containerStyle={styles({theme: theme}).card}>
+        <Card.Title h4>{data.username}</Card.Title>
+        <Card.Divider />
+        <Text style={styles({theme: theme}).usernameText}>{`${data.name} ${data.lastName}`}</Text>
+        <Card.Divider inset={true} insetType="middle" />
+        {ValueIsNotEmpty(data.email) && 
+          <View style={styles({theme: theme}).flexBox}>
+            <Icon name="mail-outline" type="ionicon" color={theme.colors.black} size={verticalScale(20)} />
+            <Text style={styles({theme: theme}).text}>{data.email}</Text>
+          </View>}
+        {ValueIsNotEmpty(data.phone) && 
+          <View style={styles({theme: theme}).flexBox}>
+            <Icon name="call-outline" type="ionicon" color={theme.colors.black} size={verticalScale(20)} />
+            <Text style={styles({theme: theme}).text}>{data.phone}</Text>
+          </View>}
+          <View style={styles({theme: theme}).flexBox}>
+            <Icon name="star-sharp" type="ionicon" color={theme.colors.warning} size={verticalScale(20)} />
+            <Text style={styles({theme: theme}).text}>{data.averageRating ? `${data.averageRating} (${data.reviewsCount})` : 'Not rated'}</Text>
+          </View>
+      </Card>
     </TouchableOpacity>
-  )
-}
+  );
+};
 
-export default TrainerCard
+export default TrainerCard;
