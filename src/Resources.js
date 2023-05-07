@@ -64,6 +64,8 @@ export default Resources = {
         regularText: verticalScale(12),
         headingText: verticalScale(22),
         heading2Text: verticalScale(18),
+        heading3Text: verticalScale(16),
+        heading4Text: verticalScale(14),
         btnText: verticalScale(12),
         subscriptionTitle: verticalScale(16),
     },

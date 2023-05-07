@@ -12,7 +12,7 @@ export default styles = ({theme}) => {
     button: {
       borderColor: theme.colors.black,
       borderWidth: moderateScale(1),
-      borderRadius: moderateScale(10),
+      borderRadius: moderateScale(5),
       margin: verticalScale(5),
       width: scale(280),
       height: verticalScale(30),
@@ -29,11 +29,9 @@ export default styles = ({theme}) => {
       width: '50%',
     },
     text: {
-      color: theme.colors.black,
       fontSize: Resources.FontSize.btnText,
     },
     boldText: {
-      color: theme.colors.black,
       fontSize: Resources.FontSize.btnText,
       fontWeight: 'bold',
     },
@@ -43,7 +41,6 @@ export default styles = ({theme}) => {
       width: scale(300),
     },
     heading: {
-      color: theme.colors.black,
       fontSize: Resources.FontSize.headingText,
       margin: scale(10),
       maxWidth: scale(300),
@@ -51,8 +48,9 @@ export default styles = ({theme}) => {
     },
     reviewView: {
       width: scale(300),
-      borderRadius: moderateScale(10),
-      padding: moderateScale(10),
+      borderRadius: moderateScale(5),
+      marginVertical: verticalScale(5),
+      marginBottom: verticalScale(10),
       gap: moderateScale(10),
     },
     flexRow: {
@@ -62,15 +60,12 @@ export default styles = ({theme}) => {
       alignItems: 'center',
     },
     ratingText: {
-      color: theme.colors.black,
       fontSize: verticalScale(15),
     },
     reviewText: {
-      backgroundColor: theme.mode === 'dark' ? theme.colors.grey4 : theme.colors.grey2,
-      color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white,
       borderRadius: moderateScale(5),
-      padding: scale(10),
       textAlignVertical: 'top',
+      color: theme.colors.black
     },
   });
 };

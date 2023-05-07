@@ -16,17 +16,15 @@ const TrainerHome = React.lazy(() => import('../screens/trainerHome'));
 const CreateExercise = React.lazy(() => import('../screens/createExercise'));
 const Exercises = React.lazy(() => import('../screens/exercises'));
 const Exercise = React.lazy(() => import('../screens/exercise'));
-const CreateExerciseGuide = React.lazy(() =>
-  import('../screens/createExerciseGuide'),
-);
+const CreateExerciseGuide = React.lazy(() => import('../screens/createExerciseGuide'));
 const TrainingPlans = React.lazy(() => import('../screens/trainingPlans'));
-const CreateTrainingPlan = React.lazy(() =>
-  import('../screens/createTrainingPlan'),
-);
+const CreateTrainingPlan = React.lazy(() => import('../screens/createTrainingPlan'));
 const AddExerciseSets = React.lazy(() => import('../screens/addExerciseSets'));
-const TrainingPlanScreen = React.lazy(() =>
-  import('../screens/trainingPlanScreen'),
-);
+const TrainingPlanScreen = React.lazy(() => import('../screens/trainingPlanScreen'));
+const UserForms = React.lazy(() => import('../screens/userForms'));
+const CreateTrainingPlanOffer = React.lazy(() => import('../screens/createTrainingPlanOffer'));
+const TrainerMyForms = React.lazy(() => import('../screens/trainerMyForms'));
+const AssignTrainingPlan = React.lazy(() => import('../screens/assignTrainingPlan'));
 
 const TrainerHomeStack = () => {
   return (
@@ -41,6 +39,22 @@ const TrainerHomeStack = () => {
       <TrainerHomeStackNavigator.Screen
         name={Resources.Screens.TrainerHome}
         component={TrainerHome}
+      />
+      <TrainerHomeStackNavigator.Screen
+        name={'UserForms'}
+        component={UserForms}
+      />
+      <TrainerHomeStackNavigator.Screen
+        name={'CreateTrainingPlanOffer'}
+        component={CreateTrainingPlanOffer}
+      />
+      <TrainerHomeStackNavigator.Screen
+        name={'TrainerMyForms'}
+        component={TrainerMyForms}
+      />
+      <TrainerHomeStackNavigator.Screen
+        name={'AssignTrainingPlan'}
+        component={AssignTrainingPlan}
       />
     </TrainerHomeStackNavigator.Navigator>
   );

@@ -16,6 +16,9 @@ const UserForms = React.lazy(() => import('../screens/userForms'));
 const CreateTrainingPlanForm = React.lazy(() => import('../screens/createTrainingPlanForm'));
 const Trainers = React.lazy(() => import('../screens/trainers'));
 const Trainer = React.lazy(() => import('../screens/trainer'));
+const BodyMeasurements = React.lazy(() => import('../screens/bodyMeasurements'));
+const AddBodyMeasurements = React.lazy(() => import('../screens/addBodyMeasuremets'));
+const UserMyForms = React.lazy(() => import('../screens/userMyForms'));
 
 const UserHomeStack = () => {
   return (
@@ -36,8 +39,8 @@ const UserHomeStack = () => {
         component={SportsClubs}
       />
       <UserHomeStackNavigator.Screen
-        name={'UserForms'}
-        component={UserForms}
+        name={'UserMyForms'}
+        component={UserMyForms}
       />
       <UserHomeStackNavigator.Screen
         name={'CreateTrainingPlanForm'}
@@ -50,6 +53,14 @@ const UserHomeStack = () => {
       <UserHomeStackNavigator.Screen
         name={'Trainer'}
         component={Trainer}
+      />
+      <UserHomeStackNavigator.Screen
+        name={'BodyMeasurements'}
+        component={BodyMeasurements}
+      />
+      <UserHomeStackNavigator.Screen
+        name={'AddBodyMeasurements'}
+        component={AddBodyMeasurements}
       />
     </UserHomeStackNavigator.Navigator>
   );

@@ -9,7 +9,7 @@ console.log(subscription)
     <PricingCard
       color={theme.mode === 'dark' ? theme.colors.secondary : theme.colors.primary}
       title={subscription.name}
-      price={`$${Number(subscription.price).toFixed(2)}`}
+      price={`€${Number(subscription.price).toFixed(2)}`}
       info={[subscription.details]}
       infoStyle={{
         maxHeight: verticalScale(100),

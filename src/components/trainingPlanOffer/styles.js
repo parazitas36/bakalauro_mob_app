@@ -4,18 +4,19 @@ import Resources from '../../Resources';
 
 export default styles = ({theme}) => {
   return StyleSheet.create({
-    view: {
-      width: scale(250),
+    card: {
       borderRadius: moderateScale(5),
       elevation: 5,
+      width: scale(250),
     },
     text: {
-        fontSize: Resources.FontSize.regularText,
-        alignSelf: 'center',
-        textAlign: 'justify',
-      },
-    headings: {
       fontSize: Resources.FontSize.regularText,
+      alignSelf: 'center',
+      textAlign: 'justify',
+    },
+    headings: {
+      fontSize: Resources.FontSize.regularText * 1.1,
+      fontWeight: 'bold',
       alignSelf: 'center',
       marginVertical: verticalScale(5),
       textDecorationLine: 'underline'

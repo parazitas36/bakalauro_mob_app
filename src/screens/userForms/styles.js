@@ -6,7 +6,6 @@ export default styles = ({theme}) => {
   return StyleSheet.create({
     text: {
       color: theme.colors.black,
-      fontSize: Resources.FontSize.btnText,
       paddingHorizontal: scale(5),
       textAlign: 'center',
     },
@@ -19,7 +18,6 @@ export default styles = ({theme}) => {
     },
     heading: {
       color: theme.colors.black,
-      fontSize: Resources.FontSize.heading2Text,
       marginVertical: scale(10),
       maxWidth: scale(300)
     },

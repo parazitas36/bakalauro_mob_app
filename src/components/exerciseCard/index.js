@@ -16,13 +16,12 @@ const ExerciseCard = ({data, navigation, theme}) => {
   return (
     <Card containerStyle={styles({theme: theme}).card}>
       <Card.Title h4>{data.name}</Card.Title>
-      <Card.Divider/>
+      <Card.Divider subHeader='Targets muscle groups' subHeaderStyle={{color: theme.colors.grey0, marginBottom: 5}}/>
       <View style={{flexDirection: 'row', flexWrap: 'wrap', gap: 2}}>
         {muscleGroups && muscleGroups.map((x, i) => {
           return <MuscleIcon key={i} muscleName={x} size={35}/>
         })}
       </View>
-      <Card.Divider subHeader='Targets muscle groups' style={{marginTop: 5}} subHeaderStyle={{color: theme.colors.grey0}}/>
       {data.hasGuide && 
       <Button
         icon={
@@ -54,4 +53,4 @@ const ExerciseCard = ({data, navigation, theme}) => {
   )
 };
 
-export default ExerciseCard;
+export default React.memo(ExerciseCard);

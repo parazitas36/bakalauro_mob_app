@@ -35,12 +35,13 @@ const UserHome = ({navigation}) => {
       <View style={styles({theme: theme}).flexRow}>
         <CustomButtonWithIcon
           icon={() => <MaterialCommunityIcons name="newspaper-variant-outline" color={theme.colors.black} size={scale(20)} />}
-          onPress={() => navigation.navigate('UserForms')}
+          onPress={() => navigation.navigate('UserMyForms')}
           btnText="My forms"
           styles={styles({theme: theme})}
         />
         <CustomButtonWithIcon
           icon={() => <FontAwesome5 name="weight" color={theme.colors.black} size={scale(20)} />}
+          onPress={() => navigation.navigate('BodyMeasurements')}
           btnText="My body measurements"
           styles={styles({theme: theme})}
         />

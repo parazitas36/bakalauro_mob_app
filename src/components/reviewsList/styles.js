@@ -9,7 +9,7 @@ export default styles = ({theme}) => {
       maxWidth: scale(300),
       borderWidth: 1,
       borderColor: theme.colors.black,
-      borderRadius: moderateScale(10),
+      borderRadius: moderateScale(5),
       marginVertical: scale(10),
       justifyContent: 'center',
       alignItems: 'center',

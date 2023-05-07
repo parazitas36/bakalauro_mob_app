@@ -80,4 +80,4 @@ const MuscleIcon = ({muscleName, muscleGroups, setMuscleGroups, editMode, theme,
   );
 };
 
-export default MuscleIcon;
+export default React.memo(MuscleIcon);

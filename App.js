@@ -8,8 +8,6 @@ import Resources from './src/Resources';
 import Register from './src/screens/register';
 import Welcome from './src/screens/welcome';
 import Loading from './src/screens/loading';
-import TrainerStack from './src/navigation/TrainerStack';
-import UserStack from './src/navigation/UserStack';
 import { createTheme, ThemeProvider, useTheme, useThemeMode } from '@rneui/themed';
 import { View } from 'react-native';
 
@@ -20,6 +18,8 @@ export const TrainerContext = createContext();
 export const RegularUserContext = createContext();
 
 const SCAdminStack = React.lazy(() => import('./src/navigation/SCAdminStack'));
+const UserStack = React.lazy(() => import('./src/navigation/UserStack'));
+const TrainerStack = React.lazy(() => import('./src/navigation/TrainerStack'));
 
 const noRoleSpecificData = (data) => {
   return data === null || data === '';

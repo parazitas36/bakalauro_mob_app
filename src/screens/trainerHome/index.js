@@ -12,7 +12,7 @@ import { LoadingScreen, UserContext } from '../../../App';
 import { useTheme } from '@rneui/themed';
 import { useContext } from 'react';
 
-const TrainerHome = () => {
+const TrainerHome = ({navigation}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
@@ -43,6 +43,7 @@ const TrainerHome = () => {
             )}
             btnText="My forms"
             styles={styles({theme: theme})}
+            onPress={() => navigation.navigate('TrainerMyForms')}
           />
           <CustomButtonWithIcon
             icon={() => (
@@ -54,6 +55,7 @@ const TrainerHome = () => {
             )}
             btnText="Client forms"
             styles={styles({theme: theme})}
+            onPress={() => navigation.navigate('UserForms')}
           />
         </View>
         <View style={styles({theme: theme}).flexRow}>

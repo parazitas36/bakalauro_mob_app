@@ -7,10 +7,9 @@ import Resources from '../../Resources';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import { Card, Divider, Text } from '@rneui/themed';
 import MuscleIcon from '../muscleIcon';
+import { verticalScale } from 'react-native-size-matters';
 
-const TrainingPlan = ({navigation, trainingPlan, theme}) => {
-  console.log(trainingPlan)
-
+const TrainingPlan = ({navigation, trainingPlan, theme, selectView = false, setSelectedTrainingPlan}) => {
   const muscleGroups = []
 
   trainingPlan?.muscleGroups.forEach(arr => {
@@ -23,6 +22,45 @@ const TrainingPlan = ({navigation, trainingPlan, theme}) => {
     })
   })
 
+  if (selectView === true) {
+    return (
+      <Animated.View entering={FadeInLeft.delay(200)}>
+        <TouchableOpacity 
+          onPress={() => {
+            setSelectedTrainingPlan(trainingPlan)
+          }}>
+          <Card containerStyle={styles({theme: theme}).card}>
+            <Card.Title h4>{trainingPlan?.name}</Card.Title>
+            <Card.Divider />
+            <View style={styles({theme: theme}).infoView}>
+              <View style={styles({theme: theme}).subView}>
+                <Text style={styles({theme: theme}).boldText}>{Resources.Texts.MuscleGroups}</Text>
+                <View style={{flexDirection: 'row', flexWrap: 'wrap', gap: 2, padding: 2}}>
+                  {muscleGroups.length > 0 ? muscleGroups.map((x, i) => {
+                    return <MuscleIcon muscleName={x} key={i} size={30} />
+                  })
+                  : null}
+                </View>
+              </View>
+              <Divider orientation='vertical'/>
+              <View style={{...styles({theme: theme}).subView, alignItems: 'flex-end'}}>
+                <Text style={styles({theme: theme}).boldText}>{Resources.Texts.Equipment}</Text>
+                {trainingPlan.equipment?.length > 0 ? 
+                  trainingPlan.equipment.map((x, i) => {
+                    return <Text key={i} style={styles({theme: theme}).text}>{x.name}</Text>;
+                  }) : 
+                  <Text style={styles({theme: theme}).text}>
+                    {`${Resources.Texts.NoEquipment}`}
+                  </Text>
+                }
+              </View>
+            </View>
+          </Card>
+        </TouchableOpacity>
+      </Animated.View>
+    )
+  }
+
   return (
     <Animated.View entering={FadeInLeft.delay(200)}>
       <TouchableOpacity 
@@ -33,7 +71,9 @@ const TrainingPlan = ({navigation, trainingPlan, theme}) => {
           })}>
         <Card containerStyle={styles({theme: theme}).card}>
           <Card.Title h4>{trainingPlan?.name}</Card.Title>
-          <Card.Divider />
+          <Card.Divider 
+            subHeader={trainingPlan.assignedTo !== null ? `Assigned to: ${trainingPlan.assignedTo}` : null}
+            subHeaderStyle={trainingPlan.assignedTo !== null ? {textAlign: 'center', marginBottom: verticalScale(5)} : null}/>
           <View style={styles({theme: theme}).infoView}>
             <View style={styles({theme: theme}).subView}>
               <Text style={styles({theme: theme}).boldText}>{Resources.Texts.MuscleGroups}</Text>
@@ -63,4 +103,4 @@ const TrainingPlan = ({navigation, trainingPlan, theme}) => {
   )
 };
 
-export default TrainingPlan;
+export default React.memo(TrainingPlan);

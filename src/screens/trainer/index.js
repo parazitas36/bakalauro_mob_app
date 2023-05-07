@@ -1,4 +1,4 @@
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Image, TouchableOpacity} from 'react-native';
 import React, {Suspense} from 'react';
 import {LoadingScreen, UserContext} from '../../../App';
 import styles from './styles';
@@ -16,7 +16,7 @@ import CustomButton from '../../components/customButton';
 import { PostCall } from '../../api/PostCall';
 import { ToastAndroid } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { useTheme } from '@rneui/themed';
+import { Card, Text, useTheme } from '@rneui/themed';
 
 const Trainer = ({navigation, route}) => {
   const trainerId = route?.params?.trainerId;
@@ -116,18 +116,19 @@ const Trainer = ({navigation, route}) => {
           </View>
         </View>
         <ReviewsList reviews={trainerData?.reviews}/>
-        <View style={styles({theme: theme}).reviewView}>
+        <Card containerStyle={styles({theme: theme}).reviewView}>
           <View style={styles({theme: theme}).flexRow}>
-            <Text style={styles({theme: theme}).ratingText}>Rating </Text>
-            {ratings.map(x => {
-              return <RatingStar starRating={x} key={x} />
-            })}
+              <Text style={styles({theme: theme}).ratingText}>Rating </Text>
+              {ratings.map(x => {
+                return <RatingStar starRating={x} key={x} />
+              })}
           </View>
+          <Card.Divider />
           <TextInput
             multiline={true}
             numberOfLines={5}
             placeholder='Enter your review' 
-            placeholderTextColor={theme.mode === 'dark' ? theme.colors.black : theme.colors.white}
+            placeholderTextColor={theme.colors.grey2}
             value={reviewText}
             onChangeText={setReviewText}
             style={styles({theme: theme}).reviewText} />
@@ -139,7 +140,7 @@ const Trainer = ({navigation, route}) => {
             disabled={reload === true}
             loading={reload === true}
           />
-        </View>
+        </Card>
       </View>
       }
     </Suspense>

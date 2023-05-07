@@ -53,7 +53,9 @@ const Exercises = ({navigation}) => {
           exiting={FadeOutUp}>
           <Animated.Text style={styles({theme: theme}).heading}>{Resources.Texts.Exercises}</Animated.Text>
           {exercises?.length === 0 ? <Text style={styles({theme: theme}).text}>{Resources.Texts.NoExercises}</Text> :
-          <FlatList data={exercises} renderItem={({item}) => ExerciseCard({data: item, navigation: navigation, theme: theme})}/>}
+          <FlatList data={exercises} renderItem={({item}) => { 
+            return <ExerciseCard data={item} navigation={navigation} theme={theme}/>
+          }}/>}
           <FAB
             icon={{name: 'add', color: Resources.Colors.IconsColor}}
             color={theme.colors.primary}

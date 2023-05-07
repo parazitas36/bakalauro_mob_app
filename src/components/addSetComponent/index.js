@@ -17,10 +17,11 @@ const AddSetComponent = ({setState, setsState}) => {
 
   const AddSet = () => {styles({theme: theme}).textInput
     if (set?.Repetitions > 0) {
-      setSets(prev => [...prev, set]);
+      const insert = {Weights: String(set.Weights).trim() === '' ? '0' : set.Weights, Repetitions: set?.Repetitions}
+      setSets(prev => [...prev, insert]);
     } else {
       ToastAndroid.show(
-        'Repetitions cannot be zero!',
+        'Repetitions cannot be zero or empty!',
         ToastAndroid.SHORT
       )
     }
@@ -63,6 +64,7 @@ const AddSetComponent = ({setState, setsState}) => {
           <TextInput
             value={set?.Repetitions?.toString()}
             keyboardType='number-pad'
+            selectTextOnFocus={true}
             onChangeText={val => OnChangeRepetitions(val)}
             style={styles({theme: theme}).textInput}
           />
@@ -71,6 +73,7 @@ const AddSetComponent = ({setState, setsState}) => {
           <Text style={styles({theme: theme}).boldText}>{`${Resources.Texts.Weight} (kg)`}</Text>
           <TextInput
             keyboardType='number-pad'
+            selectTextOnFocus={true}
             value={set?.Weights?.toString()}
             onChangeText={val => OnChangeWeights(val)}
             style={styles({theme: theme}).textInput}

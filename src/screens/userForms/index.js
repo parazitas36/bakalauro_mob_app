@@ -1,10 +1,6 @@
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import React from 'react';
 import styles from './styles';
-import Entypo from 'react-native-vector-icons/Entypo';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Resources from '../../Resources';
 import {scale} from 'react-native-size-matters';
 import Animated, {FadeInLeft} from 'react-native-reanimated';
@@ -15,14 +11,19 @@ import {useContext} from 'react';
 import {useState} from 'react';
 import {GetCall} from '../../api/GetCall';
 import {ApiConstants} from '../../api/ApiConstants';
-import {FAB, useTheme} from '@rneui/themed';
+import {FAB, useTheme, Text} from '@rneui/themed';
 import TrainingPlanForm from '../../components/trainingPlanForm';
+import { TouchableOpacity } from 'react-native';
+import { FlatList } from 'react-native';
+import { RefreshControl } from 'react-native';
 
 const UserForms = ({navigation}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
+
+  const [reload, setReload] = useState(false);
 
   const {theme} = useTheme();
 
@@ -31,7 +32,9 @@ const UserForms = ({navigation}) => {
   useEffect(() => {
     (async () => {
       const resp = await GetCall({
-        endpoint: ApiConstants().UsersTrainingPlanForms,
+        endpoint: userData.role === 'Trainer' ? 
+                    ApiConstants().TrainingPlanForms 
+                    : ApiConstants().UsersTrainingPlanForms,
         token: token,
       });
 
@@ -41,26 +44,56 @@ const UserForms = ({navigation}) => {
       } else {
         setUserForms([]);
       }
+
+      setReload(false)
     })();
-  }, []);
+  }, [reload === true]);
+
+  if (userData.role === 'Trainer') {
+    return (
+      <Suspense fallback={LoadingScreen()}>
+        {userForms === null ? LoadingScreen() : 
+          <Animated.View entering={FadeInLeft.delay(300)} style={styles({theme: theme}).view}>
+            <Text h4 style={styles({theme: theme}).heading}>Trainer forms</Text>
+            {userForms?.length === 0 ? <Text style={styles({theme: theme}).text}>No forms</Text>
+            : <FlatList
+                style={{minWidth: '100%'}} 
+                contentContainerStyle={{alignItems: 'center'}} 
+                refreshControl={<RefreshControl onRefresh={() => setReload(true)} refreshing={reload === true} />}
+                data={userForms} renderItem={({item}) => {
+                  return (
+                    <TouchableOpacity
+                      disabled={item.offered === true}
+                      onPress={() => {
+                        navigation.navigate({
+                          name: 'CreateTrainingPlanOffer',
+                          params: { trainingPlanForm: item }
+                        })
+                      }}>
+                      <TrainingPlanForm data={item} theme={theme} />
+                    </TouchableOpacity>
+                  )
+                }} />
+              }
+          </Animated.View>
+        }
+      </Suspense>
+    );
+  }
 
   return (
     <Suspense fallback={LoadingScreen()}>
       {userForms === null ? LoadingScreen() : 
-        <Animated.View entering={FadeInLeft} style={styles({theme: theme}).view}>
-          <Text style={styles({theme: theme}).heading}>My forms</Text>
-          {userForms?.length === 0 ? (
-            <Text style={styles({theme: theme}).text}>No forms</Text>
-          ) : userForms?.map((item, index) => {
-            return <TrainingPlanForm key={index} data={item} theme={theme} />
-          })}
-          <FAB
-            icon={{name: 'add', color: Resources.Colors.IconsColor}}
-            color="#2089DC"
-            size="small"
-            placement="right"
-            onPress={() => navigation.navigate('CreateTrainingPlanForm')}
-          />
+        <Animated.View entering={FadeInLeft.delay(300)} style={styles({theme: theme}).view}>
+          <Text h4 style={styles({theme: theme}).heading}>My forms</Text>
+          {userForms?.length === 0 ? <Text style={styles({theme: theme}).text}>No forms</Text>
+          : <FlatList
+              style={{minWidth: '100%'}} 
+              contentContainerStyle={{alignItems: 'center'}} 
+              refreshControl={<RefreshControl onRefresh={() => setReload(true)} refreshing={reload === true} />}
+              data={userForms} renderItem={({item}) => {
+              return <TrainingPlanForm data={item} theme={theme} />
+            }} />}
         </Animated.View>
       }
     </Suspense>
