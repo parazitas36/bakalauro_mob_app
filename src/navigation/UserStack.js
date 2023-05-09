@@ -9,6 +9,7 @@ import { useTheme } from '@rneui/themed';
 
 const UserTabNavigator = createMaterialBottomTabNavigator();
 const UserHomeStackNavigator = createStackNavigator();
+const UserTrainingPlanStackNavigator = createStackNavigator();
 
 const UserHome = React.lazy(() => import('../screens/userHome'));
 const SportsClubs = React.lazy(() => import('../screens/sportsClubs'));
@@ -19,11 +20,14 @@ const Trainer = React.lazy(() => import('../screens/trainer'));
 const BodyMeasurements = React.lazy(() => import('../screens/bodyMeasurements'));
 const AddBodyMeasurements = React.lazy(() => import('../screens/addBodyMeasuremets'));
 const UserMyForms = React.lazy(() => import('../screens/userMyForms'));
+const UserTrainingPlans = React.lazy(() => import('../screens/userTrainingPlans'));
+const TrainingPlanScreen = React.lazy(() => import('../screens/trainingPlanScreen'));
+const WorkoutScreen = React.lazy(() => import('../screens/workoutScreen'));
 
 const UserHomeStack = () => {
   return (
     <UserHomeStackNavigator.Navigator
-      initialRouteName={Resources.Screens.SCAdminHome}
+      initialRouteName={'UserHome'}
       screenOptions={{
         headerShown: false,
         presentation: 'card',
@@ -66,11 +70,38 @@ const UserHomeStack = () => {
   );
 };
 
+const UserTrainingPlanStack = () => {
+  return (
+    <UserTrainingPlanStackNavigator.Navigator
+      initialRouteName={'UserHome'}
+      screenOptions={{
+        headerShown: false,
+        presentation: 'card',
+        animationEnabled: true,
+        detachPreviousScreen: true,
+      }}>
+      <UserTrainingPlanStackNavigator.Screen
+        name={'UserTrainingPlans'}
+        component={UserTrainingPlans}
+      />
+      <UserTrainingPlanStackNavigator.Screen
+        name={Resources.Screens.TrainingPlanScreen}
+        component={TrainingPlanScreen}
+      />
+       <UserTrainingPlanStackNavigator.Screen
+        name={'WorkoutScreen'}
+        component={WorkoutScreen}
+      />
+    </UserTrainingPlanStackNavigator.Navigator>
+  )
+}
+
 const UserTab = () => {
   const {theme} = useTheme();
+  const [reloadWorkout, setReloadWorkout] = useState(false);
 
   const context = {
-    
+    reloadWorkoutState: [reloadWorkout, setReloadWorkout]
   };
 
   return (
@@ -87,6 +118,16 @@ const UserTab = () => {
             tabBarLabel: Resources.Screens.Home,
             tabBarIcon: ({ color }) => (
               <Icon name="home" color={color} size={verticalScale(18)} />
+            ),
+          }}
+        />
+        <UserTabNavigator.Screen
+          name={'UserTrainingPlanStack'}
+          component={UserTrainingPlanStack}
+          options={{
+            tabBarLabel: Resources.Screens.TrainingPlans,
+            tabBarIcon: ({ color }) => (
+              <Icon name="clipboard-list" color={color} size={verticalScale(18)} />
             ),
           }}
         />

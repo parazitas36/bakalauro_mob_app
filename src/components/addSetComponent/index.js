@@ -93,8 +93,9 @@ const AddSetComponent = ({setState, setsState}) => {
           borderColor: theme.colors.black,
           borderWidth: moderateScale(1.25),
           marginTop: verticalScale(10),
-          width: scale(100),
-          height: verticalScale(40),
+          width: scale(90),
+          height: scale(30),
+          padding: 0,
           alignSelf: 'center'
         }}
         titleStyle={{

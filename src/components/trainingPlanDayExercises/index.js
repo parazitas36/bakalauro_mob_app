@@ -31,7 +31,16 @@ const TrainingPlanDayExercises = ({navigation, planDay, planWeek, editMode, fetc
     return (
       <View style={styles({theme}).view}>
         <TouchableOpacity style={styles({theme}).dayTextView} onPress={() => setHidden(prev => !prev)}>
-          <Text style={styles({theme}).dayText}>{planDay}</Text>
+          <View style={{width: '50%', flexDirection: 'row', gap: 5, alignItems: 'center'}}>
+            <Text style={styles({theme}).dayText}>
+              {planDay}
+            </Text>
+            {ExerciseData.length === 0 &&
+              <Icon 
+                name={'bed'} 
+                color={theme.colors.black} 
+                size={scale(15)}/>}
+          </View>
           <View style={styles({theme}).icon}>
             <Icon 
               name={`${hidden ? 'chevron-down' : 'chevron-up'}`} 
@@ -72,7 +81,16 @@ const TrainingPlanDayExercises = ({navigation, planDay, planWeek, editMode, fetc
   return (
     <View style={styles({theme}).view}>
         <TouchableOpacity style={styles({theme}).dayTextView} onPress={() => setHidden(prev => !prev)}>
-          <Text style={styles({theme}).dayText}>{planDay}</Text>
+          <View style={{width: '50%', flexDirection: 'row', gap: 5, alignItems: 'center'}}>
+            <Text style={styles({theme}).dayText}>
+              {planDay}
+            </Text>
+            {ExerciseData.length === 0 &&
+              <Icon 
+                name={'bed'} 
+                color={theme.colors.black} 
+                size={scale(15)}/>}
+          </View>
           <View style={styles({theme}).icon}>
             <Icon 
               name={`${hidden ? 'chevron-down' : 'chevron-up'}`} 

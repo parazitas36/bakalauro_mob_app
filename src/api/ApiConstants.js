@@ -30,6 +30,8 @@ export const ApiConstants = (props) =>  {
         Trainers: `${URL}${Users_Endpoint}trainers/`,
         Reviews: `${URL}${Users_Endpoint}reviews/`,
         BodyMeasurements: `${URL}${Forms_Endpoint}bodymeasurements/`,
-        TrainingPlanOffers: `${URL}${Forms_Endpoint}trainingplanoffers/`
+        TrainingPlanOffers: `${URL}${Forms_Endpoint}trainingplanoffers/`,
+        UserTrainingPlans: `${URL}${TrainingPlan_Endpoint}userplans`,
+        LogExerciseProgress: `${URL}${TrainingPlan_Endpoint}progress/`
     });
 }

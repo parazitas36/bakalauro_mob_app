@@ -1,7 +1,7 @@
 import {Text} from 'react-native';
 import React, {Suspense} from 'react';
 import styles from './styles';
-import {LoadingScreen, TrainerContext, UserContext} from '../../../App';
+import {LoadingScreen, RegularUserContext, UserContext} from '../../../App';
 import {useContext} from 'react';
 import {useState, useMemo} from 'react';
 import Resources from '../../Resources';
@@ -21,9 +21,8 @@ const TrainingPlanScreen = ({navigation, route}) => {
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
-
-  const {exercisesState} = useContext(TrainerContext);
-  const [exercises, setExercises] = exercisesState;
+  const {reloadWorkoutState} = useContext(RegularUserContext);
+  const [reloadWorkout, setReloadWorkout] = reloadWorkoutState;
 
   const [trainingPlanData, setTrainingPlanData] = useState(null)
 
@@ -83,16 +82,15 @@ const TrainingPlanScreen = ({navigation, route}) => {
         token: token,
       });
 
-      console.log(resp)
-
       if(resp.status === 200) {
         const data = await resp.json();
-        console.log(data)
         setTrainingPlanData(data)
       }
       
     })();
-  }, []);
+
+    setReloadWorkout(false);
+  }, [reloadWorkout === true]);
 
 
 
