@@ -21,8 +21,6 @@ const TrainingPlanScreen = ({navigation, route}) => {
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
-  const {reloadWorkoutState} = useContext(RegularUserContext);
-  const [reloadWorkout, setReloadWorkout] = reloadWorkoutState;
 
   const [trainingPlanData, setTrainingPlanData] = useState(null)
 
@@ -75,22 +73,43 @@ const TrainingPlanScreen = ({navigation, route}) => {
     return [];
   }, [])
 
-  useEffect(() => {
-    (async () => {
-      const resp = await GetCall({
-        endpoint: ApiConstants({ids: [trainingPlanId]}).TrainingPlanById,
-        token: token,
-      });
+  if (userData.role === 'User') {
+    const {reloadWorkoutState} = useContext(RegularUserContext);
+    const [reloadWorkout, setReloadWorkout] = reloadWorkoutState;
 
-      if(resp.status === 200) {
-        const data = await resp.json();
-        setTrainingPlanData(data)
-      }
-      
-    })();
-
-    setReloadWorkout(false);
-  }, [reloadWorkout === true]);
+    useEffect(() => {
+      (async () => {
+        const resp = await GetCall({
+          endpoint: ApiConstants({ids: [trainingPlanId]}).TrainingPlanById,
+          token: token,
+        });
+  
+        if(resp.status === 200) {
+          const data = await resp.json();
+          setTrainingPlanData(data)
+        }
+        
+      })();
+  
+      setReloadWorkout(false);
+    }, [reloadWorkout === true]);
+  } else {
+    useEffect(() => {
+      (async () => {
+        const resp = await GetCall({
+          endpoint: ApiConstants({ids: [trainingPlanId]}).TrainingPlanById,
+          token: token,
+        });
+  
+        if(resp.status === 200) {
+          const data = await resp.json();
+          setTrainingPlanData(data)
+        }
+        
+      })();
+  
+    }, []);
+  }
 
 
 

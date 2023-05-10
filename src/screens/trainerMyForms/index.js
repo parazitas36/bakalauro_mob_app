@@ -17,7 +17,7 @@ const TrainerMyForms = ({navigation}) => {
           style={styles({theme: theme}).view}>
             <Text h4>My training plan offers</Text>
             <TrainerTrainingPlanOffers navigation={navigation} />
-            <Text h4>My job forms</Text>
+            {/* <Text h4>My job forms</Text> */}
         </Animated.View>
     </Suspense>
   );

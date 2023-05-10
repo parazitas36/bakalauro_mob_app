@@ -22,7 +22,7 @@ const TrainingPlanForm = ({data, theme}) => {
     return (
       <Card containerStyle={styles({theme: theme}).view}>
         <Card.Title>{formDetails.goal}</Card.Title>
-        <Card.Divider subHeader={data.username} subHeaderStyle={{textAlign: 'center'}}/>
+        <Card.Divider subHeader={data.username} subHeaderStyle={{textAlign: 'center', color: theme.colors.grey2}}/>
         <Text h4 h4Style={styles({theme: theme}).headings}>Details</Text>
         <Text style={styles({theme: theme}).text}>{formDetails.details}</Text>
         <Text h4 h4Style={styles({theme: theme}).headings}>Health issues</Text>

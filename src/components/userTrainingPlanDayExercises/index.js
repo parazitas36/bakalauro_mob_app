@@ -7,13 +7,11 @@ import { useMemo } from 'react';
 import { useState } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome5'
-import { scale } from 'react-native-size-matters';
+import { moderateScale, scale } from 'react-native-size-matters';
 import UserTrainingPlanExerciseWithSets from '../userTrainingPlanExerciseWithSets';
 import { Button } from '@rneui/themed';
 
 const UserTrainingPlanExercises = ({navigation, planDay, planWeek, fetchedWeeklyPlan, theme}) => {
-  const [hidden, setHidden] = useState(planDay === Resources.Days.Monday ? false : true);
-
   const ExerciseData = useMemo(() => {
     if (fetchedWeeklyPlan.length > 0) {
       const data = fetchedWeeklyPlan.filter(x => x.week === planWeek).at(0).days[String(planDay).toLowerCase()]
@@ -22,11 +20,34 @@ const UserTrainingPlanExercises = ({navigation, planDay, planWeek, fetchedWeekly
     return []
   }, [fetchedWeeklyPlan])
 
+  const [hidden, setHidden] = useState(ExerciseData.length > 0  ? false : true);
+  
+  const CountOfCompletedSets = () => ExerciseData?.map(x => {
+    if (x?.loggedSets !== null) {
+      const sets = JSON.parse(x?.loggedSets)
+      if (sets && sets.length > 0) {
+        return sets.length
+      }
+    }
+  }).filter(x => {if(x){return x}}).reduce((sum, x) => sum + x, 0)
+
+  const CountOfAssignedSets = () => ExerciseData?.map(x => {
+    if (x?.sets !== null) {
+      const sets = JSON.parse(x.sets)
+      if (sets.length > 0) {
+        return sets.length
+      }
+    }
+  }).filter(x => {if(x){return x}}).reduce((sum, x) => sum + x, 0)
+
   return (
     <View style={styles({theme}).view}>
         <TouchableOpacity style={styles({theme}).dayTextView} onPress={() => setHidden(prev => !prev)}>
           <View style={{width: '50%', flexDirection: 'row', gap: 5, alignItems: 'center'}}>
-            <Text style={styles({theme}).dayText}>
+            <Text style={{
+              ...styles({theme}).dayText, 
+              color: CountOfAssignedSets() !== 0 && CountOfCompletedSets() === CountOfAssignedSets() ? theme.colors.success :
+               CountOfCompletedSets() > 0 ? theme.colors.warning : theme.colors.black}}>
               {planDay}
             </Text>
             {ExerciseData.length === 0 &&
@@ -55,8 +76,10 @@ const UserTrainingPlanExercises = ({navigation, planDay, planWeek, fetchedWeekly
           : null}
           {ExerciseData !== null && ExerciseData.length ?
           <Button
-            title={`Start ${planDay.toLowerCase()} workout`}
-            icon={{name: 'play', type: 'font-awesome', color: 'white'}}
+            title={`${CountOfCompletedSets() === CountOfAssignedSets() ? 'Edit' 
+              : CountOfCompletedSets() > 0 ? 'Resume' : 'Start'} ${planDay.toLowerCase()} workout`}
+            buttonStyle={{width: scale(280), borderRadius: moderateScale(5), alignSelf: 'center'}}
+            icon={{name: `${CountOfCompletedSets() === CountOfAssignedSets() ? 'edit' : 'play'}`, type: 'font-awesome', color: 'white'}}
             onPress={() => {
               navigation.navigate({
                 name: 'WorkoutScreen',

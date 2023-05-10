@@ -32,16 +32,18 @@ const LogSetComponent = ({sets, loggedSets, setLoggedSets, trainingPlanExerciseI
 
   const AddSet = async() => {
     if (set?.Repetitions > 0) {
-      const insert = {Weights: String(set.Weights).trim() === '' ? '0' : set.Weights, Repetitions: set?.Repetitions};
+      const insert = {Weights: String(set.Weights ? set.Weights : '').trim() === '' ? '0' : set.Weights, Repetitions: set?.Repetitions};
 
       var tempLoggedSets = [...loggedSets];
       var existingLoggedSets = exerciseSets
 
-      const existing = loggedSets?.filter(x => x.trainingPlanExerciseId === trainingPlanExerciseId);
-
+      const existing = loggedSets?.filter(x => x.trainingPlanExerciseId === trainingPlanExerciseId)?.at(0)?.loggedSets;
+      console.log(existing)
       if (existingLoggedSets.length === 0 && (existing === undefined || existing === null)) {
+        console.log('1')
         tempLoggedSets.push({trainingPlanExerciseId: trainingPlanExerciseId, loggedSets: [insert]})
       } else {
+        console.log('2')
         existingLoggedSets.push(insert)
         tempLoggedSets.forEach(x => {
           if (x.trainingPlanExerciseId === trainingPlanExerciseId) {

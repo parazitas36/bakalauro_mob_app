@@ -55,6 +55,7 @@ const TrainingPlanOffer = ({ navigation, theme, data, reload, setReload, hideBut
             textAlign: 'center',
             marginBottom: 5,
             fontWeight: 'bold',
+            color: theme.colors.grey2
           }}
         />
         <Text style={styles({theme: theme}).headings}>Details</Text>

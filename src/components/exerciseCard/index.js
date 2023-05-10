@@ -11,8 +11,6 @@ const ExerciseCard = ({data, navigation, theme}) => {
 
   const muscleGroups = JSON.parse(data?.muscleGroups)
 
-  console.log(muscleGroups)
-
   return (
     <Card containerStyle={styles({theme: theme}).card}>
       <Card.Title h4>{data.name}</Card.Title>
@@ -31,7 +29,7 @@ const ExerciseCard = ({data, navigation, theme}) => {
           size={verticalScale(20)}
           iconStyle={{marginRight: scale(5)}} />
         }
-        title='Show guide'
+        title='How To Do'
         buttonStyle={{
           borderRadius: moderateScale(3),
           backgroundColor: theme.colors.background,

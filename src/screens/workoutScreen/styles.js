@@ -15,7 +15,9 @@ export default styles = ({theme}) => {
     flexRow: {
       flexDirection: 'row',
       position: 'absolute',
+      justifyContent: 'center',
       bottom: 5,
+      width: '100%'
     },
     cardButtons: {
       width: scale(150),
@@ -30,7 +32,8 @@ export default styles = ({theme}) => {
     },
     exerciseTitleCard: {
       height: '100%',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      alignSelf: 'center'
     }
   });
 };

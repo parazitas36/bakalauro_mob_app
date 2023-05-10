@@ -28,7 +28,6 @@ export default styles = ({theme}) => {
     dayText: {
       left: 0,
       fontSize: Resources.FontSize.heading2Text,
-      color: theme.colors.black,
     },
     btnText: {
       color: theme.colors.black,
