@@ -70,18 +70,32 @@ const TrainerHome = ({navigation}) => {
             btnText="My profile"
             styles={styles({theme: theme})}
           />
-           <CustomButtonWithIcon
-              icon={() => (
-                <Ionicons
-                  name="exit"
-                  color={theme.colors.black}
-                  size={scale(20)}
-                />
-              )}
-              onPress={() => Logout()}
-              btnText="Logout"
-              styles={styles({theme: theme})}
-            />
+          <CustomButtonWithIcon
+            icon={() => (
+              <Ionicons
+                name="people"
+                color={theme.colors.black}
+                size={scale(20)}
+              />
+            )}
+            btnText="My clients"
+            styles={styles({theme: theme})}
+            onPress={() => navigation.navigate('Clients')}
+          />
+        </View>
+        <View style={styles({theme: theme}).flexRow}>
+          <CustomButtonWithIcon
+            icon={() => (
+              <Ionicons
+                name="exit"
+                color={theme.colors.black}
+                size={scale(20)}
+              />
+            )}
+            onPress={() => Logout()}
+            btnText="Logout"
+            styles={styles({theme: theme})}
+          />
         </View>
       </Animated.ScrollView>
     </Suspense>

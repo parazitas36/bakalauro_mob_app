@@ -25,6 +25,8 @@ const UserForms = React.lazy(() => import('../screens/userForms'));
 const CreateTrainingPlanOffer = React.lazy(() => import('../screens/createTrainingPlanOffer'));
 const TrainerMyForms = React.lazy(() => import('../screens/trainerMyForms'));
 const AssignTrainingPlan = React.lazy(() => import('../screens/assignTrainingPlan'));
+const Clients = React.lazy(() => import('../screens/clients'));
+const ClientTrainingPlans = React.lazy(() => import('../screens/clientTrainingPlans'));
 
 const TrainerHomeStack = () => {
   return (
@@ -55,6 +57,18 @@ const TrainerHomeStack = () => {
       <TrainerHomeStackNavigator.Screen
         name={'AssignTrainingPlan'}
         component={AssignTrainingPlan}
+      />
+      <TrainerHomeStackNavigator.Screen
+        name={'Clients'}
+        component={Clients}
+      />
+      <TrainerHomeStackNavigator.Screen
+        name={'ClientTrainingPlans'}
+        component={ClientTrainingPlans}
+      />
+       <TrainerTrainingPlansStackNavigator.Screen
+        name={Resources.Screens.TrainingPlanScreen}
+        component={TrainingPlanScreen}
       />
     </TrainerHomeStackNavigator.Navigator>
   );

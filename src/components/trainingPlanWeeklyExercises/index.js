@@ -17,6 +17,7 @@ const TrainingPlanWeeklyExercises = ({
   editMode,
   fetchedWeeklyPlan,
   theme,
+  clientId = null,
 }) => {
   const {tokenState, userDataState, roleSpecificDataState} =
     useContext(UserContext);
@@ -42,7 +43,7 @@ const TrainingPlanWeeklyExercises = ({
         />
       </TouchableOpacity>
       <View style={hidden ? styles({theme}).hiddenView : null}>
-        {userData.role === 'Trainer' ? (
+        {userData.role === 'Trainer' && clientId === null ? (
           <TrainingPlanDayExercises
             key={Resources.Days.Monday}
             planWeek={planWeek}
@@ -62,7 +63,7 @@ const TrainingPlanWeeklyExercises = ({
             theme={theme}
           />
         )}
-        {userData.role === 'Trainer' ? (
+        {userData.role === 'Trainer' && clientId === null ? (
           <TrainingPlanDayExercises
             key={Resources.Days.Tuesday}
             planWeek={planWeek}
@@ -82,7 +83,7 @@ const TrainingPlanWeeklyExercises = ({
             theme={theme}
           />
         )}
-        {userData.role === 'Trainer' ? (
+        {userData.role === 'Trainer' && clientId === null ? (
           <TrainingPlanDayExercises
             key={Resources.Days.Wednesday}
             planWeek={planWeek}
@@ -102,7 +103,7 @@ const TrainingPlanWeeklyExercises = ({
             theme={theme}
           />
         )}
-        {userData.role === 'Trainer' ? (
+        {userData.role === 'Trainer' && clientId === null ? (
           <TrainingPlanDayExercises
             key={Resources.Days.Thursday}
             planWeek={planWeek}
@@ -122,7 +123,7 @@ const TrainingPlanWeeklyExercises = ({
             theme={theme}
           />
         )}
-        {userData.role === 'Trainer' ? (
+        {userData.role === 'Trainer' && clientId === null ? (
           <TrainingPlanDayExercises
             key={Resources.Days.Friday}
             planWeek={planWeek}
@@ -142,7 +143,7 @@ const TrainingPlanWeeklyExercises = ({
             theme={theme}
           />
         )}
-        {userData.role === 'Trainer' ? (
+        {userData.role === 'Trainer' && clientId === null ? (
           <TrainingPlanDayExercises
             key={Resources.Days.Saturday}
             planWeek={planWeek}
@@ -162,7 +163,7 @@ const TrainingPlanWeeklyExercises = ({
             theme={theme}
           />
         )}
-        {userData.role === 'Trainer' ? (
+        {userData.role === 'Trainer' && clientId === null ? (
           <TrainingPlanDayExercises
             key={Resources.Days.Sunday}
             planWeek={planWeek}

@@ -10,7 +10,7 @@ import { scale } from 'react-native-size-matters';
 import { Card, Divider, Text } from '@rneui/themed';
 import MuscleIcon from '../muscleIcon';
 
-const UserTrainingPlanExerciseWithSets = ({data, theme}) => {
+const UserTrainingPlanExerciseWithSets = ({data, theme, userData}) => {
   const sets = JSON.parse(data.sets)
   const muscleGroups = JSON.parse(data.muscleGroups)
   const loggedSets = data.loggedSets ? JSON.parse(data.loggedSets) : null;
@@ -58,13 +58,25 @@ const UserTrainingPlanExerciseWithSets = ({data, theme}) => {
                   return <Text 
                           key={i}
                           style={styles({theme: theme}).text}>
-                            {x.Repetitions} x {x.Weights === 0 ? 
+                            {x.Repetitions} x {Number(x.Weights) === 0 ? 
                             'No weights' 
                             : x.Weights+'kg'}
                           </Text>
                 }) : null}
-              <Text style={styles({theme: theme}).boldText}>Completed sets</Text>
-              <Text>{loggedSets === null ? 0 : loggedSets.length} / {sets.length}</Text>
+              <Text style={styles({theme: theme}).boldText}>{userData.role === 'User' ? 'Completed sets' : 'Logged sets'}</Text>
+              {userData.role === 'Trainer' ?
+               loggedSets?.length > 0 ?
+                loggedSets.map((x, i) => {
+                  return <Text 
+                          key={i}
+                          style={styles({theme: theme}).text}>
+                            {x.Repetitions} x {Number(x.Weights) === 0 ? 
+                            'No weights' 
+                            : x.Weights+'kg'}
+                          </Text>
+                }) : <Text>No sets are logged</Text>
+              : null}
+              {userData.role === 'User' && <Text>{loggedSets === null ? 0 : loggedSets.length} / {sets.length}</Text>}
             </View>
           </View>
         </Card>

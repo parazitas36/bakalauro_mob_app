@@ -9,7 +9,7 @@ import { Card, Divider, Text } from '@rneui/themed';
 import MuscleIcon from '../muscleIcon';
 import { verticalScale } from 'react-native-size-matters';
 
-const TrainingPlan = ({navigation, trainingPlan, theme, selectView = false, setSelectedTrainingPlan}) => {
+const TrainingPlan = ({navigation, clientId = null, trainingPlan, theme, selectView = false, setSelectedTrainingPlan}) => {
   const muscleGroups = []
 
   trainingPlan?.muscleGroups.forEach(arr => {
@@ -67,7 +67,7 @@ const TrainingPlan = ({navigation, trainingPlan, theme, selectView = false, setS
         onPress={() => 
           navigation.navigate({
             name: Resources.Screens.TrainingPlanScreen, 
-            params: { trainingPlanId: trainingPlan.id }
+            params: { trainingPlanId: trainingPlan.id, clientId: clientId }
           })}>
         <Card containerStyle={styles({theme: theme}).card}>
           <Card.Title h4>{trainingPlan?.name}</Card.Title>

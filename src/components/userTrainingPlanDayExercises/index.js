@@ -10,8 +10,14 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 import { moderateScale, scale } from 'react-native-size-matters';
 import UserTrainingPlanExerciseWithSets from '../userTrainingPlanExerciseWithSets';
 import { Button } from '@rneui/themed';
+import { UserContext } from '../../../App';
 
 const UserTrainingPlanExercises = ({navigation, planDay, planWeek, fetchedWeeklyPlan, theme}) => {
+  const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
+  const [token, setToken] = tokenState;
+  const [userData, setUserData] = userDataState;
+  const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
+
   const ExerciseData = useMemo(() => {
     if (fetchedWeeklyPlan.length > 0) {
       const data = fetchedWeeklyPlan.filter(x => x.week === planWeek).at(0).days[String(planDay).toLowerCase()]
@@ -23,7 +29,7 @@ const UserTrainingPlanExercises = ({navigation, planDay, planWeek, fetchedWeekly
   const [hidden, setHidden] = useState(ExerciseData.length > 0  ? false : true);
   
   const CountOfCompletedSets = () => ExerciseData?.map(x => {
-    if (x?.loggedSets !== null) {
+    if (x?.loggedSets && x?.loggedSets !== null) {
       const sets = JSON.parse(x?.loggedSets)
       if (sets && sets.length > 0) {
         return sets.length
@@ -32,7 +38,7 @@ const UserTrainingPlanExercises = ({navigation, planDay, planWeek, fetchedWeekly
   }).filter(x => {if(x){return x}}).reduce((sum, x) => sum + x, 0)
 
   const CountOfAssignedSets = () => ExerciseData?.map(x => {
-    if (x?.sets !== null) {
+    if (x?.sets && x?.sets !== null) {
       const sets = JSON.parse(x.sets)
       if (sets.length > 0) {
         return sets.length
@@ -71,10 +77,11 @@ const UserTrainingPlanExercises = ({navigation, planDay, planWeek, fetchedWeekly
                         data={x} 
                         exercise={null}
                         theme={theme}
+                        userData={userData}
                      />
             }) : <Text style={styles({theme}).text}>Rest day</Text>
           : null}
-          {ExerciseData !== null && ExerciseData.length ?
+          {ExerciseData !== null && ExerciseData.length && userData.role === 'User' ?
           <Button
             title={`${CountOfCompletedSets() === CountOfAssignedSets() ? 'Edit' 
               : CountOfCompletedSets() > 0 ? 'Resume' : 'Start'} ${planDay.toLowerCase()} workout`}
