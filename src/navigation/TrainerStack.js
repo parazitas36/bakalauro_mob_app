@@ -28,6 +28,8 @@ const AssignTrainingPlan = React.lazy(() => import('../screens/assignTrainingPla
 const Clients = React.lazy(() => import('../screens/clients'));
 const ClientTrainingPlans = React.lazy(() => import('../screens/clientTrainingPlans'));
 const ClientTrainingPlanProgress = React.lazy(() => import('../screens/clientTrainingPlanProgress'));
+const EditTrainingPlan = React.lazy(() => import('../screens/editTrainingPlan'));
+const EditExerciseSets = React.lazy(() => import('../screens/editExerciseSets'));
 
 const TrainerHomeStack = () => {
   return (
@@ -67,13 +69,21 @@ const TrainerHomeStack = () => {
         name={'ClientTrainingPlans'}
         component={ClientTrainingPlans}
       />
-      <TrainerTrainingPlansStackNavigator.Screen
+      <TrainerHomeStackNavigator.Screen
         name={'TrainingPlanScreen'}
         component={TrainingPlanScreen}
       />
-      <TrainerTrainingPlansStackNavigator.Screen
+      <TrainerHomeStackNavigator.Screen
         name={'ClientTrainingPlanProgress'}
         component={ClientTrainingPlanProgress}
+      />
+      <TrainerHomeStackNavigator.Screen
+        name={'EditTrainingPlan'}
+        component={EditTrainingPlan}
+      />
+      <TrainerHomeStackNavigator.Screen
+        name={'EditExerciseSets'}
+        component={EditExerciseSets}
       />
     </TrainerHomeStackNavigator.Navigator>
   );
@@ -133,6 +143,14 @@ const TrainerTrainingPlansStack = () => {
         name={Resources.Screens.TrainingPlanScreen}
         component={TrainingPlanScreen}
       />
+      <TrainerTrainingPlansStackNavigator.Screen
+        name={'EditTrainingPlan'}
+        component={EditTrainingPlan}
+      />
+      <TrainerTrainingPlansStackNavigator.Screen
+        name={'EditExerciseSets'}
+        component={EditExerciseSets}
+      />
     </TrainerTrainingPlansStackNavigator.Navigator>
   );
 };
@@ -142,6 +160,7 @@ const TrainerTab = () => {
   const [guide, setGuide] = useState([]);
   const [refreshExercises, setRefreshExercises] = useState(false);
   const [refreshTrainingPlans, setRefreshTrainingPlans] = useState(false);
+  const [refreshTrainingPlanInEditMode, setRefreshTrainingPlanInEditMode] = useState(false);
   const [key, setKey] = useState(0);
   const [weeks, setWeeks] = useState(null);
   const [exercises, setExercises] = useState(null);
@@ -150,6 +169,7 @@ const TrainerTab = () => {
     guideState: [guide, setGuide],
     refreshExercisesState: [refreshExercises, setRefreshExercises],
     refreshTrainingPlansState: [refreshTrainingPlans, setRefreshTrainingPlans],
+    refreshTrainingPlanInEditModeState: [refreshTrainingPlanInEditMode, setRefreshTrainingPlanInEditMode],
     keyState: [key, setKey],
     weeksState: [weeks, setWeeks],
     exercisesState: [exercises, setExercises],

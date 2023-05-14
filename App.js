@@ -21,10 +21,6 @@ const SCAdminStack = React.lazy(() => import('./src/navigation/SCAdminStack'));
 const UserStack = React.lazy(() => import('./src/navigation/UserStack'));
 const TrainerStack = React.lazy(() => import('./src/navigation/TrainerStack'));
 
-const noRoleSpecificData = (data) => {
-  return data === null || data === '';
-}
-
 const AuthStackNav = createStackNavigator();
 const AuthStack = () => {
   return (

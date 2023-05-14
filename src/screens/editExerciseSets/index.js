@@ -17,12 +17,16 @@ import AddSetComponent from '../../components/addSetComponent';
 import SetComponent from '../../components/setComponent';
 import TrainingPlanExercise from '../../components/trainingPlanExercise';
 import { useTheme } from '@rneui/themed';
+import { PatchCall } from '../../api/PatchCall';
+import { ApiConstants } from '../../api/ApiConstants';
+import { PostCall } from '../../api/PostCall';
 
-const AddExerciseSets = ({navigation, route}) => {
+const EditExerciseSets = ({navigation, route}) => {
   const planDay = route?.params?.planDay;
   const planWeek = route?.params?.planWeek;
   const editMode = route?.params?.editMode
   const exerciseKey = route?.params?.exerciseKey
+  const trainingPlanId = route?.params?.trainingPlanId;
 
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
   const [token, setToken] = tokenState;
@@ -31,50 +35,47 @@ const AddExerciseSets = ({navigation, route}) => {
 
   const {theme} = useTheme();
 
-  const {weeksState, exercisesState, keyState} = useContext(TrainerContext);
+  const {weeksState, exercisesState, keyState, refreshTrainingPlanInEditModeState} = useContext(TrainerContext);
   const [weeks, setWeeks] = weeksState;
   const [key, setKey] = keyState;
   const [exercises, setExercises] = exercisesState;
+  const [refreshTrainingPlanInEditMode, setRefreshTrainingPlanInEditMode] = refreshTrainingPlanInEditModeState;
 
-  const existingExercise = editMode === true ? weeks.filter(x => x.Week === planWeek).at(0).Days[planDay].filter(x => x.Key === exerciseKey).at(0) : null
-  const existingSets = editMode === true ? JSON.parse(existingExercise?.Sets) : []
+  const existingExercise = editMode === true ? weeks.filter(x => x.week === planWeek).at(0).days[String(planDay).toLowerCase()].filter(x => x.editKey === exerciseKey).at(0) : null
+  const existingSets = editMode === true ? JSON.parse(existingExercise?.sets) : []
 
-  const [exercise, setExercise] = useState(existingExercise !== null ? exercises.filter(x => x.id === existingExercise?.Id).at(0) : null);
+  const [exercise, setExercise] = useState(existingExercise !== null ? exercises.filter(x => x.id === existingExercise?.exerciseId).at(0) : null);
   const [sets, setSets] = useState(existingSets);
   const [set, setSet] = useState({Repetitions: 0, Weights: 0});
 
-  const SavePress = () => {
-    const copyWeeks = [...weeks];
+  const SavePress = async() => {
+    if (editMode === true) {
+      const resp = await PatchCall({
+        endpoint: ApiConstants({ids: [existingExercise.trainingPlanExerciseId]}).UpdateTrainingPlanExercise,
+        token: token,
+        body: JSON.stringify(sets)
+      })
+      console.log(resp)
 
-    for (var i = 0; i < copyWeeks.length; i++) {
-      if (copyWeeks[i].Week === planWeek) {
-        const arr = copyWeeks[i].Days[planDay];
-        if (editMode === true) {
-          for(var j = 0; j < arr.length; j++) {
-            if (arr[j].Key === exerciseKey) {
-              arr[j] = {...arr[j], Sets: JSON.stringify(sets)}
-              break;
-            }
-          }
-        } else {
-          arr.push({
-            Key: key,
-            Id: exercise.id,
-            Sets: JSON.stringify(sets),
-          });
-        }
-
-        copyWeeks[i].Days[planDay] = arr;
-
-        setWeeks(copyWeeks);
-
-        if (editMode !== true) {
-          setKey(prev => prev + 1);
-        }
-
-        navigation.goBack();
-        break;
+      setRefreshTrainingPlanInEditMode(true)
+      navigation.goBack();
+    } else {
+      const body = {
+        Week: planWeek,
+        Day: planDay,
+        ExerciseId: exercise.id,
+        Sets: JSON.stringify(sets)
       }
+
+      const resp = await PostCall({
+        endpoint: ApiConstants({ids: [trainingPlanId]}).UpdateTrainingPlanNewExercise,
+        token: token,
+        body: body
+      })
+      console.log(resp)
+
+      setRefreshTrainingPlanInEditMode(true)
+      navigation.goBack();
     }
   };
 
@@ -86,7 +87,7 @@ const AddExerciseSets = ({navigation, route}) => {
         entering={FadeInDown.delay(100)}
         exiting={FadeOutUp}>
         <Animated.Text style={styles({theme: theme}).heading} entering={FadeInUp}>
-          {Resources.Texts.FillExerciseInfoInPlan}
+          Edit exercise information
         </Animated.Text>
         {exercise === null ?
           <Animated.Text
@@ -108,7 +109,7 @@ const AddExerciseSets = ({navigation, route}) => {
         {sets.length > 0 ? 
           <CustomButton
             btnText={Resources.ButtonTexts.SaveBtnText}
-            onPress={() => SavePress()}
+            onPress={async() => await SavePress()}
             styles={styles({theme: theme})}
           /> :
           <CustomButton
@@ -125,4 +126,4 @@ const AddExerciseSets = ({navigation, route}) => {
   );
 };
 
-export default AddExerciseSets;
+export default EditExerciseSets;

@@ -12,24 +12,25 @@ export default styles = ({theme}) => {
       borderColor: theme.colors.black,
       borderWidth: moderateScale(1),
       borderRadius: moderateScale(10),
-      marginVertical: scale(10),
-      width: scale(135),
+      width: scale(280),
       height: verticalScale(30),
       justifyContent: 'center',
       alignItems: 'center',
+      zIndex: 0,
     },
     view: {
       flex: 1,
     },
-    viewContent: {
+    contentContainerStyle: {
       alignItems: 'center',
-      minHeight: '100%'
+      minHeight: '100%',
+      gap: verticalScale(15),
+      paddingBottom: verticalScale(20),
     },
     heading: {
       color: theme.colors.black,
       fontSize: Resources.FontSize.heading2Text,
-      marginVertical: scale(10),
-      maxWidth: scale(300)
+      margin: scale(10),
     },
   });
 };

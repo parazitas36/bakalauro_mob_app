@@ -73,7 +73,7 @@ const TrainingPlan = ({navigation, clientId = null, trainingPlan, theme, selectV
           <Card.Title h4>{trainingPlan?.name}</Card.Title>
           <Card.Divider 
             subHeader={trainingPlan.assignedTo !== null ? `Assigned to: ${trainingPlan.assignedTo}` : null}
-            subHeaderStyle={trainingPlan.assignedTo !== null ? {textAlign: 'center', marginBottom: verticalScale(5)} : null}/>
+            subHeaderStyle={trainingPlan.assignedTo !== null ? {textAlign: 'center', marginBottom: verticalScale(5), color: theme.colors.black} : null}/>
           <View style={styles({theme: theme}).infoView}>
             <View style={styles({theme: theme}).subView}>
               <Text style={styles({theme: theme}).boldText}>{Resources.Texts.MuscleGroups}</Text>

@@ -13,8 +13,8 @@ import { Card, Divider, Text, useTheme } from '@rneui/themed';
 import MuscleIcon from '../muscleIcon';
 
 const ExerciseSelectionList = ({exercises, exerciseState}) => {
-  const [hidden, setHidden] = useState(false);
   const [exercise, setExercise] = exerciseState;
+  const [hidden, setHidden] = useState(exercise === null ? false : true);
 
   const {theme} = useTheme();
 

@@ -1,6 +1,5 @@
 import React, {useContext, Suspense, useEffect, useState} from 'react';
-import Animated, {FadeInDown, FadeOutUp} from 'react-native-reanimated';
-
+import Animated, {FadeInDown, FadeInLeft, FadeOutUp} from 'react-native-reanimated';
 import styles from './styles';
 import Resources from '../../Resources';
 import {LoadingScreen, TrainerContext, UserContext} from '../../../App';
@@ -10,21 +9,41 @@ import {Text} from 'react-native';
 import {FlatList} from 'react-native';
 import {FAB} from '@rneui/base';
 import TrainingPlan from '../../components/trainingPlan';
-import { useTheme } from '@rneui/themed';
+import { Button, ListItem, Tooltip, useTheme } from '@rneui/themed';
+import { scale } from 'react-native-size-matters';
+import DialogInput from 'react-native-dialog-input';
+import { PostCall } from '../../api/PostCall';
+import { RefreshControl } from 'react-native';
 
 const TrainingPlans = ({navigation, selectView = false, setSelectedTrainingPlan}) => {
-  const {tokenState, userDataState, roleSpecificDataState} =
-    useContext(UserContext);
-  const {refreshTrainingPlansState, exercisesState} = useContext(TrainerContext);
+  const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
+  const {refreshTrainingPlansState, weeksState, exercisesState} = useContext(TrainerContext);
   const [refreshTrainingPlans, setRefreshTrainingPlans] = refreshTrainingPlansState;
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
+  const [weeks, setWeeks] = weeksState;
+  const [copyTrainingPlanId, setCopyTrainingPlanId] = useState(null);
 
   const {theme} = useTheme();
 
   const [trainingPlans, setTrainingPlans] = useState(null);
   const [exercises, setExercises] = exercisesState;
+
+  const CopyTrainingPlan = async(name) => {
+    const resp = await PostCall({
+      endpoint: ApiConstants({ids: [copyTrainingPlanId]}).CopyTrainingPlan, 
+      token: token, 
+      body: name
+    });
+    console.log(resp)
+    setRefreshTrainingPlans(true)
+  }
+
+  const SubmitInput = async(input) => {
+    await CopyTrainingPlan(input);
+    setCopyTrainingPlanId(null)
+  }
 
   useEffect(() => {
     if(exercises === null) {
@@ -70,9 +89,8 @@ const TrainingPlans = ({navigation, selectView = false, setSelectedTrainingPlan}
   if (selectView === true) {
     return (
       <Suspense fallback={LoadingScreen()}>
-        {trainingPlans === null ? (
-          <LoadingScreen />
-        ) : (
+        {trainingPlans === null ? <LoadingScreen />
+        : (
           <Animated.View
             style={styles({theme}).view}
             entering={FadeInDown.delay(100)}
@@ -116,18 +134,93 @@ const TrainingPlans = ({navigation, selectView = false, setSelectedTrainingPlan}
           <Animated.Text style={styles({theme}).heading}>
             {Resources.Texts.TrainingPlans}
           </Animated.Text>
+          <DialogInput isDialogVisible={copyTrainingPlanId !== null}
+            title={"Enter the training plan name"}
+            hintInput={"Enter the name"}
+            submitInput={async(input) => await SubmitInput(input)}
+            closeDialog={() => setCopyTrainingPlanId(null)}/>
           {trainingPlans.length === 0 ? 
             <Text style={styles({theme}).text}>{Resources.Texts.NoTrainingPlans}</Text>
           : <FlatList
+              refreshControl={
+                <RefreshControl 
+                  refreshing={refreshTrainingPlans === true}
+                  onRefresh={() => setRefreshTrainingPlans(true)}
+                />
+              }
               data={trainingPlans}
               renderItem={({item, index}) => {
                 return (
-                  <TrainingPlan
-                    key={index}
-                    trainingPlan={item}
-                    navigation={navigation}
-                    theme={theme}
-                  />
+                  <ListItem.Swipeable
+                    leftWidth={scale(50)}
+                    rightWidth={scale(50)}
+                    minSlideWidth={scale(10)}
+                    leftContent={() => (
+                      <Animated.View
+                        style={{
+                          flex: 1,
+                          justifyContent: 'center',
+                          alignItems: 'center'
+                        }}
+                        entering={FadeInLeft.delay(600)}>
+                        <Tooltip
+                          withPointer={false}
+                          visible={false}
+                          backgroundColor={theme.colors.black}
+                          popover={
+                            <Text style={{color: theme.colors.white}}>
+                              Assign training plan
+                            </Text>
+                          }
+                        />
+                        <Button
+                          containerStyle={{
+                            justifyContent: 'center',
+                          }}
+                          type="clear"
+                          icon={{name: 'copy', type: 'font-awesome-5', color: theme.colors.black}}
+                          onPress={() => setCopyTrainingPlanId(item.id)}
+                          onLongPress={() => {}}
+                          onPressOut={() => {}}
+                        />
+                      </Animated.View>
+                    )}
+                    rightContent={() => (
+                      <Animated.View
+                        style={{
+                          flex: 1,
+                          justifyContent: 'center',
+                        }}
+                        entering={FadeInLeft.delay(600)}>
+                        <Tooltip
+                          withPointer={false}
+                          visible={false}
+                          backgroundColor={theme.colors.black}
+                          popover={
+                            <Text style={{color: theme.colors.white}}>
+                              Delete offer
+                            </Text>
+                          }
+                        />
+                        <Button
+                          containerStyle={{
+                            justifyContent: 'center',
+                          }}
+                          type="clear"
+                          icon={{name: 'delete-outline', color: theme.colors.error}}
+                          onPress={async () => {}}
+                          onLongPress={() => {}}
+                          onPressOut={() => {}}
+                        />
+                      </Animated.View>
+                    )}>
+                    <TrainingPlan
+                      key={index}
+                      trainingPlan={item}
+                      navigation={navigation}
+                      theme={theme}
+                    />
+                  </ListItem.Swipeable>
                 );
               }}
             />
@@ -137,8 +230,10 @@ const TrainingPlans = ({navigation, selectView = false, setSelectedTrainingPlan}
             color={theme.colors.primary}
             size="small"
             placement="right"
-            onPress={() =>
-              navigation.navigate(Resources.Screens.CreateTrainingPlan)
+            onPress={() => {
+                setWeeks(null);
+                navigation.navigate(Resources.Screens.CreateTrainingPlan)
+              }
             }
           />
         </Animated.View>

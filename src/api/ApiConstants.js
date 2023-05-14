@@ -37,6 +37,10 @@ export const ApiConstants = (props) =>  {
         Clients: `${URL}${Users_Endpoint}clients`,
         ClientTrainingPlans: `${URL}${TrainingPlan_Endpoint}client/${props?.ids[0]}`,
         ClientTrainingPlanById: `${URL}${TrainingPlan_Endpoint}client/${props?.ids[0]}/trainingPlan/${props?.ids[1]}`,
-        TrainingPlanProgressById: `${URL}${Progress_Endpoint}${props?.ids[0]}`
+        TrainingPlanProgressById: `${URL}${Progress_Endpoint}${props?.ids[0]}`,
+        CopyTrainingPlan: `${URL}${TrainingPlan_Endpoint}copy/${props?.ids[0]}`,
+        UpdateTrainingPlanNewExercise: `${URL}${TrainingPlan_Endpoint}update/${props?.ids[0]}`,
+        UpdateTrainingPlanExercise: `${URL}${TrainingPlan_Endpoint}${props?.ids[0]}`,
+        DeleteTrainingPlanExercise: `${URL}${TrainingPlan_Endpoint}exercise/${props?.ids[0]}`
     });
 }

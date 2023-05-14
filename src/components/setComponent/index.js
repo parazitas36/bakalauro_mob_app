@@ -2,15 +2,47 @@ import {View} from 'react-native';
 import React from 'react';
 import styles from './styles';
 import Resources from '../../Resources';
-import Animated, { FadeInUp } from 'react-native-reanimated';
-import { Card, Divider, Text } from '@rneui/themed';
+import Animated, { FadeInLeft, FadeInUp } from 'react-native-reanimated';
+import { Button, Card, Divider, ListItem, Text } from '@rneui/themed';
+import { scale } from 'react-native-size-matters';
 
 const SetComponent = ({id, setsState, theme}) => {
   const [sets, setSets] = setsState
   const data = sets[id]
 
+  const DeleteSet = () => {
+    let copySets = [...sets]
+    setSets(copySets.filter((x, i) => {
+      if(i !== id) {
+        return x
+      }
+    }))
+  }
+
   return (
     <Animated.View entering={FadeInUp.delay(100)}>
+      <ListItem.Swipeable
+        leftWidth={0}
+        rightWidth={scale(50)}
+        minSlideWidth={scale(10)}
+        rightContent={() => (
+          <Animated.View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+            }}
+            entering={FadeInLeft.delay(600)}>
+            <Button
+              containerStyle={{
+                justifyContent: 'center',
+              }}
+              type="clear"
+              icon={{name: 'delete-outline', color: theme.colors.error}}
+              onPress={() => DeleteSet()}
+            />
+          </Animated.View>
+        )}
+      >
       <Card containerStyle={styles({theme: theme}).view}>
         <Card.Title h4>{`${Resources.Texts.Set} #${id+1}`}</Card.Title>
         <Card.Divider />
@@ -24,8 +56,9 @@ const SetComponent = ({id, setsState, theme}) => {
             <Text style={styles({theme: theme}).boldText}>{`${Resources.Texts.Weight} (kg)`}</Text>
             <Text style={styles({theme: theme}).boldText}>{data?.Weights}</Text>
           </View>
-      </View>
+        </View>
       </Card>
+      </ListItem.Swipeable>
     </Animated.View>
   )
 };
