@@ -64,7 +64,7 @@ const UserTrainingPlanExerciseWithSets = ({data, theme, userData}) => {
                           </Text>
                 }) : null}
               <Text style={styles({theme: theme}).boldText}>{userData.role === 'User' ? 'Completed sets' : 'Logged sets'}</Text>
-              {userData.role === 'Trainer' ?
+              {userData?.role === 'Trainer' ?
                loggedSets?.length > 0 ?
                 loggedSets.map((x, i) => {
                   return <Text 

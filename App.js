@@ -43,7 +43,7 @@ const AuthStack = () => {
 };
 
 const theme = createTheme({
-  mode: 'light'
+  mode: 'dark'
 })
 
 const ColorScheme = ({ children }) => {

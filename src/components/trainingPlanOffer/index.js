@@ -144,7 +144,7 @@ const TrainingPlanOffer = ({ navigation, theme, data, reload, setReload, hideBut
                 }}
                 disabled={disableButtons}
                 type="clear"
-                icon={{name: 'clipboard-list', type: 'font-awesome-5'}}
+                icon={{name: 'clipboard-list', type: 'font-awesome-5', color: theme.colors.black}}
                 onPress={() => {
                   navigation.navigate({
                     name: 'AssignTrainingPlan',
@@ -179,7 +179,7 @@ const TrainingPlanOffer = ({ navigation, theme, data, reload, setReload, hideBut
                 }}
                 disabled={disableButtons}
                 type="clear"
-                icon={{name: 'delete-outline'}}
+                icon={{name: 'delete-outline', color: theme.colors.error}}
                 onPress={async () => await DeletePress()}
                 onLongPress={() => setRightToolTipOpen(true)}
                 onPressOut={() => setRightToolTipOpen(false)}

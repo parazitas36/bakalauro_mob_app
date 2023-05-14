@@ -1,15 +1,15 @@
 import React, {useContext, Suspense, useEffect, useState} from 'react';
-import Animated, {FadeInDown, FadeOutUp} from 'react-native-reanimated';
+import Animated, {FadeInDown, FadeInLeft, FadeOutUp} from 'react-native-reanimated';
 
 import styles from './styles';
 import Resources from '../../Resources';
 import {LoadingScreen, UserContext} from '../../../App';
 import {ApiConstants} from '../../api/ApiConstants';
 import {GetCall} from '../../api/GetCall';
-import {Text} from 'react-native';
 import {FlatList} from 'react-native';
 import TrainingPlan from '../../components/trainingPlan';
-import { useTheme } from '@rneui/themed';
+import { Button, ListItem, Text, Tooltip, useTheme } from '@rneui/themed';
+import { scale } from 'react-native-size-matters';
 
 const ClientTrainingPlans = ({navigation, route}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
@@ -60,13 +60,54 @@ const ClientTrainingPlans = ({navigation, route}) => {
               data={trainingPlans}
               renderItem={({item, index}) => {
                 return (
-                  <TrainingPlan
-                    key={index}
-                    trainingPlan={item}
-                    navigation={navigation}
-                    theme={theme}
-                    clientId={clientId}
-                  />
+                  <ListItem.Swipeable
+                    leftWidth={scale(50)}
+                    rightWidth={0}
+                    minSlideWidth={scale(10)}
+                    leftContent={() => (
+                      <Animated.View
+                        style={{
+                          flex: 1,
+                          justifyContent: 'center',
+                          alignItems: 'center'
+                        }}
+                        entering={FadeInLeft.delay(600)}>
+                        <Tooltip
+                          withPointer={false}
+                          visible={false}
+                          backgroundColor={theme.colors.black}
+                          popover={
+                            <Text style={{color: theme.colors.white}}>
+                              Assign training plan
+                            </Text>
+                          }
+                        />
+                        <Button
+                          containerStyle={{
+                            justifyContent: 'center',
+                          }}
+                          type="clear"
+                          icon={{name: 'chart-line', type: 'font-awesome-5', color: theme.colors.black}}
+                          onPress={() => {
+                            navigation.navigate({
+                              name: 'ClientTrainingPlanProgress',
+                              params: {trainingPlanId: item.id},
+                            });
+                          }}
+                          onLongPress={() => {} /*setLeftToolTipOpen(true)*/}
+                          onPressOut={() => {} /*setLeftToolTipOpen(false)*/}
+                        />
+                      </Animated.View>
+                    )}
+                  >
+                    <TrainingPlan
+                      key={index}
+                      trainingPlan={item}
+                      navigation={navigation}
+                      theme={theme}
+                      clientId={clientId}
+                    />
+                  </ListItem.Swipeable>
                 );
               }}
             />

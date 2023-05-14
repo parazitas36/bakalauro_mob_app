@@ -27,6 +27,7 @@ const TrainerMyForms = React.lazy(() => import('../screens/trainerMyForms'));
 const AssignTrainingPlan = React.lazy(() => import('../screens/assignTrainingPlan'));
 const Clients = React.lazy(() => import('../screens/clients'));
 const ClientTrainingPlans = React.lazy(() => import('../screens/clientTrainingPlans'));
+const ClientTrainingPlanProgress = React.lazy(() => import('../screens/clientTrainingPlanProgress'));
 
 const TrainerHomeStack = () => {
   return (
@@ -66,9 +67,13 @@ const TrainerHomeStack = () => {
         name={'ClientTrainingPlans'}
         component={ClientTrainingPlans}
       />
-       <TrainerTrainingPlansStackNavigator.Screen
-        name={Resources.Screens.TrainingPlanScreen}
+      <TrainerTrainingPlansStackNavigator.Screen
+        name={'TrainingPlanScreen'}
         component={TrainingPlanScreen}
+      />
+      <TrainerTrainingPlansStackNavigator.Screen
+        name={'ClientTrainingPlanProgress'}
+        component={ClientTrainingPlanProgress}
       />
     </TrainerHomeStackNavigator.Navigator>
   );

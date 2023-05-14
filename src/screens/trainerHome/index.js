@@ -11,6 +11,7 @@ import Animated, {FadeInLeft} from 'react-native-reanimated';
 import { LoadingScreen, UserContext } from '../../../App';
 import { useTheme } from '@rneui/themed';
 import { useContext } from 'react';
+import { LineChart } from 'react-native-chart-kit';
 
 const TrainerHome = ({navigation}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
@@ -25,6 +26,50 @@ const TrainerHome = ({navigation}) => {
     setUserData(null);
     setRoleSpecificData(null);
   };
+
+  // return (
+  //   <View>
+  //     <LineChart
+  //   data={{
+  //     labels: [' jan', ' feb', ' mar', ' apr', ' june', ' july'],
+  //     datasets: [
+                          
+  //                 {
+  //                             data: [10, -4, 6, -8, 80, 20, 29, null],
+  //                             strokeWidth: 2,
+  //                             color: () => theme.colors.greyOutline
+  //                 },
+  //                 {
+  //                             data: [5,8,6,9,8,2,-2],
+  //                             strokeWidth: 2,
+  //                             color: () => theme.colors.warning
+  //                 },
+  //             ],
+  //     legend: ['car', 'bike'],
+  //     }}
+  //   width={scale(300)} // from react-native
+  //   height={scale(200)}
+  //   chartConfig={{
+  //     backgroundColor: "#e26a00",
+  //     backgroundGradientFrom: theme.colors.primary,
+  //     backgroundGradientTo: theme.colors.secondary,
+  //     color: (opacity = 1) => `rgba(0, 255, 255, ${opacity})`,
+  //     labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+  //     style: {
+  //       borderRadius: 16
+  //     },
+  //     propsForDots: {
+  //       r: "6",
+  //     },
+  //   }}
+  //   style={{
+  //     marginVertical: 8,
+  //     borderRadius: 16
+  //   }}
+  //   fromZero={true}
+  // />
+  //   </View>
+  // )
 
   return (
     <Suspense fallback={LoadingScreen()}>
