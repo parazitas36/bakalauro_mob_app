@@ -23,6 +23,7 @@ const UserMyForms = React.lazy(() => import('../screens/userMyForms'));
 const UserTrainingPlans = React.lazy(() => import('../screens/userTrainingPlans'));
 const TrainingPlanScreen = React.lazy(() => import('../screens/trainingPlanScreen'));
 const WorkoutScreen = React.lazy(() => import('../screens/workoutScreen'));
+const BodyMeasurementsProgress = React.lazy(() => import('../screens/bodyMeasurementsProgress'));
 
 const UserHomeStack = () => {
   return (
@@ -65,6 +66,10 @@ const UserHomeStack = () => {
       <UserHomeStackNavigator.Screen
         name={'AddBodyMeasurements'}
         component={AddBodyMeasurements}
+      />
+      <UserHomeStackNavigator.Screen
+        name={'BodyMeasurementsProgress'}
+        component={BodyMeasurementsProgress}
       />
     </UserHomeStackNavigator.Navigator>
   );

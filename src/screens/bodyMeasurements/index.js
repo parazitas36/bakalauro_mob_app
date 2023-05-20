@@ -1,3 +1,4 @@
+import { Button } from '@rneui/base';
 import {Card, FAB, Icon, Text, useTheme} from '@rneui/themed';
 import React from 'react';
 import {useContext} from 'react';
@@ -48,6 +49,16 @@ const BodyMeasurements = ({navigation}) => {
   return (
     <Animated.View style={styles({theme: theme}).view}>
       <Text h4 style={{marginVertical: verticalScale(5)}}>Your body measurements</Text>
+      <Button
+        title='Check your progress'
+        containerStyle={{padding: verticalScale(5)}}
+        onPress={() => navigation.navigate({
+          name: 'BodyMeasurementsProgress',
+          params: {
+            bodyMeasurements: bodyMeasurements
+          }
+        })}
+      />
       {bodyMeasurements === null ? LoadingScreen() : bodyMeasurements?.length > 0 ?
       <FlatList data={bodyMeasurements} renderItem={({item, index}) => <BodyMeasurementsItem key={index} data={item} theme={theme} />}/>
         : <Text>You haven't added any body measurements yet.</Text>

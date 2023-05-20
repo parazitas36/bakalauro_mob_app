@@ -25,6 +25,7 @@ export default styles = ({theme}) => {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
+      paddingBottom: verticalScale(20)
     },
     textInput: {
       color: theme.colors.black,

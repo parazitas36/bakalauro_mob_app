@@ -1,7 +1,7 @@
 import React from 'react';
 import {Card} from 'react-native-paper';
 import {scale} from 'react-native-size-matters';
-import {FlatList} from 'react-native';
+import {FlatList, View} from 'react-native';
 import WeeklyProgress from '../weeklyProgress';
 import DailyProgress from '../dailyProgress';
 import Animated from 'react-native-reanimated';
@@ -103,8 +103,8 @@ const Charts = ({weeks, theme}) => {
 
   return (
     <Animated.View style={{flex: 1, backgroundColor: theme.colors.background}}>
-        <Card
-        containerStyle={{
+        <View
+        style={{
             width: scale(300),
             alignItems: 'center',
             borderWidth: 0,
@@ -119,7 +119,7 @@ const Charts = ({weeks, theme}) => {
         {weekProgress.length > 1 && (
             <WeeklyProgress weekProgress={weekProgress} theme={theme} />
         )}
-        </Card>
+        </View>
     </Animated.View>
   );
 };
