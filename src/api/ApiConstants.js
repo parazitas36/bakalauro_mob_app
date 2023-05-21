@@ -51,7 +51,7 @@ export const ApiConstants = (props) =>  {
         UpdateTrainerInvite: `${URL}${Forms_Endpoint}trainerinvites/${props?.ids[0]}/`,
         GetFile: `${URL}${Files_Endpoint}file/`,
         GetSportsClubTrainers: `${URL}${SportsClub_Endpoint}${props?.ids[0]}/trainers/`,
-        GetFacilityTrainers: `${URL}${Facility_Endpoint}${props?.ids[0]}/trainers/`,
-
+        GetFacilityTrainers: `${URL}${Facility_Endpoint}${props?.ids[0]}/trainers`,
+        AssignTrainerToFacility: `${URL}${Facility_Endpoint}${props?.ids[0]}/assign/${props?.ids[1]}`
     });
 }

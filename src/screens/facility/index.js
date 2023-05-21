@@ -6,13 +6,16 @@ import EquipmentList from '../../components/equipmentList';
 import { FAB } from '@rneui/base';
 import Resources from '../../Resources';
 import { ApiConstants } from '../../api/ApiConstants';
-import { Tab, TabView, useTheme } from '@rneui/themed';
+import { SpeedDial, Tab, TabView, useTheme } from '@rneui/themed';
 import { useState } from 'react';
 import Trainers from '../trainers';
 
 const Facility = ({navigation, route}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
+  const [userData, setUserData] = userDataState
+  const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState
   const [token, setToken] = tokenState;
+  const [sdialIsOpen, setSDialIsOpen] = useState(false);
   const facility = route?.params?.facility;
   const sportsClubName = route?.params?.sportsClubName;
 
@@ -57,12 +60,26 @@ const Facility = ({navigation, route}) => {
                 </TabView.Item>
               </TabView>
           </View>
-          <FAB
-            icon={{name: 'add', color: Resources.Colors.IconsColor}}
-            color={theme.colors.primary}
-            size='small'
-            placement='right'
-            onPress={() => navigation.navigate({name: Resources.Screens.EquipmentList, params: {facilityId: facility.id, editAmountMode: true}})}/>
+          {userData.role === 'SportsClubAdmin' &&
+            <SpeedDial
+              overlayColor={sdialIsOpen ? '' : 'transparent'}
+              isOpen={sdialIsOpen}
+              icon={{name: 'angle-up', type:'font-awesome-5', color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white}}
+              openIcon={{name: 'close', color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white}}
+              onOpen={() => setSDialIsOpen(true)}
+              onClose={() => setSDialIsOpen(false)}
+            >
+              <SpeedDial.Action
+                icon={{name: 'person', type:'fontAwesome', color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white}}
+                title='Assign trainer'
+                onPress={() => navigation.navigate({name: 'Trainers', params: {sportsClubId: roleSpecificData.id, facilityId: facility.id, assignable: true}})}
+              />
+              <SpeedDial.Action
+                icon={{name: 'add', color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white}}
+                title='Add equipment'
+                onPress={() => navigation.navigate({name: Resources.Screens.EquipmentList, params: {facilityId: facility.id, editAmountMode: true}})}
+              />
+            </SpeedDial>}
         </View>
     </Suspense>
   )

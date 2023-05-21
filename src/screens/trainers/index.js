@@ -1,5 +1,5 @@
 import React, {useContext, Suspense, useEffect, useState} from 'react';
-import Animated, {FadeInDown, FadeOutUp} from 'react-native-reanimated';
+import Animated, {FadeInDown, FadeInLeft, FadeOutUp} from 'react-native-reanimated';
 
 import styles from './styles';
 import Resources from '../../Resources';
@@ -9,7 +9,10 @@ import {GetCall} from '../../api/GetCall';
 import { Text } from 'react-native';
 import { FlatList } from 'react-native';
 import TrainerCard from '../../components/trainerCard';
-import { useTheme } from '@rneui/themed';
+import { Button, ListItem, useTheme } from '@rneui/themed';
+import { PostCall } from '../../api/PostCall';
+import { scale } from 'react-native-size-matters';
+import { ToastAndroid } from 'react-native';
 
 const Trainers = ({navigation, route}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
@@ -23,12 +26,16 @@ const Trainers = ({navigation, route}) => {
 
   const sportsClubId = route?.params?.sportsClubId ?? null;
   const facilityId = route?.params?.facilityId ?? null;
+  const assignable = route?.params?.assignable ?? false;
+
+  console.log(assignable)
+  console.log(sportsClubId)
 
   const GetApiCall = () => {
-    if (sportsClubId !== null) {
+    if (sportsClubId !== null || assignable === true) {
       return ApiConstants({ids: [sportsClubId]}).GetSportsClubTrainers
     } else if (facilityId !== null) {
-      return ApiConstants({ids: [sportsClubId]}).GetFacilityTrainers
+      return ApiConstants({ids: [facilityId]}).GetFacilityTrainers
     }
     return ApiConstants({ids: [userData.id]}).Trainers;
   }
@@ -42,7 +49,6 @@ const Trainers = ({navigation, route}) => {
 
       if (resp.status === 200) {
         const data = await resp.json();
-        console.log(data)
         setTrainers(data)
       } else {
         setTrainers([])
@@ -51,7 +57,58 @@ const Trainers = ({navigation, route}) => {
 
   }, []);
 
+  const AssignToFacility = async(id) => {
+    const resp = await PostCall({
+      endpoint: ApiConstants({ids: [Number(facilityId), Number(id)]}).AssignTrainerToFacility,
+      token: token,
+      body: null
+    })
+
+    if (resp.status === 201) {
+      ToastAndroid.show(
+        'Trainer was successfully assigned!',
+        ToastAndroid.SHORT
+      )
+    } else {
+      ToastAndroid.show(
+        'Trainer is already assigned!',
+        ToastAndroid.SHORT
+      )
+    }
+
+    navigation.goBack();
+  }
+
   const Trainer = ({key, data, navigation, theme}) => {
+    if (assignable === true) {
+      return (
+      <ListItem.Swipeable
+          key={key}
+          leftWidth={scale(50)}
+          rightWidth={0}
+          minSlideWidth={scale(10)}
+          leftContent={() => (
+            <Animated.View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}
+              entering={FadeInLeft.delay(600)}>
+              <Button
+                containerStyle={{
+                  justifyContent: 'center',
+                }}
+                type="clear"
+                icon={{name: 'check', type: 'font-awesome-5', color: theme.colors.black}}
+                onPress={async() => await AssignToFacility(data.id)}
+              />
+            </Animated.View>
+          )}>
+            <TrainerCard data={data} navigation={navigation} theme={theme}/>
+      </ListItem.Swipeable>
+      )
+    }
     return <TrainerCard key={key} data={data} navigation={navigation} theme={theme}/>
   }
 

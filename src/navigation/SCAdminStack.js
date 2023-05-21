@@ -80,6 +80,14 @@ const SCAdminFacilitiesStack = () => {
         name={Resources.Screens.EquipmentList}
         component={EquipmentList}
       />
+      <SCAdminEquipmentListStackNav.Screen
+        name={'Trainers'}
+        component={Trainers}
+      />
+      <SCAdminEquipmentListStackNav.Screen
+        name={'Trainer'}
+        component={Trainer}
+      />
     </SCAdminFacilitiesStackNav.Navigator>
   );
 };
