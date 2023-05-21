@@ -46,7 +46,7 @@ const SCAdminHome = ({navigation}) => {
               <View style={styles({theme: theme}).imageView}>
                 <Image
                   source={{
-                    uri: `${ApiConstants().Exercise_Endpoint}file/${String(
+                    uri: `${ApiConstants().GetFile}${String(
                       roleSpecificData.logoUri,
                     )}`,
                     headers: {Authorization: `Bearer ${token}`},

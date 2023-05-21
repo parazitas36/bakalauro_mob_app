@@ -78,6 +78,7 @@ const UserTrainingPlanExercises = ({navigation, planDay, planWeek, fetchedWeekly
                         exercise={null}
                         theme={theme}
                         userData={userData}
+                        navigation={navigation}
                      />
             }) : <Text style={styles({theme}).text}>Rest day</Text>
           : null}

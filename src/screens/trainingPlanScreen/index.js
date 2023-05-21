@@ -11,13 +11,14 @@ import {ApiConstants} from '../../api/ApiConstants';
 import {GetCall} from '../../api/GetCall';
 import TrainingPlanWeeklyExercises from '../../components/trainingPlanWeeklyExercises';
 import { PostCall } from '../../api/PostCall';
-import { FAB, useTheme } from '@rneui/themed';
+import { SpeedDial, useTheme } from '@rneui/themed';
 import Animated from 'react-native-reanimated';
 
 
 const TrainingPlanScreen = ({navigation, route}) => {
   const trainingPlanId = route?.params?.trainingPlanId;
   const clientId = route?.params?.clientId ?? null
+  const assignedTo = route?.params?.assignedTo ?? null
 
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
   const trainerContext = useContext(TrainerContext);
@@ -27,8 +28,20 @@ const TrainingPlanScreen = ({navigation, route}) => {
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
 
   const [trainingPlanData, setTrainingPlanData] = useState(null)
+  const [sdialIsOpen, setSDialIsOpen] = useState(false)
 
   const {theme} = useTheme();
+
+  const GoToFindAndAssignClient = () => {
+    if (userData.role === 'Trainer') {
+      navigation.navigate({
+        name: 'FindAndAssignClientScreen',
+        params: {
+          trainingPlanId: trainingPlanId
+        }
+      })
+    }
+  }
 
   const GoToEditMode = () => {
     if (userData.role === 'Trainer') {
@@ -124,13 +137,26 @@ const TrainingPlanScreen = ({navigation, route}) => {
               })}
               
             </ScrollView>
-            {userData.role === 'Trainer' && <FAB
-                icon={{name: 'edit', color: Resources.Colors.IconsColor}}
-                color={theme.colors.primary}
-                size="small"
-                placement="right"
+            {userData.role === 'Trainer' &&
+            <SpeedDial
+              overlayColor={sdialIsOpen ? '' : 'transparent'}
+              isOpen={sdialIsOpen}
+              icon={{name: 'angle-up', type:'font-awesome-5', color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white}}
+              openIcon={{name: 'close', color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white}}
+              onOpen={() => setSDialIsOpen(true)}
+              onClose={() => setSDialIsOpen(false)}
+            >
+              {assignedTo === null && clientId === null && <SpeedDial.Action
+                icon={{name: 'clipboard', type:'font-awesome-5', color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white}}
+                title='Assign to client'
+                onPress={() => GoToFindAndAssignClient()}
+              />}
+              <SpeedDial.Action
+                icon={{name: 'edit', color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white}}
+                title='Edit'
                 onPress={() => GoToEditMode()}
-            />}
+              />
+            </SpeedDial>}
           </Animated.View>
         }
     </Suspense>

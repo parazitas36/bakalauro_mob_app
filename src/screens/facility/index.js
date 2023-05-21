@@ -27,7 +27,7 @@ const Facility = ({navigation, route}) => {
           <View style={styles({theme: theme}).imageView}>
           <Image
                 source={{
-                  uri: facility.imageUri ? `${ApiConstants().Exercise_Endpoint}file/${String(facility.imageUri)}` : tempImageUrl,
+                  uri: facility.imageUri ? `${ApiConstants().GetFile}${String(facility.imageUri)}` : tempImageUrl,
                   headers: {Authorization: `Bearer ${token}`},
                 }}
                 style={styles({theme: theme}).image}

@@ -9,11 +9,13 @@ import {Text} from 'react-native';
 import {FlatList} from 'react-native';
 import {FAB} from '@rneui/base';
 import TrainingPlan from '../../components/trainingPlan';
-import { Button, ListItem, Tooltip, useTheme } from '@rneui/themed';
+import { Button, ListItem, useTheme } from '@rneui/themed';
 import { scale } from 'react-native-size-matters';
 import DialogInput from 'react-native-dialog-input';
 import { PostCall } from '../../api/PostCall';
 import { RefreshControl } from 'react-native';
+import { DeleteCall } from '../../api/DeleteCall';
+import { ToastAndroid } from 'react-native';
 
 const TrainingPlans = ({navigation, selectView = false, setSelectedTrainingPlan}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
@@ -43,6 +45,26 @@ const TrainingPlans = ({navigation, selectView = false, setSelectedTrainingPlan}
   const SubmitInput = async(input) => {
     await CopyTrainingPlan(input);
     setCopyTrainingPlanId(null)
+  }
+
+  const DeleteTrainerPlan = async(trainingPlanId) => {
+    const resp = await DeleteCall({
+      endpoint: ApiConstants({ids: [trainingPlanId]}).DeleteTrainerTrainingPlan,
+      token: token
+    });
+
+    if (resp.status === 204) {
+      ToastAndroid.show(
+        'Training plan was deleted successfully!',
+        ToastAndroid.SHORT
+      )
+    } else {
+      ToastAndroid.show(
+        'Training plan was not deleted!',
+        ToastAndroid.SHORT
+      )
+    }
+    setRefreshTrainingPlans(true)
   }
 
   useEffect(() => {
@@ -153,7 +175,7 @@ const TrainingPlans = ({navigation, selectView = false, setSelectedTrainingPlan}
                 return (
                   <ListItem.Swipeable
                     leftWidth={scale(50)}
-                    rightWidth={scale(50)}
+                    rightWidth={scale(item.assignedTo !== null ? 0 : 50)}
                     minSlideWidth={scale(10)}
                     leftContent={() => (
                       <Animated.View
@@ -163,16 +185,6 @@ const TrainingPlans = ({navigation, selectView = false, setSelectedTrainingPlan}
                           alignItems: 'center'
                         }}
                         entering={FadeInLeft.delay(600)}>
-                        <Tooltip
-                          withPointer={false}
-                          visible={false}
-                          backgroundColor={theme.colors.black}
-                          popover={
-                            <Text style={{color: theme.colors.white}}>
-                              Assign training plan
-                            </Text>
-                          }
-                        />
                         <Button
                           containerStyle={{
                             justifyContent: 'center',
@@ -180,8 +192,6 @@ const TrainingPlans = ({navigation, selectView = false, setSelectedTrainingPlan}
                           type="clear"
                           icon={{name: 'copy', type: 'font-awesome-5', color: theme.colors.black}}
                           onPress={() => setCopyTrainingPlanId(item.id)}
-                          onLongPress={() => {}}
-                          onPressOut={() => {}}
                         />
                       </Animated.View>
                     )}
@@ -192,25 +202,13 @@ const TrainingPlans = ({navigation, selectView = false, setSelectedTrainingPlan}
                           justifyContent: 'center',
                         }}
                         entering={FadeInLeft.delay(600)}>
-                        <Tooltip
-                          withPointer={false}
-                          visible={false}
-                          backgroundColor={theme.colors.black}
-                          popover={
-                            <Text style={{color: theme.colors.white}}>
-                              Delete offer
-                            </Text>
-                          }
-                        />
                         <Button
                           containerStyle={{
                             justifyContent: 'center',
                           }}
                           type="clear"
                           icon={{name: 'delete-outline', color: theme.colors.error}}
-                          onPress={async () => {}}
-                          onLongPress={() => {}}
-                          onPressOut={() => {}}
+                          onPress={async () => await DeleteTrainerPlan(item.id)}
                         />
                       </Animated.View>
                     )}>

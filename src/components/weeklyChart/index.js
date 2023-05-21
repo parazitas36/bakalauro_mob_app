@@ -2,6 +2,7 @@ import {View} from 'react-native';
 import React from 'react';
 import { moderateScale, scale } from 'react-native-size-matters';
 import { LineChart } from 'react-native-chart-kit';
+import { Text } from '@rneui/themed';
 
 const WeeklyChart = ({data, isWeightChart, theme}) => {
   const weeks = [];
@@ -49,18 +50,19 @@ const WeeklyChart = ({data, isWeightChart, theme}) => {
 
   return (
     <View style={{flex: 1, backgroundColor: theme.colors.background}}>
+      {loggedSetsData?.filter(x => x !== null).length > 0 ?
       <LineChart
         data={{
           labels: weeks.map(x => `Week ${x}`),
           datasets: [
             {
               data: setsData,
-              color: () => '#ac64f5',
+              color: () => theme.colors.secondary,
               strokeWidth: moderateScale(3.25),
             },
             {
               data: loggedSetsData,
-              color: () => 'rgba(32, 240, 240, 1)',
+              color: () => theme.colors.primary,
               strokeWidth: moderateScale(1.75),
             },
           ],
@@ -70,11 +72,12 @@ const WeeklyChart = ({data, isWeightChart, theme}) => {
         height={scale(200)}
         yAxisSuffix={isWeightChart === true ? ' kg' : ''}
         chartConfig={{
-          backgroundGradientFrom: theme.colors.primary,
-          backgroundGradientTo: theme.colors.secondary,
-          backgroundGradientToOpacity: 0.25,
-          color: (opacity = 1) => `rgba(0, 255, 255, ${opacity})`,
-          labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          backgroundColor: theme.colors.background,
+          backgroundGradientFrom: theme.colors.background,
+          backgroundGradientTo: theme.colors.background,
+          backgroundGradientToOpacity: 0,
+          color: () => theme.colors.grey5,
+          labelColor: () => theme.colors.black,
           decimalPlaces: 2,
         }}
         style={{
@@ -83,7 +86,9 @@ const WeeklyChart = ({data, isWeightChart, theme}) => {
         }}
         withShadow={false}
         hidePointsAtIndex={hidePoints}
-      />
+      /> :
+      <Text>Not enough data</Text>
+    }
     </View>
   );
 };

@@ -30,6 +30,8 @@ const ClientTrainingPlans = React.lazy(() => import('../screens/clientTrainingPl
 const ClientTrainingPlanProgress = React.lazy(() => import('../screens/clientTrainingPlanProgress'));
 const EditTrainingPlan = React.lazy(() => import('../screens/editTrainingPlan'));
 const EditExerciseSets = React.lazy(() => import('../screens/editExerciseSets'));
+const FindAndAssignClientScreen = React.lazy(() => import('../screens/findAndAssignClientScreen'));
+const TrainerInvites = React.lazy(() => import('../screens/trainerInvites'));
 
 const TrainerHomeStack = () => {
   return (
@@ -84,6 +86,18 @@ const TrainerHomeStack = () => {
       <TrainerHomeStackNavigator.Screen
         name={'EditExerciseSets'}
         component={EditExerciseSets}
+      />
+      <TrainerHomeStackNavigator.Screen
+        name={'FindAndAssignClientScreen'}
+        component={FindAndAssignClientScreen}
+      />
+      <TrainerHomeStackNavigator.Screen
+        name={Resources.Screens.Exercise}
+        component={Exercise}
+      />
+      <TrainerHomeStackNavigator.Screen
+        name={'TrainerInvites'}
+        component={TrainerInvites}
       />
     </TrainerHomeStackNavigator.Navigator>
   );
@@ -150,6 +164,14 @@ const TrainerTrainingPlansStack = () => {
       <TrainerTrainingPlansStackNavigator.Screen
         name={'EditExerciseSets'}
         component={EditExerciseSets}
+      />
+      <TrainerTrainingPlansStackNavigator.Screen
+        name={'FindAndAssignClientScreen'}
+        component={FindAndAssignClientScreen}
+      />
+      <TrainerTrainingPlansStackNavigator.Screen
+        name={Resources.Screens.Exercise}
+        component={Exercise}
       />
     </TrainerTrainingPlansStackNavigator.Navigator>
   );

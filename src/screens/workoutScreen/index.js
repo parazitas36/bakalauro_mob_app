@@ -45,7 +45,7 @@ const WorkoutScreen = ({navigation, route}) => {
       <Animated.ScrollView
         style={styles({theme: theme}).view}
         contentContainerStyle={styles({theme: theme}).viewContainer}>
-          {currentExercise && <UserTrainingPlanExerciseWithSets data={currentExercise} theme={theme} userData={userData} />}
+          {currentExercise && <UserTrainingPlanExerciseWithSets data={currentExercise} theme={theme} userData={userData} navigation={navigation}/>}
           <LogSetComponent 
             token={token}
             sets={currentExercise.sets} 

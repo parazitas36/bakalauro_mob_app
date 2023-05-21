@@ -6,11 +6,12 @@ import Animated, {
 import styles from './styles';
 import {View} from 'react-native';
 import Resources from '../../Resources';
-import { scale } from 'react-native-size-matters';
-import { Card, Divider, Text } from '@rneui/themed';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+import { Button, Card, Divider, Icon, Text } from '@rneui/themed';
 import MuscleIcon from '../muscleIcon';
 
-const UserTrainingPlanExerciseWithSets = ({data, theme, userData}) => {
+const UserTrainingPlanExerciseWithSets = ({data, theme, userData, navigation}) => {
+  console.log(data)
   const sets = JSON.parse(data.sets)
   const muscleGroups = JSON.parse(data.muscleGroups)
   const loggedSets = data.loggedSets ? JSON.parse(data.loggedSets) : null;
@@ -79,6 +80,33 @@ const UserTrainingPlanExerciseWithSets = ({data, theme, userData}) => {
               {userData.role === 'User' && <Text>{loggedSets === null ? 0 : loggedSets.length} / {sets.length}</Text>}
             </View>
           </View>
+          {data.hasGuide && 
+          <Button
+            icon={
+              <Icon
+              name='info' 
+              color={theme.colors.black} 
+              size={verticalScale(20)}
+              iconStyle={{marginRight: scale(5)}} />
+            }
+            title='How To Do'
+            buttonStyle={{
+              borderRadius: moderateScale(3),
+              backgroundColor: theme.colors.background,
+              borderColor: theme.colors.black,
+              borderWidth: moderateScale(1.25),
+              marginTop: verticalScale(5),
+            }}
+            titleStyle={{
+              color: theme.colors.black,
+            }}
+            onPress={() =>
+              navigation.navigate({
+                name: 'Exercise',
+                params: {exerciseId: data.exerciseId},
+              })
+            }
+          />}
         </Card>
     </Animated.View>
   )

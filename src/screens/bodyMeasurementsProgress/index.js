@@ -15,12 +15,13 @@ const BodyMeasurementsProgress = ({navigation, route}) => {
   const {theme} = useTheme();
   const [age, setAge] = useState(18);
   const [isConfirmed, setIsConfirmed] = useState(false);
+  const [shouldUpdate, setShouldUpdate] = useState(false)
   const genderButtons = ['Male', 'Female']
   const [gender, setGender] = useState(genderButtons[0]);
-  const bodyMeasurements = route?.params?.bodyMeasurements;
+  const bodyMeasurements = route?.params?.bodyMeasurements?.reverse();
 
   const measurementDays = useMemo(() => {
-    return bodyMeasurements?.map(x => new Date(x.measurementDay)).sort().map(x => x.toLocaleDateString());
+    return bodyMeasurements?.map(x => new Date(x.measurementDay)).map(x => new Date(x).toLocaleDateString());
   }, [bodyMeasurements])
 
   const bmis = useMemo(() => {
@@ -28,9 +29,10 @@ const BodyMeasurementsProgress = ({navigation, route}) => {
   }, [bodyMeasurements])
   
   const bfPercentages = useMemo(() => {
+    setShouldUpdate(false);
     if (isConfirmed) return bmis.map(x => FatPercentageCalculator({bmi: x, age: age, gender: gender}))
     return null;
-  }, [bmis, age, gender, isConfirmed])
+  }, [isConfirmed === true, shouldUpdate === true])
 
   console.log('bmis: ', bmis);
   //console.log(measurementDays.map(x => x.toLocaleDateString()))
@@ -39,7 +41,7 @@ const BodyMeasurementsProgress = ({navigation, route}) => {
   const set = new Set(measurementDays);
 
   return (
-    <ScrollView>
+    <ScrollView style={{flex: 1}}>
         <View style={styles({theme: theme}).view}>
             <Text h4>Choose gender</Text>
             <ButtonGroup
@@ -61,6 +63,8 @@ const BodyMeasurementsProgress = ({navigation, route}) => {
                 minimumValue={1}
                 step={1}
                 allowTouchTrack
+                minimumTrackTintColor={theme.colors.primary}
+                maximumTrackTintColor={theme.colors.greyOutline}
                 trackStyle={{height: scale(5), backgroundColor: 'transparent', width: scale(300)}}
                 thumbStyle={{
                 height: scale(15),
@@ -71,18 +75,26 @@ const BodyMeasurementsProgress = ({navigation, route}) => {
                     children: (
                         <View style={{right: scale(15), width: scale(36), height: scale(36), justifyContent: 'center', alignItems: 'center'}}>
                             <View style={styles({theme: theme}).circleView}>
-                                <Text style={{color: theme.colors.white}}>{age ?? 0}</Text>
+                                <Text style={{color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white}}>{age ?? 0}</Text>
                             </View>
                         </View>
                     ),
                 }}
             />
             <Button
-                title='Confirm'
-                onPress={() => setIsConfirmed(prev => !prev)}
+                title={isConfirmed ? 'Update' : 'Confirm'}
+                onPress={() => {
+                    if (!isConfirmed) {
+                        setIsConfirmed(prev => !prev)
+                    } else {
+                        setShouldUpdate(true);
+                    }
+                }}
             />
             {isConfirmed === true && bmis?.length > 0 && measurementDays?.length > 0 ?
             <BMIChart days={measurementDays} bmis={bmis} /> : null}
+            {isConfirmed === true && bfPercentages?.length > 0 && measurementDays?.length > 0 ?
+            <BFPercentagesChart days={measurementDays} bfPercentages={bfPercentages} /> : null}
         </View>
     </ScrollView>
   );

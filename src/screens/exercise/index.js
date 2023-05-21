@@ -9,6 +9,7 @@ import {GetCall} from '../../api/GetCall';
 import {FlatList} from 'react-native';
 import Video from 'react-native-video';
 import { useTheme } from '@rneui/themed';
+import GuideStep from '../../components/guideStep';
 
 const Exercise = ({navigation, route}) => {
   const exerciseId = route?.params?.exerciseId;
@@ -22,49 +23,49 @@ const Exercise = ({navigation, route}) => {
 
   const {theme} = useTheme()
 
-  const GuideStep = data => {
-    if (data.Type === Resources.BlockType.Image) {
-      return (
-        <View style={styles({theme}).guideBlock}>
-          <Image
-            source={{
-              uri: `${ApiConstants().Exercise_Endpoint}file/${String(
-                data.Content,
-              )}`,
-              headers: {Authorization: `Bearer ${token}`},
-            }}
-            style={{height: '100%', width: '100%'}}
-            resizeMode="contain"
-          />
-        </View>
-      );
-    }
-    if (data.Type === Resources.BlockType.Text) {
-      return (
-        <View style={styles({theme}).guideBlock}>
-          <Text style={styles({theme}).text}>{data.Content}</Text>
-        </View>
-      );
-    }
-    if (data.Type === Resources.BlockType.Video) {
-      return (
-        <View style={styles({theme}).guideBlock}>
-          <Video
-            source={{
-              uri: `${ApiConstants().Exercise_Endpoint}file/${String(
-                data.Content,
-              )}`,
-              headers: {Authorization: `Bearer ${token}`},
-            }}
-            style={{height: '100%', width: '100%'}}
-            resizeMode="contain"
-            paused={true}
-            controls={true}
-          />
-        </View>
-      );
-    }
-  };
+  // const GuideStep = data => {
+  //   if (data.Type === Resources.BlockType.Image) {
+  //     return (
+  //       <View style={styles({theme}).guideBlock}>
+  //         <Image
+  //           source={{
+  //             uri: `${ApiConstants().GetFile}${String(
+  //               data.Content,
+  //             )}`,
+  //             headers: {Authorization: `Bearer ${token}`},
+  //           }}
+  //           style={{height: '100%', width: '100%'}}
+  //           resizeMode="contain"
+  //         />
+  //       </View>
+  //     );
+  //   }
+  //   if (data.Type === Resources.BlockType.Text) {
+  //     return (
+  //       <View style={styles({theme}).guideBlock}>
+  //         <Text style={styles({theme}).text}>{data.Content}</Text>
+  //       </View>
+  //     );
+  //   }
+  //   if (data.Type === Resources.BlockType.Video) {
+  //     return (
+  //       <View style={styles({theme}).guideBlock}>
+  //         <Video
+  //           source={{
+  //             uri: `${ApiConstants().GetFile}${String(
+  //               data.Content,
+  //             )}`,
+  //             headers: {Authorization: `Bearer ${token}`},
+  //           }}
+  //           style={{height: '100%', width: '100%'}}
+  //           resizeMode="contain"
+  //           paused={true}
+  //           controls={true}
+  //         />
+  //       </View>
+  //     );
+  //   }
+  // };
 
   useEffect(() => {
     (async () => {
@@ -99,7 +100,7 @@ const Exercise = ({navigation, route}) => {
             <View>
               <FlatList
                 data={guideSteps}
-                renderItem={({item}) => GuideStep(item)}
+                renderItem={({item}) => <GuideStep data={item} token={token} theme={theme} />}
               />
             </View>
           ) : null}

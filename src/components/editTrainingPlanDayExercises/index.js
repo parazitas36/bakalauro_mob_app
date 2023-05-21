@@ -127,6 +127,7 @@ const EditTrainingPlanDayExercises = ({navigation, planDay, planWeek, theme, tra
               >
                 <TrainingPlanExerciseWithSets 
                   data={x} 
+                  navigation={navigation}
                   editMode={false}
                   exercise={exercises.filter(y => y.id === x.exerciseId)[0]}
                   theme={theme}

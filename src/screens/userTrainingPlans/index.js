@@ -1,5 +1,5 @@
 import React, {useContext, Suspense, useEffect, useState} from 'react';
-import Animated, {FadeInDown, FadeOutUp} from 'react-native-reanimated';
+import Animated, {FadeInDown, FadeInLeft, FadeOutUp} from 'react-native-reanimated';
 
 import styles from './styles';
 import Resources from '../../Resources';
@@ -9,13 +9,17 @@ import {GetCall} from '../../api/GetCall';
 import {Text} from 'react-native';
 import {FlatList} from 'react-native';
 import TrainingPlan from '../../components/trainingPlan';
-import { useTheme } from '@rneui/themed';
+import { Button, ListItem, useTheme } from '@rneui/themed';
+import { scale } from 'react-native-size-matters';
+import { DeleteCall } from '../../api/DeleteCall';
+import { ToastAndroid } from 'react-native';
 
 const UserTrainingPlans = ({navigation}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
+  const [refreshTrainingPlans, setRefreshTrainingPlans] = useState(false);
 
   const {theme} = useTheme();
 
@@ -35,8 +39,28 @@ const UserTrainingPlans = ({navigation}) => {
         setTrainingPlans([]);
       }
     })();
-  }, []);
+    setRefreshTrainingPlans(false);
+  }, [refreshTrainingPlans === true]);
 
+  const DeleteUserPlan = async(trainingPlanId) => {
+    const resp = await DeleteCall({
+      endpoint: ApiConstants({ids: [trainingPlanId]}).DeleteUserTrainingPlan,
+      token: token
+    });
+
+    if (resp.status === 204) {
+      ToastAndroid.show(
+        'Training plan was deleted successfully!',
+        ToastAndroid.SHORT
+      )
+    } else {
+      ToastAndroid.show(
+        'Training plan was not deleted!',
+        ToastAndroid.SHORT
+      )
+    }
+    setRefreshTrainingPlans(true)
+  }
 
   return (
     <Suspense fallback={LoadingScreen()}>
@@ -56,12 +80,58 @@ const UserTrainingPlans = ({navigation}) => {
               data={trainingPlans}
               renderItem={({item, index}) => {
                 return (
-                  <TrainingPlan
-                    key={index}
-                    trainingPlan={item}
-                    navigation={navigation}
-                    theme={theme}
-                  />
+                  <ListItem.Swipeable
+                    leftWidth={scale(50)}
+                    rightWidth={scale(50)}
+                    minSlideWidth={scale(10)}
+                    leftContent={() => (
+                      <Animated.View
+                        style={{
+                          flex: 1,
+                          justifyContent: 'center',
+                          alignItems: 'center'
+                        }}
+                        entering={FadeInLeft.delay(600)}>
+                        <Button
+                          containerStyle={{
+                            justifyContent: 'center',
+                          }}
+                          type="clear"
+                          icon={{name: 'chart-line', type: 'font-awesome-5', color: theme.colors.black}}
+                          onPress={() => {
+                            navigation.navigate({
+                              name: 'ClientTrainingPlanProgress',
+                              params: {trainingPlanId: item.id},
+                            });
+                          }}
+                        />
+                      </Animated.View>
+                    )}
+                    rightContent={() => (
+                      <Animated.View
+                        style={{
+                          flex: 1,
+                          justifyContent: 'center',
+                        }}
+                        entering={FadeInLeft.delay(600)}>
+                        <Button
+                          containerStyle={{
+                            justifyContent: 'center',
+                          }}
+                          type="clear"
+                          icon={{name: 'delete-outline', color: theme.colors.error}}
+                          onPress={async () => await DeleteUserPlan(item.id)}
+                        />
+                      </Animated.View>
+                    )}
+                  >
+                    <TrainingPlan
+                      key={index}
+                      trainingPlan={item}
+                      navigation={navigation}
+                      theme={theme}
+                    />
+                  </ListItem.Swipeable>
                 );
               }}
             />

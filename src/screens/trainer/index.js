@@ -16,7 +16,8 @@ import CustomButton from '../../components/customButton';
 import { PostCall } from '../../api/PostCall';
 import { ToastAndroid } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { Card, Text, useTheme } from '@rneui/themed';
+import { Button, Card, Text, useTheme } from '@rneui/themed';
+import { scale } from 'react-native-size-matters';
 
 const Trainer = ({navigation, route}) => {
   const trainerId = route?.params?.trainerId;
@@ -63,6 +64,28 @@ const Trainer = ({navigation, route}) => {
     const resp = await PostCall({endpoint: ApiConstants().Reviews, body: body, token: token})
     console.log(resp)
     setReload(true)
+  }
+
+  const InviteTrainer = async() => {
+    if (userData.role === 'SportsClubAdmin' && trainerData?.trainer?.isInvited === false) {
+      const resp = await PostCall({
+        endpoint: ApiConstants({ids: [trainerData?.trainer?.id]}).PostTrainerInvite,
+        token: token
+      });
+
+      if (resp.status === 201) {
+        ToastAndroid.show(
+          'Trainer was invited successfully!',
+          ToastAndroid.SHORT
+        )
+        setReload(true)
+      } else {
+        ToastAndroid.show(
+          'Trainer was not invited!',
+          ToastAndroid.SHORT
+        )
+      }
+    }
   }
 
   useEffect(() => {
@@ -115,6 +138,19 @@ const Trainer = ({navigation, route}) => {
             </View>
           </View>
         </View>
+        {userData.role === 'SportsClubAdmin' && trainerData?.trainer?.isInvited === false ? 
+          <Button 
+            title='Invite to join your club'
+            containerStyle={{width: scale(280), paddingVertical: scale(5)}}
+            icon={{
+              name: 'envelope',
+              type: 'font-awesome',
+              size: scale(16),
+              color: 'white',
+            }}
+            iconRight
+            onPress={async() => await InviteTrainer()} />
+        : null}
         <ReviewsList reviews={trainerData?.reviews}/>
         <Card containerStyle={styles({theme: theme}).reviewView}>
           <View style={styles({theme: theme}).flexRow}>

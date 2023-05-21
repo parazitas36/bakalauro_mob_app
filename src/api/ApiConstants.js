@@ -1,5 +1,5 @@
 export const ApiConstants = (props) =>  {
-    const SSL_URL = 'https://10.0.2.2:5021:7013/api/'
+    const SSL_URL = 'https://localhost:7013/api/'
     const URL = 'http://localhost:5021/api/'
     const Users_Endpoint = 'Users/'
     const SportsClub_Endpoint = 'SportsClub/'
@@ -8,6 +8,7 @@ export const ApiConstants = (props) =>  {
     const TrainingPlan_Endpoint = 'TrainingPlans/'
     const Forms_Endpoint = 'Forms/'
     const Progress_Endpoint = 'Progress/'
+    const Files_Endpoint = "Files/"
 
     return ({
         USERS_ENDPOINT: `${URL}${Users_Endpoint}`,
@@ -41,6 +42,13 @@ export const ApiConstants = (props) =>  {
         CopyTrainingPlan: `${URL}${TrainingPlan_Endpoint}copy/${props?.ids[0]}`,
         UpdateTrainingPlanNewExercise: `${URL}${TrainingPlan_Endpoint}update/${props?.ids[0]}`,
         UpdateTrainingPlanExercise: `${URL}${TrainingPlan_Endpoint}${props?.ids[0]}`,
-        DeleteTrainingPlanExercise: `${URL}${TrainingPlan_Endpoint}exercise/${props?.ids[0]}`
+        DeleteTrainingPlanExercise: `${URL}${TrainingPlan_Endpoint}exercise/${props?.ids[0]}`,
+        DeleteTrainerTrainingPlan: `${URL}${TrainingPlan_Endpoint}trainer/trainingplan/${props?.ids[0]}`,
+        DeleteUserTrainingPlan: `${URL}${TrainingPlan_Endpoint}user/trainingplan/${props?.ids[0]}`,
+        FindUsersByUsername: `${URL}${Users_Endpoint}search/`,
+        PostTrainerInvite: `${URL}${Forms_Endpoint}trainerinvites/trainer/${props?.ids[0]}`,
+        TrainerInvites: `${URL}${Forms_Endpoint}trainerinvites`,
+        UpdateTrainerInvite: `${URL}${Forms_Endpoint}trainerinvites/${props?.ids[0]}/`,
+        GetFile: `${URL}${Files_Endpoint}file/`
     });
 }

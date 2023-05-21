@@ -2,6 +2,7 @@ import {View} from 'react-native';
 import React from 'react';
 import { LineChart } from 'react-native-chart-kit';
 import { moderateScale, scale } from 'react-native-size-matters';
+import { Text } from '@rneui/themed';
 
 const DailyChart = ({data, isWeightChart, theme}) => {
   const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -11,6 +12,9 @@ const DailyChart = ({data, isWeightChart, theme}) => {
   const loggedSetsData = data.map(x =>
     isWeightChart === true ? x.loggedSets.weightAvg : x.loggedSets.repsAvg,
   );
+
+  const lengthOfLoggedData = loggedSetsData?.filter(x => x !== null).length;
+
   const hidePoints = data.map((x, i) => {
       if (x.hide === true) {
         return i;
@@ -22,44 +26,47 @@ const DailyChart = ({data, isWeightChart, theme}) => {
 
   return (
     <View style={{flex: 1, backgroundColor: theme.colors.background}}>
-      <LineChart
-        data={{
-          labels: days,
-          datasets: [
-            {
-              data: setsData,
-              color: () => '#ac64f5',
-              strokeWidth: moderateScale(3.25),
-              withDots: true,
-            },
-            {
-              data: loggedSetsData,
-              color: () => 'rgba(32, 240, 240, 1)',
-              strokeWidth: moderateScale(1.75),
-              withDots: true,
-            },
-          ],
-          legend: ['expected', 'actual'],
-        }}
-        width={scale(280)} // from react-native
-        height={scale(200)}
-        yAxisSuffix={isWeightChart === true ? ' kg' : ''}
-        chartConfig={{
-          backgroundGradientFrom: theme.colors.primary,
-          backgroundGradientTo: theme.colors.secondary,
-          backgroundGradientToOpacity: 0.5,
-          color: (opacity = 1) => `rgba(0, 255, 255, ${opacity})`,
-          labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          decimalPlaces: 2,
-        }}
-        withDots={true}
-        style={{
-          marginVertical: 8,
-          borderRadius: moderateScale(5),
-        }}
-        hidePointsAtIndex={hidePoints}
-        withShadow={false}
-      />
+      {lengthOfLoggedData > 0 ?
+        <LineChart
+          data={{
+            labels: days,
+            datasets: [
+              {
+                data: setsData,
+                color: () => theme.colors.secondary,
+                strokeWidth: moderateScale(3.25),
+                withDots: true,
+              },
+              {
+                data: loggedSetsData,
+                color: () => theme.colors.primary,
+                strokeWidth: moderateScale(1.75),
+                withDots: true,
+              },
+            ],
+            legend: ['expected', 'actual'],
+          }}
+          width={scale(280)}
+          height={scale(200)}
+          yAxisSuffix={isWeightChart === true ? ' kg' : ''}
+          chartConfig={{
+            backgroundColor: theme.colors.background,
+            backgroundGradientFrom: theme.colors.background,
+            backgroundGradientTo: theme.colors.background,
+            backgroundGradientToOpacity: 0,
+            color: () => theme.colors.grey5,
+            labelColor: () => theme.colors.black,
+            decimalPlaces: 2,
+          }}
+          withDots={true}
+          style={{
+            marginVertical: 8,
+            borderRadius: moderateScale(5),
+          }}
+          hidePointsAtIndex={hidePoints}
+          withShadow={false}
+        /> 
+        : <Text>Not enough data</Text>}
     </View>
   );
 };

@@ -19,7 +19,7 @@ const Equipment = ({equipment, token, theme}) => {
       <Card.Divider/>
       <Card.Image 
         source={{
-          uri: `${ApiConstants().Exercise_Endpoint}file/${String(
+          uri: `${ApiConstants().GetFile}${String(
             equipment?.imageURI,
           )}`,
           headers: {Authorization: `Bearer ${token}`},

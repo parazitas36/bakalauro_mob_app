@@ -6,6 +6,9 @@ import {Image} from 'react-native';
 import CustomButtonWithIcon from '../customButtonWithIcon';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {ScrollView} from 'react-native';
+import Video from 'react-native-video';
+import { useState } from 'react';
+import { useRef } from 'react';
 
 const GuideBlock = ({data, id, blocksState, idState, theme}) => {
   const type = data?.type;
@@ -15,6 +18,8 @@ const GuideBlock = ({data, id, blocksState, idState, theme}) => {
 
   const [blocks, setBlocks] = blocksState;
   const [currentId, setCurrentId] = idState;
+  const [paused, setPaused] = useState(true)
+  const player = useRef(null);
 
   const RemoveBlock = () => {
     const blocksWithoutCurrent = blocks.filter(x => x.id !== data.id);
@@ -100,7 +105,17 @@ const GuideBlock = ({data, id, blocksState, idState, theme}) => {
             resizeMode="cover"
           />
         ) : type === Resources.BlockType.Video ? (
-          <Text style={styles({theme: theme}).text}>Video</Text>
+          <Video
+            source={{uri: data.content.uri}}
+            ref={player}
+            style={{width: '100%', height: '100%'}}
+            resizeMode='contain'
+            paused={paused}
+            onTouchStart={() => setPaused(prev => !prev)}
+            onLoad={() => {
+              player.current.seek(0)
+            }}
+          />
         ) : (
           <Text style={styles({theme: theme}).text}>{data?.content}</Text>
         )}

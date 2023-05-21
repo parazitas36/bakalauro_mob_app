@@ -6,11 +6,12 @@ import Animated, {
 import styles from './styles';
 import {View} from 'react-native';
 import Resources from '../../Resources';
-import { scale } from 'react-native-size-matters';
-import { Card, Divider, Text } from '@rneui/themed';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+import { Button, Card, Divider, Icon, Text } from '@rneui/themed';
 import MuscleIcon from '../muscleIcon';
 
-const TrainingPlanExerciseWithSets = ({data, exercise, editMode, theme}) => {
+const TrainingPlanExerciseWithSets = ({navigation, data, exercise, editMode, theme}) => {
+  console.log('data: ', data)
   const sets = JSON.parse(editMode ? data.Sets : data.sets)
   const muscleGroups = JSON.parse(exercise.muscleGroups)
 
@@ -114,6 +115,33 @@ const TrainingPlanExerciseWithSets = ({data, exercise, editMode, theme}) => {
                 }) : null}
             </View>
           </View>
+          {data.hasGuide && 
+          <Button
+            icon={
+              <Icon 
+              name='info' 
+              color={theme.colors.black} 
+              size={verticalScale(20)}
+              iconStyle={{marginRight: scale(5)}} />
+            }
+            title='How To Do'
+            buttonStyle={{
+              borderRadius: moderateScale(3),
+              backgroundColor: theme.colors.background,
+              borderColor: theme.colors.black,
+              borderWidth: moderateScale(1.25),
+              marginTop: verticalScale(5),
+            }}
+            titleStyle={{
+              color: theme.colors.black,
+            }}
+            onPress={() =>
+              navigation.navigate({
+                name: 'Exercise',
+                params: {exerciseId: data.exerciseId},
+              })
+            }
+          />}
         </Card>
     </Animated.View>
   )

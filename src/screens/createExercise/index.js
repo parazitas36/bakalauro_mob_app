@@ -11,6 +11,7 @@ import { useTheme } from '@rneui/themed';
 import MuscleIcon from '../../components/muscleIcon';
 import { View } from 'react-native';
 import { moderateScale, scale } from 'react-native-size-matters';
+import { ToastAndroid } from 'react-native';
 
 const CreateExercise = ({navigation}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
@@ -35,6 +36,22 @@ const CreateExercise = ({navigation}) => {
   const {theme} = useTheme()
 
   const SavePress = async() => {
+    if (!name || name === null || String(name).trim() === '') {
+      ToastAndroid.show(
+        'You must enter the exercise name!',
+        ToastAndroid.SHORT
+      )
+      return;
+    }
+
+    if (muscleGroups.length === 0) {
+      ToastAndroid.show(
+        'You must select at least one muscle group!',
+        ToastAndroid.SHORT
+      )
+      return;
+    }
+
     const body = {
       name: name,
       muscleGroups: JSON.stringify(muscleGroups),

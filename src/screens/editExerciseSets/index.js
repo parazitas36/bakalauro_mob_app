@@ -97,15 +97,15 @@ const EditExerciseSets = ({navigation, route}) => {
             {Resources.Texts.MustSelectExercise}
           </Animated.Text>
         : <TrainingPlanExercise exercise={exercise} />}
-        {sets?.length > 0 ? sets.map((x, i) => {
-              return <SetComponent key={i} id={i} setsState={[sets, setSets]} theme={theme} />
-          })
-        : null}
         {exercise !== null ? 
           <AddSetComponent
             setState={[set, setSet]}
             setsState={[sets, setSets]}
           /> : null}
+        {sets?.length > 0 ? sets.map((x, i) => {
+              return <SetComponent key={i} id={i} setsState={[sets, setSets]} theme={theme} />
+          })
+        : null}
         {sets.length > 0 ? 
           <CustomButton
             btnText={Resources.ButtonTexts.SaveBtnText}

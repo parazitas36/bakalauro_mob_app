@@ -9,11 +9,14 @@ import Animated from 'react-native-reanimated';
 const Charts = ({weeks, theme}) => {
   const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-  const Average = arr => {
-    if (arr === undefined || arr === null || arr.length === 0) {
+  const Average = (arr, divider=null) => {
+    if (arr === undefined || arr === null || arr.filter(x => x !== null).length === 0) {
       return null;
     }
-    return arr.reduce((sum, val) => sum + Number(val), 0) / arr.length;
+    if (divider === null) {
+      divider = arr.length
+    }
+    return arr.reduce((sum, val) => sum + Number(val), 0) / divider;
   };
 
   const Day = ({dayData}) => {
@@ -27,8 +30,8 @@ const Charts = ({weeks, theme}) => {
         repsAvg: Average(sets?.map(x => x.Repetitions)),
       },
       loggedSets: {
-        weightAvg: Average(loggedSets?.map(x => x.Weights)),
-        repsAvg: Average(loggedSets?.map(x => x.Repetitions)),
+        weightAvg: Average(loggedSets?.map(x => x.Weights), sets.filter(x => x.Weights !== null).length),
+        repsAvg: Average(loggedSets?.map(x => x.Repetitions), sets.filter(x => x.Repetitions !== null).length),
       },
       hide: false,
     };

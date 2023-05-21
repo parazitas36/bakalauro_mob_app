@@ -27,7 +27,7 @@ const BodyMeasurementsItem = ({data, theme}) => {
     useEffect(() => {
         if (data?.imageUri !== null) {
             Image.getSizeWithHeaders(
-                `${ApiConstants().Exercise_Endpoint}file/${String(data?.imageUri)}`, 
+                `${ApiConstants().GetFile}${String(data?.imageUri)}`, 
                 {'Authorization': `Bearer ${token}`}, 
                 (width, height) => setImageDimensions({width: width, height: height})
             );
@@ -74,7 +74,7 @@ const BodyMeasurementsItem = ({data, theme}) => {
         {data?.imageUri !== null &&
         <Card.Image
             source={{
-                uri: `${ApiConstants().Exercise_Endpoint}file/${String(data?.imageUri)}`,
+                uri: `${ApiConstants().GetFile}${String(data?.imageUri)}`,
                 headers: {Authorization: `Bearer ${token}`},
             }}
             style={imageDimensions !== null ? 

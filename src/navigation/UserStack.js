@@ -24,6 +24,8 @@ const UserTrainingPlans = React.lazy(() => import('../screens/userTrainingPlans'
 const TrainingPlanScreen = React.lazy(() => import('../screens/trainingPlanScreen'));
 const WorkoutScreen = React.lazy(() => import('../screens/workoutScreen'));
 const BodyMeasurementsProgress = React.lazy(() => import('../screens/bodyMeasurementsProgress'));
+const ClientTrainingPlanProgress = React.lazy(() => import('../screens/clientTrainingPlanProgress'));
+const Exercise = React.lazy(() => import('../screens/exercise'));
 
 const UserHomeStack = () => {
   return (
@@ -93,9 +95,17 @@ const UserTrainingPlanStack = () => {
         name={Resources.Screens.TrainingPlanScreen}
         component={TrainingPlanScreen}
       />
-       <UserTrainingPlanStackNavigator.Screen
+      <UserTrainingPlanStackNavigator.Screen
         name={'WorkoutScreen'}
         component={WorkoutScreen}
+      />
+      <UserTrainingPlanStackNavigator.Screen
+        name={'ClientTrainingPlanProgress'}
+        component={ClientTrainingPlanProgress}
+      />
+      <UserTrainingPlanStackNavigator.Screen
+        name={Resources.Screens.Exercise}
+        component={Exercise}
       />
     </UserTrainingPlanStackNavigator.Navigator>
   )

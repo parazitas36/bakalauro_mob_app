@@ -8,7 +8,7 @@ import {ApiConstants} from '../../api/ApiConstants';
 import {GetCall} from '../../api/GetCall';
 import {FlatList} from 'react-native';
 import TrainingPlan from '../../components/trainingPlan';
-import { Button, ListItem, Text, Tooltip, useTheme } from '@rneui/themed';
+import { Button, ListItem, Text, useTheme } from '@rneui/themed';
 import { scale } from 'react-native-size-matters';
 
 const ClientTrainingPlans = ({navigation, route}) => {
@@ -72,16 +72,6 @@ const ClientTrainingPlans = ({navigation, route}) => {
                           alignItems: 'center'
                         }}
                         entering={FadeInLeft.delay(600)}>
-                        <Tooltip
-                          withPointer={false}
-                          visible={false}
-                          backgroundColor={theme.colors.black}
-                          popover={
-                            <Text style={{color: theme.colors.white}}>
-                              Assign training plan
-                            </Text>
-                          }
-                        />
                         <Button
                           containerStyle={{
                             justifyContent: 'center',
@@ -94,8 +84,6 @@ const ClientTrainingPlans = ({navigation, route}) => {
                               params: {trainingPlanId: item.id},
                             });
                           }}
-                          onLongPress={() => {} /*setLeftToolTipOpen(true)*/}
-                          onPressOut={() => {} /*setLeftToolTipOpen(false)*/}
                         />
                       </Animated.View>
                     )}

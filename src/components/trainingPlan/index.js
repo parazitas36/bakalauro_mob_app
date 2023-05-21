@@ -67,7 +67,7 @@ const TrainingPlan = ({navigation, clientId = null, trainingPlan, theme, selectV
         onPress={() => 
           navigation.navigate({
             name: Resources.Screens.TrainingPlanScreen, 
-            params: { trainingPlanId: trainingPlan.id, clientId: clientId }
+            params: { trainingPlanId: trainingPlan.id, clientId: clientId, assignedTo: trainingPlan.assignedTo }
           })}>
         <Card containerStyle={styles({theme: theme}).card}>
           <Card.Title h4>{trainingPlan?.name}</Card.Title>
