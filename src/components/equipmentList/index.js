@@ -61,7 +61,6 @@ const EquipmentList = ({facilityId, navigation, route}) => {
 
   const UpdateAmount = async(equipmentId, amount) => {
     const resp = await PostCall({endpoint: ApiConstants({ids: [facilityId, equipmentId], amount: amount}).EquipmentAmountUpdate, token: token, body: ""});
-    console.log(resp)
     setReload(true)
   }
 
@@ -129,4 +128,4 @@ const EquipmentList = ({facilityId, navigation, route}) => {
     </>
   );
 };
-export default EquipmentList;
+export default React.memo(EquipmentList);

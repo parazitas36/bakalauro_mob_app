@@ -49,9 +49,8 @@ const GuideStep = ({data, theme, token}) => {
     );
   }
   if (data.Type === Resources.BlockType.Video) {
-    console.log(data.Content)
     return (
-      <View style={styles({theme}).guideBlock}>
+      <View>
         <Video
           source={{
             uri: `${ApiConstants().GetFile}${String(data.Content)}`,
@@ -61,13 +60,25 @@ const GuideStep = ({data, theme, token}) => {
           ref={player}
           style={imageDimensions !== null ? 
             imageDimensions.width > imageDimensions.height ? 
-                styles({theme: theme}).wideVideo : styles({theme: theme}).longVideo
-          : styles({theme: theme}).wideVideo }
+                { 
+                  padding: 0, 
+                  margin: 0,
+                  width: imageDimensions.width / (imageDimensions.width / scale(300)), 
+                  height: imageDimensions.height / (imageDimensions.height / scale(180))
+                } 
+                : 
+                {
+                  padding: 0, 
+                  margin: 0,
+                  width: imageDimensions.width / (imageDimensions.width / scale(300)), 
+                  height: imageDimensions.height / (imageDimensions.height / scale(300))
+                }
+          : {} }
           resizeMode='contain'
           paused={paused}
           onTouchStart={() => setPaused(prev => !prev)}
-          onError={(x) => console.log(x)}
           onLoad={({naturalSize}) => {
+            setImageDimensions({width: naturalSize.width, height: naturalSize.height, orientation: naturalSize.orientation})
             player.current.seek(0)
           }}
         />

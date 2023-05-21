@@ -7,16 +7,16 @@ import { TouchableOpacity } from 'react-native';
 import { Card, Icon, Text } from '@rneui/themed';
 import { verticalScale } from 'react-native-size-matters';
 
-const SportsClubCard = ({data, navigation, token, theme}) => {
+const SportsClubCard = ({data, navigation, token, theme, disabled=false}) => {
   console.log(data);
 
   const ValueIsNotEmpty = value => {
     return value !== undefined && value !== null && value !== '' && value !== 'null'
   };
 
-  return (
-    <TouchableOpacity>
-      <Card style={styles({theme: theme}).sportsClubView}>
+  const ClubCard = () => {
+    return (
+      <Card containerStyle={styles({theme: theme}).sportsClubView}>
         <Card.Title>{data.name}</Card.Title>
         <Card.Divider/>
           <View style={{flexDirection: 'row'}}>
@@ -56,7 +56,17 @@ const SportsClubCard = ({data, navigation, token, theme}) => {
                 </View>
               </View>
           </View>
+          <View style={{flexDirection: 'row', alignItems: 'center', alignSelf: 'center'}}>
+            <Icon name="star-sharp" type="ionicon" color={theme.colors.warning} size={verticalScale(20)} />
+            <Text style={styles({theme: theme}).text}>{data.averageRating ? `${data.averageRating} (${data.reviewsCount})` : 'Not rated'}</Text>
+          </View>
       </Card>
+    )
+  }
+
+  return (
+    <TouchableOpacity disabled={disabled} onPress={() => {navigation.navigate({name: 'SportsClub', params: {id: data.id}})}}>
+      <ClubCard />
     </TouchableOpacity>
   )
 };

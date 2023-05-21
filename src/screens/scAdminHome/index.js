@@ -32,7 +32,7 @@ const SCAdminHome = ({navigation}) => {
   const ValueIsNotEmpty = (value) => {
     return value !== undefined && value !== null && value !== '' && value !== 'null'
   }
-
+  
   return (
     <Suspense fallback={LoadingScreen()}>
       <Animated.ScrollView
@@ -108,6 +108,18 @@ const SCAdminHome = ({navigation}) => {
           />
         </View>
         <View style={styles({theme: theme}).flexRow}>
+        <CustomButtonWithIcon
+            icon={() => (
+              <Ionicons
+                name="people"
+                color={theme.colors.black}
+                size={scale(20)}
+              />
+            )}
+            onPress={() => navigation.navigate({name: 'Trainers', params: {sportsClubId: roleSpecificData.id}})}
+            btnText="Trainers"
+            styles={styles({theme: theme})}
+          />
           <CustomButtonWithIcon
               icon={() => (
                 <Ionicons

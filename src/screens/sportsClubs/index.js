@@ -48,7 +48,7 @@ const SportsClubs = ({navigation}) => {
           exiting={FadeOutUp}>
           <Animated.Text style={styles({theme: theme}).heading}>{'Sports Clubs'}</Animated.Text>
           {sportsClubs?.length === 0 ? <Text style={styles({theme: theme}).text}>{'No sports clubs'}</Text> :
-          <FlatList data={sportsClubs} renderItem={({item}) => SportsClubCard({data: item, navigation: navigation, token: token, theme: theme})}/>}
+          <FlatList data={sportsClubs} renderItem={({item}) => <SportsClubCard data={item} navigation={navigation} token={token} theme={theme}/>}/>}
         </Animated.View>
       )}
     </Suspense>

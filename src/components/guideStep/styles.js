@@ -53,11 +53,9 @@ export default styles = ({theme}) => {
       width: scale(250),
       maxWidth: scale(250),
       aspectRatio: 1,
+      backgroundColor: 'yellow'
     },
     longVideo: {
-      height: verticalScale(300),
-      minHeight: verticalScale(200),
-      maxHeight: verticalScale(250),
       maxWidth: scale(250),
       aspectRatio: 1,
     }

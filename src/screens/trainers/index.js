@@ -11,7 +11,7 @@ import { FlatList } from 'react-native';
 import TrainerCard from '../../components/trainerCard';
 import { useTheme } from '@rneui/themed';
 
-const Trainers = ({navigation}) => {
+const Trainers = ({navigation, route}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
@@ -21,10 +21,22 @@ const Trainers = ({navigation}) => {
 
   const [trainers, setTrainers] = useState(null)
 
+  const sportsClubId = route?.params?.sportsClubId ?? null;
+  const facilityId = route?.params?.facilityId ?? null;
+
+  const GetApiCall = () => {
+    if (sportsClubId !== null) {
+      return ApiConstants({ids: [sportsClubId]}).GetSportsClubTrainers
+    } else if (facilityId !== null) {
+      return ApiConstants({ids: [sportsClubId]}).GetFacilityTrainers
+    }
+    return ApiConstants({ids: [userData.id]}).Trainers;
+  }
+
   useEffect(() => {
     (async () => {
       const resp = await GetCall({
-        endpoint: ApiConstants({ids: [userData.id]}).Trainers,
+        endpoint: GetApiCall(),
         token: token,
       });
 
@@ -39,6 +51,10 @@ const Trainers = ({navigation}) => {
 
   }, []);
 
+  const Trainer = ({key, data, navigation, theme}) => {
+    return <TrainerCard key={key} data={data} navigation={navigation} theme={theme}/>
+  }
+
   return (
     <Suspense fallback={LoadingScreen()}>
       {trainers === null ? (
@@ -50,7 +66,7 @@ const Trainers = ({navigation}) => {
           exiting={FadeOutUp}>
           <Animated.Text style={styles({theme: theme}).heading}>Trainers</Animated.Text>
           {trainers?.length === 0 ? <Text style={styles({theme: theme}).text}>No trainers</Text> :
-          <FlatList data={trainers} renderItem={({item, index}) => <TrainerCard key={index} data={item} navigation={navigation} theme={theme}/>}/>}
+          <FlatList data={trainers} renderItem={({item, index}) => <Trainer key={index} data={item} navigation={navigation} theme={theme}/>}/>}
         </Animated.View>
       )}
     </Suspense>

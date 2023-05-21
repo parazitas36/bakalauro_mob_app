@@ -24,6 +24,7 @@ export default styles = ({theme}) => {
     heading: {
       color: theme.colors.black,
       fontSize: Resources.FontSize.headingText,
+      textAlign: 'center',
       margin: scale(10),
       maxWidth: scale(300),
       maxHeight: scale(300),
