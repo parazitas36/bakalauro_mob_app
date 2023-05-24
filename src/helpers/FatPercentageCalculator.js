@@ -1,4 +1,3 @@
-// Sources: https://pubmed.ncbi.nlm.nih.gov/2043597/, https://core.ac.uk/reader/29354488?utm_source=linkout, https://globalrph.com/medcalcs/estimation-of-total-body-fat/ 
 // Fat% = 1.2*BMI + 0.23*age - 10.8*gender - 5.4
 // Gender: male = 1, female = 0
 // MALE

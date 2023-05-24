@@ -99,6 +99,11 @@ const CreateTrainingPlan = ({navigation}) => {
       );
       setRefreshTrainingPlans(true)
       navigation.goBack();
+    } else {
+      ToastAndroid.show(
+        'Training was not created!',
+        ToastAndroid.SHORT
+      );
     }
   }
 

@@ -26,6 +26,7 @@ const GuideStep = ({data, theme, token}) => {
 }, [])
 
   if (data.Type === Resources.BlockType.Image) {
+    const ratio = () => imageDimensions?.height / imageDimensions?.width
     return (
       <View style={styles({theme}).guideBlock}>
         <Image
@@ -35,7 +36,19 @@ const GuideStep = ({data, theme, token}) => {
           }}
           style={imageDimensions !== null ? 
             imageDimensions.width > imageDimensions.height ? 
-                styles({theme: theme}).wideImage : styles({theme: theme}).longImage
+                { 
+                  padding: 0, 
+                  margin: 0,
+                  width: scale(300), 
+                  height: scale(300 * ratio())
+                } 
+                : 
+                {
+                  padding: 0, 
+                  margin: 0,
+                  width: scale(250), 
+                  height: scale(250 * ratio())
+                }
           : {} }
         />
       </View>
@@ -49,8 +62,9 @@ const GuideStep = ({data, theme, token}) => {
     );
   }
   if (data.Type === Resources.BlockType.Video) {
+    const ratio = () => imageDimensions?.height / imageDimensions?.width
     return (
-      <View>
+      <View style={styles({theme}).guideBlock}>
         <Video
           source={{
             uri: `${ApiConstants().GetFile}${String(data.Content)}`,
@@ -63,15 +77,15 @@ const GuideStep = ({data, theme, token}) => {
                 { 
                   padding: 0, 
                   margin: 0,
-                  width: imageDimensions.width / (imageDimensions.width / scale(300)), 
-                  height: imageDimensions.height / (imageDimensions.height / scale(180))
+                  width: scale(300), 
+                  height: scale(300 * ratio())
                 } 
                 : 
                 {
                   padding: 0, 
                   margin: 0,
-                  width: imageDimensions.width / (imageDimensions.width / scale(300)), 
-                  height: imageDimensions.height / (imageDimensions.height / scale(300))
+                  width: scale(250), 
+                  height: scale(250 * ratio())
                 }
           : {} }
           resizeMode='contain'
@@ -88,4 +102,4 @@ const GuideStep = ({data, theme, token}) => {
 
   return null;
 };
-export default React.memo(GuideStep);
+export default GuideStep;

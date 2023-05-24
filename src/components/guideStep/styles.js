@@ -28,7 +28,6 @@ export default styles = ({theme}) => {
     guideBlock: {
       width: scale(300),
       maxWidth: scale(300),
-      maxHeight: verticalScale(250),
       marginVertical: verticalScale(5),
       justifyContent: 'center',
       alignItems: 'center',
@@ -48,16 +47,5 @@ export default styles = ({theme}) => {
       aspectRatio: 1,
       resizeMode: 'contain'
     },
-    wideVideo: {
-      minWidth: scale(250),
-      width: scale(250),
-      maxWidth: scale(250),
-      aspectRatio: 1,
-      backgroundColor: 'yellow'
-    },
-    longVideo: {
-      maxWidth: scale(250),
-      aspectRatio: 1,
-    }
   });
 };

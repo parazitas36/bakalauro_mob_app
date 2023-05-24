@@ -1,13 +1,10 @@
-import {View, Text, Image} from 'react-native';
+import {View, Text} from 'react-native';
 import React, {Suspense, useContext, useEffect, useState} from 'react';
 import {LoadingScreen, UserContext} from '../../../App';
 import styles from './styles';
-import Resources from '../../Resources';
-import Animated, {FadeInDown, FadeOutUp} from 'react-native-reanimated';
 import {ApiConstants} from '../../api/ApiConstants';
 import {GetCall} from '../../api/GetCall';
 import {FlatList} from 'react-native';
-import Video from 'react-native-video';
 import { useTheme } from '@rneui/themed';
 import GuideStep from '../../components/guideStep';
 
@@ -23,52 +20,8 @@ const Exercise = ({navigation, route}) => {
 
   const {theme} = useTheme()
 
-  // const GuideStep = data => {
-  //   if (data.Type === Resources.BlockType.Image) {
-  //     return (
-  //       <View style={styles({theme}).guideBlock}>
-  //         <Image
-  //           source={{
-  //             uri: `${ApiConstants().GetFile}${String(
-  //               data.Content,
-  //             )}`,
-  //             headers: {Authorization: `Bearer ${token}`},
-  //           }}
-  //           style={{height: '100%', width: '100%'}}
-  //           resizeMode="contain"
-  //         />
-  //       </View>
-  //     );
-  //   }
-  //   if (data.Type === Resources.BlockType.Text) {
-  //     return (
-  //       <View style={styles({theme}).guideBlock}>
-  //         <Text style={styles({theme}).text}>{data.Content}</Text>
-  //       </View>
-  //     );
-  //   }
-  //   if (data.Type === Resources.BlockType.Video) {
-  //     return (
-  //       <View style={styles({theme}).guideBlock}>
-  //         <Video
-  //           source={{
-  //             uri: `${ApiConstants().GetFile}${String(
-  //               data.Content,
-  //             )}`,
-  //             headers: {Authorization: `Bearer ${token}`},
-  //           }}
-  //           style={{height: '100%', width: '100%'}}
-  //           resizeMode="contain"
-  //           paused={true}
-  //           controls={true}
-  //         />
-  //       </View>
-  //     );
-  //   }
-  // };
-
   useEffect(() => {
-    (async () => {
+    setTimeout(() => {(async () => {
       const resp = await GetCall({
         endpoint: `${ApiConstants().Exercise_Endpoint}${exerciseId}`,
         token: token,
@@ -85,16 +38,15 @@ const Exercise = ({navigation, route}) => {
       } else {
         navigation.goBack();
       }
-    })();
+    })()
+  }, 500)
   }, []);
 
   return (
     <Suspense fallback={LoadingScreen()}>
       {data === null ? LoadingScreen()
-      : <Animated.View
-          style={styles({theme}).view}
-          entering={FadeInDown}
-          exiting={FadeOutUp}>
+      : <View
+          style={styles({theme}).view}>
           <Text style={styles({theme}).heading}>{data.name}</Text>
           {guideSteps !== null ? (
             <View>
@@ -104,9 +56,9 @@ const Exercise = ({navigation, route}) => {
               />
             </View>
           ) : null}
-        </Animated.View>}
+        </View>}
     </Suspense>
   );
 };
 
-export default Exercise;
+export default React.memo(Exercise);

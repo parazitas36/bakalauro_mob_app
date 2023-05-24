@@ -77,7 +77,6 @@ const Register = ({navigation}) => {
         "usesImperialSystem": imperialSystem,
         "name": name,
         "surname": surname,
-        "isPublicName": true,
       };
 
       setLoading(true);

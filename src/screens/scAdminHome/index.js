@@ -85,13 +85,10 @@ const SCAdminHome = ({navigation}) => {
         <View style={styles({theme: theme}).flexRow}>
           <CustomButtonWithIcon
             icon={() => (
-              <MaterialCommunityIcons
-                name="newspaper-variant-outline"
-                color={theme.colors.black}
-                size={scale(20)}
-              />
+              <Icon name="people-circle-outline" type="ionicon" color={theme.colors.black} size={verticalScale(22)} />
             )}
-            btnText="My forms"
+            onPress={() => navigation.navigate({name: 'Trainers', params: {sportsClubId: roleSpecificData.id}})}
+            btnText="Club trainers"
             styles={styles({theme: theme})}
           />
           <CustomButtonWithIcon
@@ -108,18 +105,6 @@ const SCAdminHome = ({navigation}) => {
           />
         </View>
         <View style={styles({theme: theme}).flexRow}>
-        <CustomButtonWithIcon
-            icon={() => (
-              <Ionicons
-                name="people"
-                color={theme.colors.black}
-                size={scale(20)}
-              />
-            )}
-            onPress={() => navigation.navigate({name: 'Trainers', params: {sportsClubId: roleSpecificData.id}})}
-            btnText="Trainers"
-            styles={styles({theme: theme})}
-          />
           <CustomButtonWithIcon
               icon={() => (
                 <Ionicons

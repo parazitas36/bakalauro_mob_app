@@ -41,7 +41,7 @@ const TrainerHome = ({navigation}) => {
                 size={scale(20)}
               />
             )}
-            btnText="My forms"
+            btnText="My offers"
             styles={styles({theme: theme})}
             onPress={() => navigation.navigate('TrainerMyForms')}
           />
@@ -61,14 +61,15 @@ const TrainerHome = ({navigation}) => {
         <View style={styles({theme: theme}).flexRow}>
           <CustomButtonWithIcon
             icon={() => (
-              <Ionicons
-                name="person"
+              <FontAwesome
+                name="envelope"
                 color={theme.colors.black}
                 size={scale(20)}
               />
             )}
-            btnText="My profile"
+            btnText="Invites"
             styles={styles({theme: theme})}
+            onPress={() => navigation.navigate('TrainerInvites')}
           />
           <CustomButtonWithIcon
             icon={() => (
@@ -84,18 +85,6 @@ const TrainerHome = ({navigation}) => {
           />
         </View>
         <View style={styles({theme: theme}).flexRow}>
-          <CustomButtonWithIcon
-            icon={() => (
-              <FontAwesome
-                name="envelope"
-                color={theme.colors.black}
-                size={scale(20)}
-              />
-            )}
-            btnText="Invites"
-            styles={styles({theme: theme})}
-            onPress={() => navigation.navigate('TrainerInvites')}
-          />
           <CustomButtonWithIcon
             icon={() => (
               <Ionicons
