@@ -5,7 +5,7 @@ import {useState} from 'react';
 import {Animated, ToastAndroid, View} from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { scale, verticalScale } from 'react-native-size-matters';
-import { UserContext } from '../../../App';
+import { RegularUserContext, UserContext } from '../../../App';
 import { ApiConstants } from '../../api/ApiConstants';
 import { PostFormData } from '../../api/PostFormData';
 import styles from './styles';
@@ -15,6 +15,9 @@ const AddBodyMeasurements = ({navigation, route}) => {
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
+
+  const {reloadBodyMeasurementsState} = useContext(RegularUserContext);
+  const [reloadBodyMeasurements, setReloadBodyMeasurements] = reloadBodyMeasurementsState;
 
   const {theme} = useTheme();
 
@@ -99,7 +102,7 @@ const AddBodyMeasurements = ({navigation, route}) => {
           'Body measurements added successfully!',
           ToastAndroid.SHORT
         );
-
+        setReloadBodyMeasurements(true)
         navigation.goBack();
       } else {
         ToastAndroid.show(

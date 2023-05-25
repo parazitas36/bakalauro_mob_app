@@ -27,6 +27,7 @@ export default styles = ({theme}) => {
     viewContainer: {
       justifyContent: 'center',
       alignItems: 'center',
+      paddingVertical: 10,
     },
     flexRow: {
       flexDirection: 'row',

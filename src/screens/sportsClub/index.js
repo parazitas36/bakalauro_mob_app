@@ -14,8 +14,10 @@ import { TextInput } from 'react-native';
 import CustomButton from '../../components/customButton';
 import { PostCall } from '../../api/PostCall';
 import { ToastAndroid } from 'react-native';
-import { Card, Text, useTheme } from '@rneui/themed';
+import { Card, Tab, TabView, Text, useTheme } from '@rneui/themed';
 import SportsClubCard from '../../components/sportsClubCard';
+import Facilities from '../facilities';
+import Animated, { FadeInLeft } from 'react-native-reanimated';
 
 const SportsClub = ({navigation, route}) => {
   const sportsClubId = route?.params?.id;
@@ -31,6 +33,7 @@ const SportsClub = ({navigation, route}) => {
   const [rating, setRating] = useState(null);
   const [reviewText, setReviewText] = useState(null);
   const [reload, setReload] = useState(false);
+  const [index, setIndex] = useState(0)
 
   const ratings = [1, 2, 3, 4 ,5]
 
@@ -95,32 +98,48 @@ const SportsClub = ({navigation, route}) => {
       {sportsClubData === null ? LoadingScreen() : 
       <View style={styles({theme: theme}).view}>
         <SportsClubCard data={sportsClubData} disabled={true} theme={theme}/>
-        <ReviewsList reviews={sportsClubData?.reviews}/>
-        <Card containerStyle={styles({theme: theme}).reviewView}>
-          <View style={styles({theme: theme}).flexRow}>
-              <Text style={styles({theme: theme}).ratingText}>Rating </Text>
-              {ratings.map(x => {
-                return <RatingStar starRating={x} key={x} />
-              })}
+        <View style={{flex: 1}}>
+              <Tab value={index} onChange={(e) => setIndex(e)} style={{alignSelf: 'center'}}>
+                <Tab.Item title='Reviews'/>
+                <Tab.Item title='Facilities'/>
+              </Tab>
+              <TabView value={index} onChange={setIndex} animationType='spring'>
+                <TabView.Item style={{flex: 1}}>
+                <Animated.View entering={FadeInLeft.delay(300)} style={{flex: 1, alignItems: 'center'}}>
+                  <ReviewsList reviews={sportsClubData?.reviews}/>
+                  {(userData.role === 'SportsClubAdmin' && sportsClubId === roleSpecificData.id) === false &&
+                  <Card containerStyle={styles({theme: theme}).reviewView}>
+                    <View style={styles({theme: theme}).flexRow}>
+                        <Text style={styles({theme: theme}).ratingText}>Rating </Text>
+                        {ratings.map(x => {
+                          return <RatingStar starRating={x} key={x} />
+                        })}
+                    </View>
+                    <Card.Divider />
+                    <TextInput
+                      multiline={true}
+                      numberOfLines={4}
+                      placeholder='Enter your review' 
+                      placeholderTextColor={theme.colors.grey2}
+                      value={reviewText}
+                      onChangeText={setReviewText}
+                      style={styles({theme: theme}).reviewText} />
+                    <CustomButton
+                      btnText={sportsClubData?.reviews.filter(x => x.user.id === userData.id)?.length > 0 ? 
+                        'Update' : Resources.ButtonTexts.SaveBtnText}
+                      onPress={async() => await SendReview()}
+                      styles={styles({theme: theme})}
+                      disabled={reload === true}
+                      loading={reload === true}
+                    />
+                  </Card>}
+                </Animated.View >
+                </TabView.Item>
+                <TabView.Item style={{flex: 1, alignItems: 'center'}}>
+                  <Facilities navigation={navigation} sportsClubId={sportsClubId} />
+                </TabView.Item>
+              </TabView>
           </View>
-          <Card.Divider />
-          <TextInput
-            multiline={true}
-            numberOfLines={5}
-            placeholder='Enter your review' 
-            placeholderTextColor={theme.colors.grey2}
-            value={reviewText}
-            onChangeText={setReviewText}
-            style={styles({theme: theme}).reviewText} />
-          <CustomButton
-            btnText={sportsClubData?.reviews.filter(x => x.user.id === userData.id)?.length > 0 ? 
-              'Update' : Resources.ButtonTexts.SaveBtnText}
-            onPress={async() => await SendReview()}
-            styles={styles({theme: theme})}
-            disabled={reload === true}
-            loading={reload === true}
-          />
-        </Card>
       </View>
       }
     </Suspense>

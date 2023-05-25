@@ -15,13 +15,14 @@ export default styles = ({theme}) => {
       borderRadius: moderateScale(5),
       margin: verticalScale(5),
       width: scale(280),
-      height: verticalScale(30),
+      height: scale(40),
       justifyContent: 'center',
       alignItems: 'center',
       alignSelf: 'center',
     },
     view: {
       flex: 1,
+      paddingTop: 10,
       alignItems: 'center',
       backgroundColor: theme.colors.background
     },
@@ -65,7 +66,8 @@ export default styles = ({theme}) => {
     reviewText: {
       borderRadius: moderateScale(5),
       textAlignVertical: 'top',
-      color: theme.colors.black
+      color: theme.colors.black,
+      maxHeight: verticalScale(100),
     },
   });
 };

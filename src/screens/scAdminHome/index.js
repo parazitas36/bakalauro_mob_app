@@ -5,7 +5,7 @@ import {LoadingScreen, UserContext} from '../../../App';
 import CustomButtonWithIcon from '../../components/customButtonWithIcon';
 import Resources from '../../Resources';
 import styles from './styles';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {scale, verticalScale} from 'react-native-size-matters';
@@ -105,6 +105,12 @@ const SCAdminHome = ({navigation}) => {
           />
         </View>
         <View style={styles({theme: theme}).flexRow}>
+          <CustomButtonWithIcon
+            icon={() => <Entypo name="sports-club" color={theme.colors.black} size={scale(20)} />}
+            btnText="Sports clubs"
+            onPress={() => navigation.navigate('SportsClubs')}
+            styles={styles({theme: theme})}
+          />
           <CustomButtonWithIcon
               icon={() => (
                 <Ionicons

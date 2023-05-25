@@ -115,6 +115,7 @@ const FindAndAssignClientScreen = ({navigation, route}) => {
       <SearchBar
         containerStyle={{width: '100%'}}
         lightTheme={theme.mode === 'light'}
+        inputStyle={{color: theme.colors.black, fontWeight: 'bold'}}
         value={username}
         onChangeText={val => setUsername(val)}
         round={true}

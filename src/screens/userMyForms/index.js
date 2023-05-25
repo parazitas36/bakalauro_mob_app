@@ -12,14 +12,14 @@ const UserMyForms = ({navigation}) => {
   return (
     <Animated.View
         entering={FadeInLeft.delay(200)}
-        style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        style={{flex: 1, paddingVertical: 10, alignItems: 'center'}}>
         <UserForms />
         <Text h4>Training plan offers</Text>
         <TrainerTrainingPlanOffers />
         <FAB
             icon={{name: 'add', color: Resources.Colors.IconsColor}}
             color={theme.colors.primary}
-            size="small"
+            size="md"
             placement="right"
             onPress={() => navigation.navigate('CreateTrainingPlanForm')}
           />

@@ -27,6 +27,7 @@ const BodyMeasurementsProgress = React.lazy(() => import('../screens/bodyMeasure
 const ClientTrainingPlanProgress = React.lazy(() => import('../screens/clientTrainingPlanProgress'));
 const Exercise = React.lazy(() => import('../screens/exercise'));
 const SportsClub = React.lazy(() => import('../screens/sportsClub'));
+const Facility = React.lazy(() => import('../screens/facility'));
 
 const UserHomeStack = () => {
   return (
@@ -78,6 +79,10 @@ const UserHomeStack = () => {
         name={'BodyMeasurementsProgress'}
         component={BodyMeasurementsProgress}
       />
+      <UserHomeStackNavigator.Screen
+        name={'Facility'}
+        component={Facility}
+      />
     </UserHomeStackNavigator.Navigator>
   );
 };
@@ -119,9 +124,11 @@ const UserTrainingPlanStack = () => {
 const UserTab = () => {
   const {theme} = useTheme();
   const [reloadWorkout, setReloadWorkout] = useState(false);
+  const [reloadBodyMeasurements, setReloadBodyMeasurements] = useState(false);
 
   const context = {
-    reloadWorkoutState: [reloadWorkout, setReloadWorkout]
+    reloadWorkoutState: [reloadWorkout, setReloadWorkout],
+    reloadBodyMeasurementsState: [reloadBodyMeasurements, setReloadBodyMeasurements],
   };
 
   return (

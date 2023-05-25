@@ -17,7 +17,7 @@ export default styles = ({theme}) => {
       borderRadius: moderateScale(5),
       marginVertical: scale(10),
       width: scale(135),
-      height: verticalScale(30),
+      height: scale(40),
       justifyContent: 'center',
       alignItems: 'center',
     },

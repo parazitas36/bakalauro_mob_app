@@ -39,6 +39,8 @@ const WeeklyChart = ({data, isWeightChart, theme}) => {
     }
   });
 
+  const show = loggedSetsData?.filter(x => x !== null).length > 0
+
   const hidePoints = weeks.map((x, i) => {
       if (data.filter(y => y.week === x).length === 0) {
         return i;
@@ -50,7 +52,7 @@ const WeeklyChart = ({data, isWeightChart, theme}) => {
 
   return (
     <View style={{flex: 1, backgroundColor: theme.colors.background}}>
-      {loggedSetsData?.filter(x => x !== null).length > 0 ?
+      {show ?
       <LineChart
         data={{
           labels: weeks.map(x => `Week ${x}`),

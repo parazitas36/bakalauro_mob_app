@@ -28,9 +28,6 @@ const Trainers = ({navigation, route}) => {
   const facilityId = route?.params?.facilityId ?? null;
   const assignable = route?.params?.assignable ?? false;
 
-  console.log(assignable)
-  console.log(sportsClubId)
-
   const GetApiCall = () => {
     if (sportsClubId !== null || assignable === true) {
       return ApiConstants({ids: [sportsClubId]}).GetSportsClubTrainers
@@ -109,7 +106,7 @@ const Trainers = ({navigation, route}) => {
       </ListItem.Swipeable>
       )
     }
-    return <TrainerCard key={key} data={data} navigation={navigation} theme={theme}/>
+    return <TrainerCard key={key} data={data} navigation={navigation} theme={theme} isClubTrainer={sportsClubId !== null}/>
   }
 
   return (
@@ -122,7 +119,7 @@ const Trainers = ({navigation, route}) => {
           entering={FadeInDown.delay(100)}
           exiting={FadeOutUp}>
           <Animated.Text style={styles({theme: theme}).heading}>Trainers</Animated.Text>
-          {trainers?.length === 0 ? <Text style={styles({theme: theme}).text}>No trainers</Text> :
+          {trainers?.length === 0 ? <Text style={styles({theme: theme}).text}>No trainers found</Text> :
           <FlatList data={trainers} renderItem={({item, index}) => <Trainer key={index} data={item} navigation={navigation} theme={theme}/>}/>}
         </Animated.View>
       )}

@@ -54,8 +54,8 @@ const UserForms = ({navigation}) => {
       <Suspense fallback={LoadingScreen()}>
         {userForms === null ? LoadingScreen() : 
           <Animated.View entering={FadeInLeft.delay(300)} style={styles({theme: theme}).view}>
-            <Text h4 style={styles({theme: theme}).heading}>Trainer forms</Text>
-            {userForms?.length === 0 ? <Text style={styles({theme: theme}).text}>No forms</Text>
+            <Text style={styles({theme: theme}).heading}>User forms</Text>
+            {userForms?.length === 0 ? <Text style={styles({theme: theme}).text}>No forms found</Text>
             : <FlatList
                 style={{minWidth: '100%'}} 
                 contentContainerStyle={{alignItems: 'center'}} 
@@ -86,7 +86,7 @@ const UserForms = ({navigation}) => {
       {userForms === null ? LoadingScreen() : 
         <Animated.View entering={FadeInLeft.delay(300)} style={styles({theme: theme}).view}>
           <Text h4 style={styles({theme: theme}).heading}>My forms</Text>
-          {userForms?.length === 0 ? <Text style={styles({theme: theme}).text}>No forms</Text>
+          {userForms?.length === 0 ? <Text style={styles({theme: theme}).text}>No forms created</Text>
           : <FlatList
               style={{minWidth: '100%'}} 
               contentContainerStyle={{alignItems: 'center'}} 

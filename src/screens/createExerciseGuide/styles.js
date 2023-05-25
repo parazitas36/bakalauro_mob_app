@@ -6,6 +6,8 @@ export default styles = ({theme}) => {
   return StyleSheet.create({
     text: {
       color: theme.colors.black,
+      fontWeight: 'bold',
+      fontSize: scale(14)
     },
     addView: {
       flexDirection: 'column',
@@ -21,7 +23,8 @@ export default styles = ({theme}) => {
     },
     btnText: {
       color: theme.colors.black,
-      fontSize: verticalScale(11),
+      fontSize: verticalScale(12),
+      fontWeight: 'bold'
     },
     button: {
       margin: scale(10),
@@ -34,9 +37,9 @@ export default styles = ({theme}) => {
       alignItems: 'center',
       borderColor: theme.colors.black,
       borderWidth: moderateScale(1),
-      width: scale(250),
-      height: scale(30),
-      borderRadius: moderateScale(10),
+      width: scale(240),
+      height: scale(40),
+      borderRadius: moderateScale(5),
     },
     buttonsWindow: {
       flexDirection: 'row',

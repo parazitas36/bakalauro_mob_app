@@ -14,8 +14,9 @@ export default styles = ({theme}) => {
     },
     equipmentText: {
       color: theme.colors.black,
-      fontSize: Resources.FontSize.heading2Text,
+      fontSize: Resources.FontSize.headingText,
       paddingVertical: verticalScale(5),
+      marginBottom: scale(5)
     },
     noEquipmentText: {
       fontSize: Resources.FontSize.regularText,

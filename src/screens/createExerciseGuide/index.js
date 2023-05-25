@@ -140,10 +140,10 @@ const CreateExerciseGuide = ({navigation, route}) => {
             />
           </View>
         </View>
-        <CustomButton
+        {blocks?.length > 0 && <CustomButton
           styles={{btnText: styles({theme: theme}).btnText, button: styles({theme: theme}).saveButton}}
           btnText={Resources.ButtonTexts.SaveBtnText}
-          onPress={SavePress} />
+          onPress={SavePress} />}
       </Animated.ScrollView>
     </Suspense>
   );

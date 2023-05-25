@@ -6,15 +6,16 @@ export default styles = ({theme}) => {
   return StyleSheet.create({
     btnText: {
       color: theme.colors.black,
-      fontSize: Resources.FontSize.btnText,
+      fontSize: scale(14),
+      fontWeight: 'bold'
     },
     button: {
       borderColor: theme.colors.black,
       borderWidth: moderateScale(1),
-      borderRadius: moderateScale(10),
+      borderRadius: moderateScale(5),
       margin: scale(10),
       width: scale(250),
-      height: verticalScale(30),
+      height: scale(40),
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -33,7 +34,7 @@ export default styles = ({theme}) => {
       borderColor: theme.colors.black,
       width: scale(250),
       paddingHorizontal: moderateScale(10),
-      marginBottom: verticalScale(5),
+      marginBottom: verticalScale(10),
     },
     heading: {
       color: theme.colors.black,

@@ -77,7 +77,7 @@ const Subscriptions = ({navigation}) => {
             <FAB
               icon={{name: 'add', color: Resources.Colors.IconsColor}}
               color={theme.colors.primary}
-              size="small"
+              size="md"
               placement="right"
               onPress={() =>
                 navigation.navigate(Resources.Screens.CreateSubscription)

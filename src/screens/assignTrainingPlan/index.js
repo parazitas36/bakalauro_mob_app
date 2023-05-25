@@ -30,8 +30,6 @@ const AssignTrainingPlan = ({navigation, route}) => {
         body: ""
     })
 
-    console.log(resp);
-
     if (resp.status === 201) {
         navigation.goBack();
     }

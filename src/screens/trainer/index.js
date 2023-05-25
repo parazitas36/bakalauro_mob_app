@@ -21,6 +21,7 @@ import { scale } from 'react-native-size-matters';
 
 const Trainer = ({navigation, route}) => {
   const trainerId = route?.params?.trainerId;
+  const isClubTrainer = route?.params?.isClubTrainer ?? false
 
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
   const [token, setToken] = tokenState;
@@ -105,7 +106,6 @@ const Trainer = ({navigation, route}) => {
           setRating(userReview?.rating ?? null)
         }
 
-        console.log('data: ', data);
         setTrainerData(data);
       } else {
         navigation.goBack();
@@ -138,7 +138,7 @@ const Trainer = ({navigation, route}) => {
             </View>
           </View>
         </View>
-        {userData.role === 'SportsClubAdmin' && trainerData?.trainer?.isInvited === false ? 
+        {userData.role === 'SportsClubAdmin' && trainerData?.trainer?.isInvited === false && isClubTrainer === false ? 
           <Button 
             title='Invite to join your club'
             containerStyle={{width: scale(280), paddingVertical: scale(5)}}
@@ -152,6 +152,7 @@ const Trainer = ({navigation, route}) => {
             onPress={async() => await InviteTrainer()} />
         : null}
         <ReviewsList reviews={trainerData?.reviews}/>
+        {(userData.role === 'Trainer' && trainerId=== userData.id) === false &&
         <Card containerStyle={styles({theme: theme}).reviewView}>
           <View style={styles({theme: theme}).flexRow}>
               <Text style={styles({theme: theme}).ratingText}>Rating </Text>
@@ -176,7 +177,7 @@ const Trainer = ({navigation, route}) => {
             disabled={reload === true}
             loading={reload === true}
           />
-        </Card>
+        </Card>}
       </View>
       }
     </Suspense>

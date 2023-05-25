@@ -5,6 +5,7 @@ import CustomButtonWithIcon from '../../components/customButtonWithIcon';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Entypo from 'react-native-vector-icons/Entypo';
 import Resources from '../../Resources';
 import {scale} from 'react-native-size-matters';
 import Animated, {FadeInLeft} from 'react-native-reanimated';
@@ -82,6 +83,20 @@ const TrainerHome = ({navigation}) => {
             btnText="My clients"
             styles={styles({theme: theme})}
             onPress={() => navigation.navigate('Clients')}
+          />
+        </View>
+        <View style={styles({theme: theme}).flexRow}>
+          <CustomButtonWithIcon
+            icon={() => <Entypo name="sports-club" color={theme.colors.black} size={scale(20)} />}
+            btnText="Sports clubs"
+            onPress={() => navigation.navigate('SportsClubs')}
+            styles={styles({theme: theme})}
+          />
+          <CustomButtonWithIcon
+            icon={() => <Ionicons name="people" color={theme.colors.black} size={scale(20)} />}
+            btnText="Trainers"
+            onPress={() => navigation.navigate('Trainers')}
+            styles={styles({theme: theme})}
           />
         </View>
         <View style={styles({theme: theme}).flexRow}>

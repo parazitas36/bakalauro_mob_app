@@ -10,6 +10,7 @@ export default styles = ({theme}) => {
     view: {
       flex: 1,
       alignItems: 'center',
+      paddingTop: 10,
     },
     heading: {
       color: theme.colors.black,
@@ -19,8 +20,8 @@ export default styles = ({theme}) => {
       textAlign: 'center',
     },
     circleView: {
-      width: scale(30), 
-      height: scale(30), 
+      width: scale(42), 
+      height: scale(42), 
       backgroundColor: theme.colors.primary,
       borderRadius: 90,
       justifyContent: 'center',

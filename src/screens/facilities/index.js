@@ -11,7 +11,7 @@ import FacilityCard from '../../components/facilityCard';
 import { FAB, useTheme } from '@rneui/themed';
 import { verticalScale } from 'react-native-size-matters';
 
-const Facilities = ({navigation}) => {
+const Facilities = ({navigation, sportsClubId = null}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
@@ -19,30 +19,51 @@ const Facilities = ({navigation}) => {
 
   const {theme} = useTheme();
 
-  const {reloadFacilitiesState} = useContext(SportsClubContext)
-  const [reloadFacilities, setReloadFacilities] = reloadFacilitiesState;
-
   const [facilities, setFacilities] = useState(null)
   const [sportsClubName, setSportsClubName] = useState(null)
 
-  useEffect(() => {
-    (async () => {
-      const resp = await GetCall({
-        endpoint: ApiConstants({ids: [roleSpecificData.id]}).SportsClubFacilities,
-        token: token,
-      });
+  if (userData.role === 'SportsClubAdmin') {
+    const {reloadFacilitiesState} = useContext(SportsClubContext)
+    const [reloadFacilities, setReloadFacilities] = reloadFacilitiesState;
 
-      if (resp.status === 200) {
-        const result = await resp.json();
-        setSportsClubName(result.sportsClubName)
-        setFacilities(result.facilities)
-      } else {
-        setSportsClubName(Resources.Texts.UnknownClub)
-        setFacilities([])
-      }
-      setReloadFacilities(false)
-    })();
-  }, [reloadFacilities === true])
+    useEffect(() => {
+      (async () => {
+        const resp = await GetCall({
+          endpoint: ApiConstants({ids: [sportsClubId ?? roleSpecificData.id]}).SportsClubFacilities,
+          token: token,
+        });
+  
+        if (resp.status === 200) {
+          const result = await resp.json();
+          setSportsClubName(result.sportsClubName)
+          setFacilities(result.facilities)
+        } else {
+          setSportsClubName(Resources.Texts.UnknownClub)
+          setFacilities([])
+        }
+        setReloadFacilities(false)
+      })();
+    }, [reloadFacilities === true])
+  } else {
+    useEffect(() => {
+      (async () => {
+        const resp = await GetCall({
+          endpoint: ApiConstants({ids: [sportsClubId ?? roleSpecificData.id]}).SportsClubFacilities,
+          token: token,
+        });
+  
+        if (resp.status === 200) {
+          const result = await resp.json();
+          setSportsClubName(result.sportsClubName)
+          setFacilities(result.facilities)
+        } else {
+          setSportsClubName(Resources.Texts.UnknownClub)
+          setFacilities([])
+        }
+      })();
+    }, [])
+  }
+  
 
   return (
     <Suspense fallback={LoadingScreen()}>
@@ -60,15 +81,16 @@ const Facilities = ({navigation}) => {
           }))}
           
         </Animated.ScrollView>}
+        {userData.role === 'SportsClubAdmin' && sportsClubId === null &&
         <FAB
           icon={{name: 'add', color: Resources.Colors.IconsColor}}
           color={theme.colors.primary}
-          size="small"
+          size="md"
           placement="right"
           onPress={() =>
             navigation.navigate(Resources.Screens.CreateFacility)
           }
-        />
+        />}
       </>
     </Suspense>
   );

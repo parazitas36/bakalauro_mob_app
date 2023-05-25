@@ -1,5 +1,5 @@
 export const ApiConstants = (props) =>  {
-    const SSL_URL = 'https://localhost:7013/api/'
+    const PUBLIC_API_URL = 'https://fitnessappapibakalauras.azurewebsites.net/api/'
     const URL = 'http://localhost:5021/api/'
     const Users_Endpoint = 'Users/'
     const SportsClub_Endpoint = 'SportsClub/'

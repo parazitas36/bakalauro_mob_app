@@ -33,7 +33,7 @@ const BMIChart = ({bmis, days}) => {
           backgroundGradientFrom: theme.colors.background,
           backgroundGradientTo: theme.colors.background,
           backgroundGradientToOpacity: 0,
-          color: () => theme.colors.grey5,
+          color: () => theme.mode === 'dark' ? theme.colors.grey5 : 'rgba(0, 0, 0, 0.5)',
           labelColor: () => theme.colors.black,
           decimalPlaces: 2,
         }}

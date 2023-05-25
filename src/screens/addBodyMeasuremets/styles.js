@@ -6,6 +6,7 @@ export default styles = ({theme}) => {
   return (
     StyleSheet.create({
       view: {
+        padding: 10,
         justifyContent: 'center',
         alignItems: 'center'
       },

@@ -6,7 +6,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Card, Icon, Text} from '@rneui/themed';
 import {verticalScale} from 'react-native-size-matters';
 
-const TrainerCard = ({data, navigation, theme}) => {
+const TrainerCard = ({data, navigation, theme, isClubTrainer}) => {
   console.log(data);
 
   const ValueIsNotEmpty = val => {
@@ -16,7 +16,7 @@ const TrainerCard = ({data, navigation, theme}) => {
   return (
     <TouchableOpacity
       onPress={() =>
-        navigation.navigate({name: 'Trainer', params: {trainerId: data.id}})
+        navigation.navigate({name: 'Trainer', params: {trainerId: data.id, isClubTrainer: isClubTrainer}})
       }>
       <Card containerStyle={styles({theme: theme}).card}>
         <Card.Title h4>{data.username}</Card.Title>

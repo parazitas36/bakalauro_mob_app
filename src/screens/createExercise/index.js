@@ -7,7 +7,7 @@ import {LoadingScreen, TrainerContext, UserContext} from '../../../App';
 import CustomButton from '../../components/customButton';
 import { TextInput } from 'react-native-gesture-handler';
 import { PostExerciseCall } from '../../api/PostExerciseCall';
-import { useTheme } from '@rneui/themed';
+import { Text, useTheme } from '@rneui/themed';
 import MuscleIcon from '../../components/muscleIcon';
 import { View } from 'react-native';
 import { moderateScale, scale } from 'react-native-size-matters';
@@ -79,6 +79,7 @@ const CreateExercise = ({navigation}) => {
           placeholder={Resources.Placeholders.Name} 
           placeholderTextColor={Resources.Colors.PlaceholdersColor} 
           onChangeText={setName} value={name} />
+        <Text style={{fontSize: scale(18), fontWeight: '500', marginBottom: 10}}>Select muscle groups</Text>
         <View style={{
           flexDirection: 'row', 
           flexWrap: 'wrap', 

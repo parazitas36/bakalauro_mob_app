@@ -1,9 +1,9 @@
-import {RefreshControl, Text} from 'react-native';
+import {RefreshControl} from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 import {FlatList} from 'react-native';
 import Equipment from '../equipment';
 import styles from './styles';
-import {LoadingScreen, UserContext} from '../../../App';
+import {LoadingScreen, SportsClubContext, UserContext} from '../../../App';
 import {GetCall} from '../../api/GetCall';
 import {ApiConstants} from '../../api/ApiConstants';
 import Animated, {FadeInUp, FadeOutDown} from 'react-native-reanimated';
@@ -12,10 +12,10 @@ import { FAB } from '@rneui/base';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { PostCall } from '../../api/PostCall';
 import DialogInput from 'react-native-dialog-input';
-import { useTheme } from '@rneui/themed';
+import { useTheme, Text } from '@rneui/themed';
 
 const EquipmentList = ({facilityId, navigation, route}) => {
-  const [reload, setReload] = useState(false);
+  const [reload, setReload] = useState(false)
   const [equipment, setEquipment] = useState(null);
   const {tokenState, userDataState, roleSpecificDataState} =
     useContext(UserContext);
@@ -42,22 +42,45 @@ const EquipmentList = ({facilityId, navigation, route}) => {
     return ApiConstants({ids: [roleSpecificData.id]}).SportsClubEquipment;
   }
 
-  useEffect(() => {
-    (async () => {
-      const resp = await GetCall({
-        endpoint: GetApiCall(),
-        token: token,
-      });
+  if (userData.role === 'SportsClubAdmin') {
+    const {reloadEquipmentState} = useContext(SportsClubContext)
+    const [reloadEquipment, setReloadEquipment] = reloadEquipmentState;
 
-      if (resp.status === 200) {
-        const data = await resp.json();
-        setEquipment(data);
-      } else {
-        setEquipment([]);
-      }
-    })();
-    setReload(false)
-  }, [reload === true]);
+    useEffect(() => {
+      (async () => {
+        const resp = await GetCall({
+          endpoint: GetApiCall(),
+          token: token,
+        });
+  
+        if (resp.status === 200) {
+          const data = await resp.json();
+          setEquipment(data);
+        } else {
+          setEquipment([]);
+        }
+      })();
+      setReloadEquipment(false)
+      setReload(false)
+    }, [reloadEquipment === true, reload === true]);
+  } else {
+    useEffect(() => {
+      (async () => {
+        const resp = await GetCall({
+          endpoint: GetApiCall(),
+          token: token,
+        });
+  
+        if (resp.status === 200) {
+          const data = await resp.json();
+          setEquipment(data);
+        } else {
+          setEquipment([]);
+        }
+      })();
+      setReload(false)
+    }, [reload === true]);
+  }
 
   const UpdateAmount = async(equipmentId, amount) => {
     const resp = await PostCall({endpoint: ApiConstants({ids: [facilityId, equipmentId], amount: amount}).EquipmentAmountUpdate, token: token, body: ""});
@@ -117,11 +140,11 @@ const EquipmentList = ({facilityId, navigation, route}) => {
           <FAB
             icon={{name: 'add', color: 'white'}}
             color={theme.colors.primary}
-            size='small'
+            size='md'
             placement='right'
             onPress={() => navigation.navigate({
               name: Resources.Screens.CreateEquipment,
-              params: {reloadState: [reload, setReload]},
+              params: {},
             })}/>}
         </Animated.View>
       }

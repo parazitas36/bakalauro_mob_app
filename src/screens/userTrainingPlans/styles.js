@@ -23,8 +23,8 @@ export default styles = ({theme}) => {
     },
     view: {
       flex: 1,
-      justifyContent: 'center',
       alignItems: 'center',
+      paddingTop: 10,
       paddingBottom: verticalScale(20)
     },
     textInput: {

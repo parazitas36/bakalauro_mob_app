@@ -18,6 +18,8 @@ const EquipmentList = React.lazy(() => import('../components/equipmentList'));
 const CreateEquipment = React.lazy(() => import('../screens/createEquipment'));
 const Trainers = React.lazy(() => import('../screens/trainers'));
 const Trainer = React.lazy(() => import('../screens/trainer'));
+const SportsClubs = React.lazy(() => import('../screens/sportsClubs'));
+const SportsClub = React.lazy(() => import('../screens/sportsClub'));
 
 const SCAdminTabNavigator = createMaterialBottomTabNavigator();
 const SCAdminHomeStackNav = createStackNavigator();
@@ -51,6 +53,21 @@ const SCAdminHomeStack = () => {
         name={'Trainer'}
         component={Trainer}
       />
+      <SCAdminHomeStackNav.Screen
+        name={'SportsClubs'}
+        component={SportsClubs}
+      />
+      <SCAdminHomeStackNav.Screen
+        name={'SportsClub'}
+        component={SportsClub}
+      />
+      <SCAdminHomeStackNav.Screen
+        name={Resources.Screens.Facilities}
+        component={Facilities}
+      />
+      <SCAdminHomeStackNav.Screen 
+        name={Resources.Screens.Facility}
+        component={Facility} />
     </SCAdminHomeStackNav.Navigator>
   );
 };
@@ -193,10 +210,12 @@ const SCAdminNavigator = createStackNavigator();
 const SCAdminStack = ({roleSpecificData}) => {
   const [reloadFacilities, setReloadFacilities] = useState(false);
   const [reloadSubscriptions, setReloadSubscriptions] = useState(false);
-
+  const [reloadEquipment, setReloadEquipment] = useState(false);
+  
   const contextValues = {
     reloadFacilitiesState: [reloadFacilities, setReloadFacilities],
     reloadSubscriptionsState: [reloadSubscriptions, setReloadSubscriptions],
+    reloadEquipmentState: [reloadEquipment, setReloadEquipment],
   };
 
   return (

@@ -71,4 +71,4 @@ const SportsClubCard = ({data, navigation, token, theme, disabled=false}) => {
   )
 };
 
-export default SportsClubCard;
+export default React.memo(SportsClubCard);

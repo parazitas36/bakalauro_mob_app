@@ -11,10 +11,10 @@ export default styles = ({theme}) => {
     button: {
       borderColor: theme.colors.black,
       borderWidth: moderateScale(1),
-      borderRadius: moderateScale(10),
+      borderRadius: moderateScale(5),
       margin: scale(10),
       width: scale(250),
-      height: verticalScale(30),
+      height: scale(40),
       justifyContent: 'center',
       alignItems: 'center',
     },

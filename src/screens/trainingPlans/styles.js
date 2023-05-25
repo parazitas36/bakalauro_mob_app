@@ -23,7 +23,7 @@ export default styles = ({theme}) => {
     },
     view: {
       flex: 1,
-      justifyContent: 'center',
+      paddingTop: 10,
       alignItems: 'center',
       paddingBottom: verticalScale(20)
     },
@@ -41,7 +41,7 @@ export default styles = ({theme}) => {
     heading: {
       color: theme.colors.black,
       fontSize: Resources.FontSize.headingText,
-      margin: scale(10),
+      marginBottom: scale(10),
     },
   });
 };

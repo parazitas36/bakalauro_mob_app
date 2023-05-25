@@ -23,7 +23,6 @@ import { PostFormData } from '../../api/PostFormData';
 import { useTheme } from '@rneui/themed';
 
 const CreateEquipment = ({navigation, route}) => {
-  const [reload, setReload] = route?.params?.reloadState;
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
@@ -31,8 +30,9 @@ const CreateEquipment = ({navigation, route}) => {
 
   const {theme} = useTheme();
 
-  const {reloadFacilitiesState} = useContext(SportsClubContext);
+  const {reloadFacilitiesState, reloadEquipmentState} = useContext(SportsClubContext);
   const [reloadFacilities, setReloadFacilities] = reloadFacilitiesState;
+  const [reloadEquipment, setReloadEquipment] = reloadEquipmentState;
 
   const [name, setName] = useState(null);
   const [description, setDescription] = useState(null);
@@ -95,15 +95,13 @@ const CreateEquipment = ({navigation, route}) => {
         token: token,
       });
 
-      console.log(resp);
-
       if (resp.status === 201) {
         ToastAndroid.show(
           Resources.Texts.NotificationEquipmentCreatedSuccessFully,
           ToastAndroid.SHORT,
           ToastAndroid.BOTTOM,
         );
-        setReload(true);
+        setReloadEquipment(true);
         navigation.navigate(Resources.Screens.EquipmentList);
       } else {
         ToastAndroid.show(

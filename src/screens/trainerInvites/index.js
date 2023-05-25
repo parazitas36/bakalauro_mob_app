@@ -18,7 +18,7 @@ const TrainerInvites = ({navigation}) => {
         <Animated.View 
           entering={FadeInLeft.delay(200)}
           style={styles({theme: theme}).view}>
-            <Text h4>My invites</Text>
+            <Text style={styles({theme: theme}).heading}>My invites</Text>
             <TrainerInvitesList theme={theme} token={token} navigation={navigation} />
         </Animated.View>
     </Suspense>

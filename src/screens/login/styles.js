@@ -11,9 +11,9 @@ export default styles = ({theme}) => {
     button: {
       borderColor: theme.colors.black,
       borderWidth: moderateScale(1),
-      borderRadius: moderateScale(10),
+      borderRadius: moderateScale(5),
       marginVertical: scale(10),
-      height: verticalScale(30),
+      height: scale(35),
       width: scale(250),
       justifyContent: 'center',
       alignItems: 'center',

@@ -3,7 +3,7 @@ import React, {useContext} from 'react';
 import {FlatList} from 'react-native';
 import styles from './styles';
 import {LoadingScreen, UserContext} from '../../../App';
-import Animated, {FadeInUp, FadeOutDown} from 'react-native-reanimated';
+import Animated, {FadeInLeft, FadeInUp, FadeOutDown} from 'react-native-reanimated';
 import Resources from '../../Resources';
 import { View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -53,8 +53,7 @@ const ReviewsList = ({reviews}) => {
       {reviews === null ? LoadingScreen() : 
         <Animated.View
           style={styles({theme: theme}).view}
-          entering={FadeInUp.delay(300)}
-          exiting={FadeOutDown}>
+          entering={FadeInLeft.delay(300)}>
           {reviews !== null && <Text style={styles({theme: theme}).reviewText}>{`Reviews (${reviews?.length})`}</Text>}
           {reviews?.length > 0 ? 
             <FlatList 

@@ -10,6 +10,7 @@ export default styles = ({theme}) => {
     view: {
       flex: 1,
       alignItems: 'center',
+      paddingVertical: 10,
     },
     heading: {
       color: theme.colors.black,

@@ -9,7 +9,7 @@ export default styles = ({theme}) => {
     },
     view: {
       flex: 1,
-      justifyContent: 'center',
+      paddingTop: 10,
       alignItems: 'center',
     },
     heading: {

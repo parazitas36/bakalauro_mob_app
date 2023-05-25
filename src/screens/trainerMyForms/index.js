@@ -15,7 +15,7 @@ const TrainerMyForms = ({navigation}) => {
         <Animated.View 
           entering={FadeInLeft.delay(200)}
           style={styles({theme: theme}).view}>
-            <Text h4>My training plan offers</Text>
+            <Text style={styles({theme: theme}).heading}>My training plan offers</Text>
             <TrainerTrainingPlanOffers navigation={navigation} />
         </Animated.View>
     </Suspense>

@@ -12,13 +12,16 @@ export default styles = ({theme}) => {
     view: {
       flex: 1,
       alignItems: 'center',
+      paddingVertical: 10,
     },
     flexRow: {
       flexDirection: 'row',
     },
     heading: {
       color: theme.colors.black,
-      marginVertical: scale(10),
+      fontWeight: '400',
+      fontSize: Resources.FontSize.headingText,
+      marginBottom: scale(10),
       maxWidth: scale(300)
     },
   });

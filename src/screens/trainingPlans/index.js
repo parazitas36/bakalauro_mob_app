@@ -38,7 +38,7 @@ const TrainingPlans = ({navigation, selectView = false, setSelectedTrainingPlan}
       token: token, 
       body: name
     });
-    console.log(resp)
+    
     setRefreshTrainingPlans(true)
   }
 
@@ -226,7 +226,7 @@ const TrainingPlans = ({navigation, selectView = false, setSelectedTrainingPlan}
           <FAB
             icon={{name: 'add', color: Resources.Colors.IconsColor}}
             color={theme.colors.primary}
-            size="small"
+            size="md"
             placement="right"
             onPress={() => {
                 setWeeks(null);

@@ -5,7 +5,7 @@ import {Button, ButtonGroup, Icon, Slider, Text, useTheme} from '@rneui/themed';
 import {BMICalculator} from '../../helpers/BMICalculator';
 import {FatPercentageCalculator} from '../../helpers/FatPercentageCalculator';
 import {useState} from 'react';
-import {scale} from 'react-native-size-matters';
+import {scale, moderateScale} from 'react-native-size-matters';
 import { TextInput } from 'react-native';
 import { ScrollView } from 'react-native';
 import BMIChart from '../../components/bmiChart';
@@ -43,9 +43,11 @@ const BodyMeasurementsProgress = ({navigation, route}) => {
   return (
     <ScrollView style={{flex: 1}}>
         <View style={styles({theme: theme}).view}>
+            {bmis?.length > 0 && measurementDays?.length > 0 ?
+            <BMIChart days={measurementDays} bmis={bmis} /> : null}
             <Text h4>Choose gender</Text>
             <ButtonGroup
-                containerStyle={{width: scale(250)}}
+                containerStyle={{width: scale(200), gap: 5, height: scale(40)}}
                 buttons={genderButtons}
                 selectedIndex={genderButtons.findIndex(x => x === gender)}
                 onPress={(value) => setGender(genderButtons.at(value))}
@@ -53,9 +55,9 @@ const BodyMeasurementsProgress = ({navigation, route}) => {
                 selectedButtonStyle={{backgroundColor: theme.colors.primary}}
                 disabledSelectedStyle={{backgroundColor: theme.colors.grey5}}
                 buttonStyle={{backgroundColor: theme.colors.grey4}}
-                textStyle={{color: theme.colors.black, textAlign: 'center'}}
+                textStyle={{color: theme.colors.black, textAlign: 'center', fontSize: scale(14)}}
             />
-            <Text h4>Select age</Text>
+            <Text h4 style={{marginBottom: scale(10)}}>Select age</Text>
             <Slider
                 value={age ?? 0}
                 onValueChange={(val) => setAge(val)}
@@ -75,7 +77,11 @@ const BodyMeasurementsProgress = ({navigation, route}) => {
                     children: (
                         <View style={{right: scale(15), width: scale(36), height: scale(36), justifyContent: 'center', alignItems: 'center'}}>
                             <View style={styles({theme: theme}).circleView}>
-                                <Text style={{color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white}}>{age ?? 0}</Text>
+                                <Text style={{
+                                    color: theme.mode === 'dark' ? theme.colors.black : theme.colors.white,
+                                    fontSize: scale(14),
+                                    fontWeight: 'bold'
+                                }}>{age ?? 0}</Text>
                             </View>
                         </View>
                     ),
@@ -83,6 +89,15 @@ const BodyMeasurementsProgress = ({navigation, route}) => {
             />
             <Button
                 title={isConfirmed ? 'Update' : 'Confirm'}
+                buttonStyle={{
+                    marginTop: scale(10),
+                    width: scale(200),
+                    height: scale(40),
+                    borderRadius: moderateScale(5),
+                }}
+                titleStyle={{
+                    fontWeight: 'bold'
+                }}
                 onPress={() => {
                     if (!isConfirmed) {
                         setIsConfirmed(prev => !prev)
@@ -91,8 +106,6 @@ const BodyMeasurementsProgress = ({navigation, route}) => {
                     }
                 }}
             />
-            {isConfirmed === true && bmis?.length > 0 && measurementDays?.length > 0 ?
-            <BMIChart days={measurementDays} bmis={bmis} /> : null}
             {isConfirmed === true && bfPercentages?.length > 0 && measurementDays?.length > 0 ?
             <BFPercentagesChart days={measurementDays} bfPercentages={bfPercentages} /> : null}
         </View>
