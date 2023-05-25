@@ -37,6 +37,7 @@ const SportsClubs = React.lazy(() => import('../screens/sportsClubs'));
 const Trainer = React.lazy(() => import('../screens/trainer'));
 const Trainers = React.lazy(() => import('../screens/trainers'));
 const Facility = React.lazy(() => import('../screens/facility'));
+const ClientBodyMeasurementsProgress = React.lazy(() => import('../screens/clientBodyMeasurementsProgress'));
 
 const TrainerHomeStack = () => {
   return (
@@ -123,6 +124,10 @@ const TrainerHomeStack = () => {
       <TrainerHomeStackNavigator.Screen
         name={'Facility'}
         component={Facility}
+      />
+      <TrainerHomeStackNavigator.Screen
+        name={'ClientBodyMeasurementsProgress'}
+        component={ClientBodyMeasurementsProgress}
       />
     </TrainerHomeStackNavigator.Navigator>
   );

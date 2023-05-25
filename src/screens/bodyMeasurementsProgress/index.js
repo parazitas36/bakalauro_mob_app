@@ -10,6 +10,7 @@ import { TextInput } from 'react-native';
 import { ScrollView } from 'react-native';
 import BMIChart from '../../components/bmiChart';
 import BFPercentagesChart from '../../components/bfPercentagesChart';
+import WeightChart from '../../components/weightChart';
 
 const BodyMeasurementsProgress = ({navigation, route}) => {
   const {theme} = useTheme();
@@ -24,6 +25,10 @@ const BodyMeasurementsProgress = ({navigation, route}) => {
     return bodyMeasurements?.map(x => new Date(x.measurementDay)).map(x => new Date(x).toLocaleDateString());
   }, [bodyMeasurements])
 
+  const weights = useMemo(() => {
+    return bodyMeasurements?.map(x => x.weight);
+  }, [bodyMeasurements])
+
   const bmis = useMemo(() => {
     return bodyMeasurements?.map(x => BMICalculator({height: x.height, weight: x.weight, isImperialUnits: false}));
   }, [bodyMeasurements])
@@ -34,15 +39,11 @@ const BodyMeasurementsProgress = ({navigation, route}) => {
     return null;
   }, [isConfirmed === true, shouldUpdate === true])
 
-  console.log('bmis: ', bmis);
-  //console.log(measurementDays.map(x => x.toLocaleDateString()))
-  console.log(bfPercentages)
-
-  const set = new Set(measurementDays);
-
   return (
     <ScrollView style={{flex: 1}}>
         <View style={styles({theme: theme}).view}>
+            {weights?.length > 0 && measurementDays?.length > 0 ?
+            <WeightChart days={measurementDays} weights={weights} /> : null}
             {bmis?.length > 0 && measurementDays?.length > 0 ?
             <BMIChart days={measurementDays} bmis={bmis} /> : null}
             <Text h4>Choose gender</Text>
