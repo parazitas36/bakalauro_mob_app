@@ -53,8 +53,6 @@ const CreateTrainingPlanOffer = ({navigation, route}) => {
         body: body,
       });
 
-      console.log(resp);
-
       if (resp.status === 201) {
         ToastAndroid.show(
           'Offer was made successfully!',

@@ -21,8 +21,6 @@ const AddBodyMeasurements = ({navigation, route}) => {
 
   const {theme} = useTheme();
 
-  console.log(route.params.height)
-
   const [weight, setWeight] = useState(null);
   const [height, setHeight] = useState(route.params.height);
   const [shoulders, setShoulders] = useState(null);
@@ -44,7 +42,6 @@ const AddBodyMeasurements = ({navigation, route}) => {
       if (result.didCancel !== true) {
         const imageResult = result?.assets.at(0);
         if (imageResult) {
-          console.log(imageResult)
           setImage(imageResult);
         }
       }

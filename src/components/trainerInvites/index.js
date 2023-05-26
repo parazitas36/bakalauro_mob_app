@@ -21,10 +21,8 @@ const TrainerInvites = ({navigation, token, theme}) => {
         endpoint: ApiConstants().TrainerInvites,
         token: token,
       });
-      console.log(resp)
       if (resp.status === 200) {
         const data = await resp.json();
-        console.log(data)
         
         setInvites(data);
       } else {

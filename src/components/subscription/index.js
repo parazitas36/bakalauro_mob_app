@@ -4,7 +4,6 @@ import { lightColors, PricingCard } from '@rneui/themed'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
 const Subscription = ({subscription, theme}) => {
-console.log(subscription)
   return (
     <PricingCard
       color={theme.mode === 'dark' ? theme.colors.secondary : theme.colors.primary}

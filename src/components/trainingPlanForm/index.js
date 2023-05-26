@@ -13,10 +13,7 @@ const TrainingPlanForm = ({data, theme}) => {
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
 
-  console.log(data)
-
   const formDetails = JSON.parse(data.formDetails);
-  console.log(formDetails)
 
   const TrainingPlanFormCard = () => {
     return (

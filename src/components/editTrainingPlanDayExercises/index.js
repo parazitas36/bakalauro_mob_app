@@ -33,8 +33,6 @@ const EditTrainingPlanDayExercises = ({navigation, planDay, planWeek, theme, tra
     let weeksCopy = [...weeks]
     const foundExercise = weeksCopy.filter(x => x.week === planWeek).at(0).days[planDay.toLowerCase()].filter(x => x.editKey === key).at(0)
 
-    console.log(foundExercise)
-
     const resp = await DeleteCall({
       endpoint: ApiConstants({ids: [foundExercise.trainingPlanExerciseId]}).DeleteTrainingPlanExercise,
       token: token

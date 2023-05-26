@@ -7,7 +7,6 @@ import {Card, Icon, Text} from '@rneui/themed';
 import {verticalScale} from 'react-native-size-matters';
 
 const TrainerCard = ({data, navigation, theme, isClubTrainer}) => {
-  console.log(data);
 
   const ValueIsNotEmpty = val => {
     return val !== undefined && val !== null && val !== '' && val !== 'null';

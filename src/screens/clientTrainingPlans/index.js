@@ -30,8 +30,6 @@ const ClientTrainingPlans = ({navigation, route}) => {
         token: token,
       });
 
-      console.log('client plans: ', resp)
-
       if (resp.status === 200) {
         const data = await resp.json();
         setTrainingPlans(data);

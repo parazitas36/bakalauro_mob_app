@@ -47,7 +47,6 @@ const Invite = ({ navigation, theme, token, data, reload, setReload, hideButtons
       endpoint: `${ApiConstants({ids: [data.id]}).UpdateTrainerInvite}Accepted`,
       token: token,
     })
-    console.log(resp);
 
     if (resp.status === 200) {
       ToastAndroid.show(
@@ -65,7 +64,6 @@ const Invite = ({ navigation, theme, token, data, reload, setReload, hideButtons
       endpoint: `${ApiConstants({ids: [data.id]}).UpdateTrainerInvite}Declined`,
       token: token,
     })
-    console.log(resp);
 
     if (resp.status === 200) {
       ToastAndroid.show(

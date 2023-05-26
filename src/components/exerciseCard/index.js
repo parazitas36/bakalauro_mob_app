@@ -7,7 +7,6 @@ import MuscleIcon from '../muscleIcon';
 import { View } from 'react-native';
 
 const ExerciseCard = ({data, navigation, theme}) => {
-  console.log(data);
 
   const muscleGroups = JSON.parse(data?.muscleGroups)
 

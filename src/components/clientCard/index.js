@@ -7,8 +7,6 @@ import {Card, Icon, Text} from '@rneui/themed';
 import {verticalScale} from 'react-native-size-matters';
 
 const ClientCard = ({data, navigation, theme}) => {
-  console.log(data);
-
   const ValueIsNotEmpty = val => {
     return val !== undefined && val !== null && val !== '' && val !== 'null';
   };

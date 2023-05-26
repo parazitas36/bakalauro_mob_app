@@ -8,7 +8,6 @@ import { Card, Icon, Text } from '@rneui/themed';
 import { verticalScale } from 'react-native-size-matters';
 
 const SportsClubCard = ({data, navigation, token, theme, disabled=false}) => {
-  console.log(data);
 
   const ValueIsNotEmpty = value => {
     return value !== undefined && value !== null && value !== '' && value !== 'null'

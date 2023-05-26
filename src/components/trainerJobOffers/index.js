@@ -22,11 +22,8 @@ const TrainerJobOffers = () => {
         token: token,
       });
 
-      console.log(resp);
-
       const data = await resp.json();
 
-      console.log(data)
     })();
   });
 

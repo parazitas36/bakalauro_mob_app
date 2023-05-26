@@ -13,8 +13,6 @@ export const PostSportsClub = async ({token, body}) => {
         name: String(body.image.fileName)
     });
 
-    console.log(formData)
-
     return await fetch(ApiConstants().SportsClub_Endpoint, {
         method: 'POST',
         headers: {

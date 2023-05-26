@@ -26,7 +26,7 @@ const BMIChart = ({bmis, days}) => {
             },
           ],
         }}
-        width={scale(300)} // from react-native
+        width={scale(300)}
         height={scale(200)}
         chartConfig={{
           backgroundColor: theme.colors.background,

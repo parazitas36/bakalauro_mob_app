@@ -22,7 +22,6 @@ const ClientBodyMeasurementsProgress = ({navigation, route}) => {
   const [fetchedBodyMeasurements, setFetchedBodyMeasurements] = useState(null)
 
   const clientId = route?.params?.clientId
-  console.log(clientId)
 
   const measurementDays = useMemo(() => {
     return fetchedBodyMeasurements?.map(x => new Date(x.measurementDay)).map(x => new Date(x).toLocaleDateString());

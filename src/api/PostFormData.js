@@ -2,8 +2,6 @@ import Resources from "../Resources";
 import { ApiConstants } from "./ApiConstants";
 
 export const PostFormData = async ({endpoint, token, formData}) => {
-    console.log(formData)
-
     return await fetch(endpoint, {
         method: 'POST',
         headers: {

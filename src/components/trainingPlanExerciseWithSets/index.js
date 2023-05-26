@@ -11,7 +11,6 @@ import { Button, Card, Divider, Icon, Text } from '@rneui/themed';
 import MuscleIcon from '../muscleIcon';
 
 const TrainingPlanExerciseWithSets = ({navigation, data, exercise, editMode, theme}) => {
-  console.log('data: ', data)
   const sets = JSON.parse(editMode ? data.Sets : data.sets)
   const muscleGroups = JSON.parse(exercise.muscleGroups)
 

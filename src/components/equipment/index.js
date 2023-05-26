@@ -4,8 +4,6 @@ import {ApiConstants} from '../../api/ApiConstants';
 import { Card, Text } from '@rneui/themed';
 
 const Equipment = ({equipment, token, theme}) => {
-  console.log(equipment);
-
   const ReturnAmount = (val) => {
     if (val === null || val === undefined || val === 0) {
       return ''

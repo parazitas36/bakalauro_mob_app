@@ -22,6 +22,18 @@ const TrainingPlan = ({navigation, clientId = null, trainingPlan, theme, selectV
     })
   })
 
+  const usedEquipment = () => {
+    const arr = []
+    if(trainingPlan.equipment?.length > 0) {
+      trainingPlan.equipment.forEach(x => { 
+        if(!arr.includes(y => y.name === x.name)){
+          arr.push(x)
+        }
+      })
+    }
+    return arr
+  }
+
   if (selectView === true) {
     return (
       <Animated.View entering={FadeInLeft.delay(200)}>
@@ -46,7 +58,7 @@ const TrainingPlan = ({navigation, clientId = null, trainingPlan, theme, selectV
               <View style={{...styles({theme: theme}).subView, alignItems: 'flex-end'}}>
                 <Text style={styles({theme: theme}).boldText}>{Resources.Texts.Equipment}</Text>
                 {trainingPlan.equipment?.length > 0 ? 
-                  trainingPlan.equipment.map((x, i) => {
+                  usedEquipment().map((x, i) => {
                     return <Text key={i} style={styles({theme: theme}).text}>{x.name}</Text>;
                   }) : 
                   <Text style={styles({theme: theme}).text}>
@@ -88,7 +100,7 @@ const TrainingPlan = ({navigation, clientId = null, trainingPlan, theme, selectV
             <View style={{...styles({theme: theme}).subView, alignItems: 'flex-end'}}>
               <Text style={styles({theme: theme}).boldText}>{Resources.Texts.Equipment}</Text>
               {trainingPlan.equipment?.length > 0 ? 
-                trainingPlan.equipment.map((x, i) => {
+                usedEquipment().map((x, i) => {
                   return <Text key={i} style={styles({theme: theme}).text}>{x.name}</Text>;
                 }) : 
                 <Text style={styles({theme: theme}).text}>

@@ -15,10 +15,11 @@ import { ToastAndroid } from 'react-native';
 
 const CreateExercise = ({navigation}) => {
   const {tokenState, userDataState, roleSpecificDataState} = useContext(UserContext);
-  const { guideState, refreshExercisesState } = useContext(TrainerContext)
+  const { guideState, refreshExercisesState, selectedEquipmentState } = useContext(TrainerContext)
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
+  const [selectedEquipment, setSelectedEquipment]= selectedEquipmentState
 
   const [muscleGroups, setMuscleGroups] = useState([]);
   const [name, setName] = useState(null);
@@ -56,13 +57,14 @@ const CreateExercise = ({navigation}) => {
       name: name,
       muscleGroups: JSON.stringify(muscleGroups),
       exerciseTypes: "Other",
-      equipmentId: null,
+      equipmentId: selectedEquipment !== null ? selectedEquipment.id : null,
     }
 
     const resp = await PostExerciseCall({blocks: guide, token: token, body: body})
-    console.log(resp)
+
     if(resp.status === 201) {
       setGuide([]);
+      setSelectedEquipment(null)
       navigation.goBack();
       setRefreshExercises(true)
     }
@@ -104,10 +106,16 @@ const CreateExercise = ({navigation}) => {
           btnText={guide.length == 0 ? Resources.ButtonTexts.AddGuide : Resources.ButtonTexts.EditGuide} 
           onPress={() => navigation.navigate(Resources.Screens.CreateExerciseGuide)} 
           styles={styles({theme: theme})}/>
+        {userData.isWorkingInSportsClub === true &&
         <CustomButton 
+          btnText={selectedEquipment === null ? 'Add equipment' : selectedEquipment?.name} 
+          onPress={() => navigation.navigate('TrainerEquipmentList')} 
+          styles={styles({theme: theme})}/>}
+        {(name === null || name === '') ? null 
+        : <CustomButton 
           btnText={Resources.ButtonTexts.SaveBtnText} 
           onPress={async() => await SavePress()} 
-          styles={styles({theme: theme})}/>
+          styles={styles({theme: theme})}/> }
       </Animated.View>
     </Suspense>
   );

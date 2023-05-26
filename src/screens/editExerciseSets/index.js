@@ -55,7 +55,6 @@ const EditExerciseSets = ({navigation, route}) => {
         token: token,
         body: JSON.stringify(sets)
       })
-      console.log(resp)
 
       setRefreshTrainingPlanInEditMode(true)
       navigation.goBack();
@@ -72,7 +71,6 @@ const EditExerciseSets = ({navigation, route}) => {
         token: token,
         body: body
       })
-      console.log(resp)
 
       setRefreshTrainingPlanInEditMode(true)
       navigation.goBack();

@@ -35,11 +35,9 @@ const BodyMeasurements = ({navigation}) => {
           endpoint: ApiConstants().BodyMeasurements,
           token: token,
         });
-        console.log(resp);
   
         if (resp.status === 200) {
           const data = await resp.json();
-          console.log(data);
   
           setBodyMeasurements(data);
         } else {

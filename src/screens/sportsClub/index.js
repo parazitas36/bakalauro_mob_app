@@ -63,7 +63,6 @@ const SportsClub = ({navigation, route}) => {
     }
 
     const resp = await PostCall({endpoint: ApiConstants().Reviews, body: body, token: token})
-    console.log(resp)
     setReload(true)
   }
 
@@ -84,7 +83,6 @@ const SportsClub = ({navigation, route}) => {
           setRating(userReview?.rating ?? null)
         }
 
-        console.log('data: ', data);
         setSportsClubData(data);
       } else {
         navigation.goBack();

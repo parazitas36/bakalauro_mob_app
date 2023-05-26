@@ -28,7 +28,6 @@ const Clients = ({navigation}) => {
 
       if (resp.status === 200) {
         const data = await resp.json();
-        console.log(data)
         setClients(data);
       } else {
         setClients([]);

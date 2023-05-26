@@ -33,7 +33,6 @@ const CreateSubscription = ({navigation}) => {
     }
 
     const resp = await PostCall({endpoint: ApiConstants({ids: [roleSpecificData.id]}).Subscriptions, body: body, token: token});
-    console.log(resp)
     if (resp.status === 201) {
       ToastAndroid.show(
         Resources.Texts.NotificationSubscriptionCreatedSuccessfully,

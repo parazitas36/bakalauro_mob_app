@@ -63,7 +63,6 @@ const Trainer = ({navigation, route}) => {
     }
 
     const resp = await PostCall({endpoint: ApiConstants().Reviews, body: body, token: token})
-    console.log(resp)
     setReload(true)
   }
 

@@ -44,11 +44,9 @@ const CreateTrainingPlanForm = ({navigation}) => {
     }
 
     const resp = await PostCall({endpoint: ApiConstants().TrainingPlanForms, token: token, body: body})
-    console.log(resp)
 
     if(resp.status === 201) {
       navigation.goBack();
-      //setRefreshExercises(true)
     }
   }
 

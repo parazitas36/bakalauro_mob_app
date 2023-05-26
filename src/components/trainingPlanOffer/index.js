@@ -73,7 +73,6 @@ const TrainingPlanOffer = ({ navigation, theme, data, reload, setReload, hideBut
       )}/Accepted`,
       token: token,
     });
-    console.log(resp);
 
     if (resp.status === 200) {
       setReload(true);
@@ -90,8 +89,6 @@ const TrainingPlanOffer = ({ navigation, theme, data, reload, setReload, hideBut
         token: token,
       });
 
-      console.log(resp);
-
       if (resp.status === 204) {
         setReload(true);
       }
@@ -102,7 +99,6 @@ const TrainingPlanOffer = ({ navigation, theme, data, reload, setReload, hideBut
         )}/Declined`,
         token: token,
       });
-      console.log(resp);
 
       if (resp.status === 200) {
         setReload(true);

@@ -46,8 +46,6 @@ const ColorScheme = ({ children }) => {
   const { theme } = useTheme();
   const { setMode } = useThemeMode();
 
-  console.log('theme: ', theme)
-
   React.useEffect(() => {
     setMode(theme.mode);
   }, [theme.mode]);

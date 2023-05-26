@@ -38,12 +38,10 @@ const LogSetComponent = ({sets, loggedSets, setLoggedSets, trainingPlanExerciseI
       var existingLoggedSets = exerciseSets
 
       const existing = loggedSets?.filter(x => x.trainingPlanExerciseId === trainingPlanExerciseId)?.at(0)?.loggedSets;
-      console.log(existing)
+
       if (existingLoggedSets.length === 0 && (existing === undefined || existing === null)) {
-        console.log('1')
         tempLoggedSets.push({trainingPlanExerciseId: trainingPlanExerciseId, loggedSets: [insert]})
       } else {
-        console.log('2')
         existingLoggedSets.push(insert)
         tempLoggedSets.forEach(x => {
           if (x.trainingPlanExerciseId === trainingPlanExerciseId) {
@@ -52,7 +50,6 @@ const LogSetComponent = ({sets, loggedSets, setLoggedSets, trainingPlanExerciseI
         })
       }
 
-      console.log('temp: ', tempLoggedSets)
       setLoggedSets(tempLoggedSets);
 
       const resp = await PostCall({

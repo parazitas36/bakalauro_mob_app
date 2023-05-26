@@ -37,7 +37,6 @@ const Login = (props) => {
         const data = await resp.json();
         setToken(data.token)
         setUserData(data.data)
-        console.log(data.data)
       } else if (resp.status === 404) {
         setError(Resources.Errors.wrongCredentialsError)
       }

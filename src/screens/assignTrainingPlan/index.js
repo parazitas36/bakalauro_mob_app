@@ -23,7 +23,6 @@ const AssignTrainingPlan = ({navigation, route}) => {
   const trainingPlanOffer = route?.params?.trainingPlanOffer;
 
   const SavePress = async() => {
-    console.log(selectedTrainingPlan)
     const resp = await PostCall({
         endpoint: `${ApiConstants().TrainingPlan_Endpoint}assign/${Number(selectedTrainingPlan.id)}/${Number(trainingPlanOffer.createdBy.id)}`,
         token: token,

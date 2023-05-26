@@ -6,6 +6,7 @@ import Resources from '../Resources';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {verticalScale} from 'react-native-size-matters';
 import {useTheme} from '@rneui/themed';
+import trainerEquipmentList from '../components/trainerEquipmentList';
 
 const TrainerTabNavigator = createMaterialBottomTabNavigator();
 const TrainerHomeStackNavigator = createStackNavigator();
@@ -38,6 +39,7 @@ const Trainer = React.lazy(() => import('../screens/trainer'));
 const Trainers = React.lazy(() => import('../screens/trainers'));
 const Facility = React.lazy(() => import('../screens/facility'));
 const ClientBodyMeasurementsProgress = React.lazy(() => import('../screens/clientBodyMeasurementsProgress'));
+const TrainerEquipmentList = React.lazy(() => import('../components/trainerEquipmentList'));
 
 const TrainerHomeStack = () => {
   return (
@@ -158,6 +160,10 @@ const TrainerExercisesStack = () => {
         name={Resources.Screens.CreateExerciseGuide}
         component={CreateExerciseGuide}
       />
+      <TrainerExercisesStackNavigator.Screen
+        name={'TrainerEquipmentList'}
+        component={TrainerEquipmentList}
+      />
     </TrainerExercisesStackNavigator.Navigator>
   );
 };
@@ -216,6 +222,7 @@ const TrainerTab = () => {
   const [key, setKey] = useState(0);
   const [weeks, setWeeks] = useState(null);
   const [exercises, setExercises] = useState(null);
+  const [selectedEquipment, setSelectedEquipment] = useState(null)
 
   const context = {
     guideState: [guide, setGuide],
@@ -225,6 +232,7 @@ const TrainerTab = () => {
     keyState: [key, setKey],
     weeksState: [weeks, setWeeks],
     exercisesState: [exercises, setExercises],
+    selectedEquipmentState: [selectedEquipment, setSelectedEquipment]
   };
 
   return (

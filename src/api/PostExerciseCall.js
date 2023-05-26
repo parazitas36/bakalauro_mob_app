@@ -6,6 +6,9 @@ export const PostExerciseCall = async ({blocks, token, body}) => {
     formData.append('ExerciseTypes', String(body.exerciseTypes));
     formData.append('MuscleGroups', String(body.muscleGroups));
     formData.append('Name', String(body.name));
+    if (body?.equipmentId !== null) {
+        formData.append('EquipmentId', Number(body?.equipmentId ));
+    }
 
     blocks.forEach(block => {
         formData.append('BlockTypes', block.type);
@@ -31,8 +34,6 @@ export const PostExerciseCall = async ({blocks, token, body}) => {
                 break;
         }
     })
-
-    console.log(formData)
 
     return await fetch(ApiConstants().Exercise_Endpoint, {
         method: 'POST',

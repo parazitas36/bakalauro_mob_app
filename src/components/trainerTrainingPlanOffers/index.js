@@ -30,8 +30,6 @@ const TrainerTrainingPlanOffers = ({navigation}) => {
 
       if (resp.status === 200) {
         const data = await resp.json();
-        console.log(data)
-        
         setTrainingPlanOffers(data);
       } else {
         setTrainingPlanOffers([])

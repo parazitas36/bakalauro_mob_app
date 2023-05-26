@@ -19,7 +19,6 @@ const SCAdminHome = ({navigation}) => {
   const [token, setToken] = tokenState;
   const [userData, setUserData] = userDataState;
   const [roleSpecificData, setRoleSpecificData] = roleSpecificDataState;
-  console.log(roleSpecificData);
   
   const {theme} = useTheme();
 
