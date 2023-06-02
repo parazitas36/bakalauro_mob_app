@@ -57,5 +57,10 @@ export default styles = ({theme}) => {
       width: '95%',
       paddingHorizontal: scale(5),
     },
+    heading: {
+      color: theme.colors.black,
+      fontSize: Resources.FontSize.headingText,
+      margin: scale(10),
+    },
   });
 };

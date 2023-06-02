@@ -54,7 +54,7 @@ const ReviewsList = ({reviews}) => {
         <Animated.View
           style={styles({theme: theme}).view}
           entering={FadeInLeft.delay(300)}>
-          {reviews !== null && <Text style={styles({theme: theme}).reviewText}>{`Reviews (${reviews?.length})`}</Text>}
+          {reviews !== null && <Text style={styles({theme: theme}).heading}>{`Reviews (${reviews?.length})`}</Text>}
           {reviews?.length > 0 ? 
             <FlatList 
               data={reviews} 

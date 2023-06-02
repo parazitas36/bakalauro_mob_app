@@ -6,7 +6,7 @@ import {ApiConstants} from '../../api/ApiConstants';
 import {GetCall} from '../../api/GetCall';
 import Video from 'react-native-video';
 import { useRef } from 'react';
-import { scale, verticalScale } from 'react-native-size-matters';
+import { scale, moderateScale } from 'react-native-size-matters';
 import { useEffect } from 'react';
 
 const GuideStep = ({data, theme, token}) => {
@@ -40,14 +40,16 @@ const GuideStep = ({data, theme, token}) => {
                   padding: 0, 
                   margin: 0,
                   width: scale(300), 
-                  height: scale(300 * ratio())
+                  height: scale(300 * ratio()),
+                  borderRadius: moderateScale(5)
                 } 
                 : 
                 {
                   padding: 0, 
                   margin: 0,
                   width: scale(250), 
-                  height: scale(250 * ratio())
+                  height: scale(250 * ratio()),
+                  borderRadius: moderateScale(5)
                 }
           : {} }
         />
@@ -78,14 +80,16 @@ const GuideStep = ({data, theme, token}) => {
                   padding: 0, 
                   margin: 0,
                   width: scale(300), 
-                  height: scale(300 * ratio())
+                  height: scale(300 * ratio()),
+                  borderRadius: moderateScale(5)
                 } 
                 : 
                 {
                   padding: 0, 
                   margin: 0,
                   width: scale(250), 
-                  height: scale(250 * ratio())
+                  height: scale(250 * ratio()),
+                  borderRadius: moderateScale(5)
                 }
           : {} }
           resizeMode='contain'

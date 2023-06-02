@@ -43,7 +43,7 @@ const Facility = ({navigation, route}) => {
                 />
             </View>
             <View style={styles({theme: theme}).details}>
-              <Text style={styles({theme: theme}).text}>{facility.country}, {facility.city}, {facility.coordinates}</Text>
+              <Text style={styles({theme: theme}).text}>{facility.country}, {facility.city}, {facility.address}</Text>
             </View>
           </View>
           <View style={{flex: 1}}>

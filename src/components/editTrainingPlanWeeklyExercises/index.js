@@ -76,7 +76,7 @@ const EditTrainingPlanWeeklyExercises = ({
           trainingPlanId={trainingPlanId}
         />
         <EditTrainingPlanDayExercises
-          planDay={Resources.Days.Sunday.toLowerCase()}
+          planDay={Resources.Days.Sunday}
           planWeek={planWeek}
           navigation={navigation}
           theme={theme}

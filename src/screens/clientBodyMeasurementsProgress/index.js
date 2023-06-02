@@ -24,7 +24,7 @@ const ClientBodyMeasurementsProgress = ({navigation, route}) => {
   const clientId = route?.params?.clientId
 
   const measurementDays = useMemo(() => {
-    return fetchedBodyMeasurements?.map(x => new Date(x.measurementDay)).map(x => new Date(x).toLocaleDateString());
+    return fetchedBodyMeasurements?.map(x => new Date(x.measurementDay)).map(x => new Date(x).toDateString());
   }, [fetchedBodyMeasurements])
 
   const weights = useMemo(() => {

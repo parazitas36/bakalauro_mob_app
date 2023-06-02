@@ -60,7 +60,7 @@ const UserTrainingPlanExercises = ({navigation, planDay, planWeek, fetchedWeekly
               <Icon 
                 name={'bed'} 
                 color={theme.colors.black} 
-                size={scale(15)}/>}
+                size={scale(13)}/>}
           </View>
           <View style={styles({theme}).icon}>
             <Icon 

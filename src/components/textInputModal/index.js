@@ -34,7 +34,8 @@ const TextInputModal = ({visibleState, blocksState, idState}) => {
         <View style={styles.modal}>
             <TextInput
             multiline={true}
-            placeholder='Enter a text' style={styles.textInput} value={text} onChangeText={setText} />
+            placeholderTextColor='grey'
+            placeholder='Enter text' style={styles.textInput} value={text} onChangeText={setText} />
             <View style={styles.flexRow}>
                 <CustomButton styles={styles} btnText={'Confirm'} onPress={ConfirmClick}/>
                 <CustomButton styles={styles} btnText={'Cancel'} onPress={CancelClick}/>

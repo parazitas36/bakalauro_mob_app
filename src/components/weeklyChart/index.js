@@ -86,6 +86,7 @@ const WeeklyChart = ({data, isWeightChart, theme}) => {
           marginVertical: 8,
           borderRadius: moderateScale(5),
         }}
+        fromZero={true}
         withShadow={false}
         hidePointsAtIndex={hidePoints}
       /> :

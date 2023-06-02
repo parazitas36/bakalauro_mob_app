@@ -7,19 +7,32 @@ import { moderateScale, scale } from 'react-native-size-matters'
 const BFPercentagesChart = ({bfPercentages, days}) => {
   const {theme} = useTheme();
   const adjustedLabels = days.map((x) => {
-    const splits = x.split('/');
-    return `${splits[0]}/${splits[1]}`
+    const date = new Date(x);
+    const month = date.getMonth()+1;
+    const monthString = month < 10 ? `0${month}` : month.toString() 
+    const day = date.getDate()
+    const dayString = day < 10 ? `0${day}` : day.toString() 
+    return `${monthString}/${dayString}`
   })
+
+  const adjustedBfPercentages = bfPercentages?.map(x => Number(x))
+
+  const GetValue = (index) => {
+    if (adjustedBfPercentages.length > 7) {
+      return adjustedBfPercentages.at(-7+index)
+    }
+    return adjustedBfPercentages.at(index)
+  }
 
   return (
     <View style={{flex: 1, backgroundColor: theme.colors.background}}>
       <Text h4 style={{textAlign: 'center', padding: 10}}>Body Fat% Chart</Text>
       <LineChart
         data={{
-          labels: adjustedLabels.slice(-10),
+          labels: adjustedLabels?.length > 7 ? adjustedLabels.slice(-7) : adjustedLabels,
           datasets: [
             {
-              data: bfPercentages.slice(-10),
+              data: adjustedBfPercentages?.length > 7 ? adjustedBfPercentages.slice(-7) : adjustedBfPercentages,
               color: () => theme.colors.primary,
               strokeWidth: moderateScale(3.25),
               withDots: true,
@@ -54,7 +67,7 @@ const BFPercentagesChart = ({bfPercentages, days}) => {
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
-                    <Text style={{fontSize: 10, fontWeight: 'bold'}}>{bfPercentages[index]}%</Text>
+                    <Text style={{fontSize: 10, fontWeight: 'bold'}}>{GetValue(index)}%</Text>
                 </View>
             )
         }}

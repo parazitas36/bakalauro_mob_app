@@ -152,7 +152,7 @@ const UserTab = () => {
           name={'UserTrainingPlanStack'}
           component={UserTrainingPlanStack}
           options={{
-            tabBarLabel: Resources.Screens.TrainingPlans,
+            tabBarLabel: 'Training Plans',
             tabBarIcon: ({ color }) => (
               <Icon name="clipboard-list" color={color} size={verticalScale(18)} />
             ),

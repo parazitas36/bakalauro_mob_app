@@ -25,6 +25,7 @@ export default styles = ({theme}) => {
       alignItems: 'center',
       minHeight: '100%',
       gap: verticalScale(15),
+      paddingTop: 10,
       paddingBottom: verticalScale(20),
     },
     heading: {

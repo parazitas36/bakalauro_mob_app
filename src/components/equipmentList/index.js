@@ -119,7 +119,7 @@ const EquipmentList = ({facilityId, navigation, route}) => {
             hintInput={"Enter amount"}
             submitInput={async(input) => SubmitInput(input)}
             textInputProps={{
-              keyboardType: 'numeric'
+              keyboardType: 'numeric',
             }}
             closeDialog={() => setSelectedEquipmentId(null)}/>
           {equipment !== null && <Text style={styles({theme: theme}).equipmentText}>{`Equipment (${equipment?.length})`}</Text>}

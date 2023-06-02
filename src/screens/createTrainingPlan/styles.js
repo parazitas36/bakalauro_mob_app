@@ -23,6 +23,7 @@ export default styles = ({theme}) => {
     },
     view: {
       flex: 1,
+      paddingTop: 10
     },
     viewContent: {
       alignItems: 'center',

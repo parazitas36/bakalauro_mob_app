@@ -22,7 +22,7 @@ const BodyMeasurementsProgress = ({navigation, route}) => {
   const bodyMeasurements = route?.params?.bodyMeasurements?.reverse();
 
   const measurementDays = useMemo(() => {
-    return bodyMeasurements?.map(x => new Date(x.measurementDay)).map(x => new Date(x).toLocaleDateString());
+    return bodyMeasurements?.map(x => new Date(x.measurementDay)).map(x => new Date(x).toDateString());
   }, [bodyMeasurements])
 
   const weights = useMemo(() => {

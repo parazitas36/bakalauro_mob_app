@@ -54,7 +54,7 @@ const TrainingPlanDayExercises = ({navigation, planDay, planWeek, editMode, fetc
               <Icon 
                 name={'bed'} 
                 color={theme.colors.black} 
-                size={scale(15)}/>}
+                size={scale(13)}/>}
           </View>
           <View style={styles({theme}).icon}>
             <Icon 
@@ -157,7 +157,7 @@ const TrainingPlanDayExercises = ({navigation, planDay, planWeek, editMode, fetc
               <Icon 
                 name={'bed'} 
                 color={theme.colors.black} 
-                size={scale(15)}/>}
+                size={scale(13)}/>}
           </View>
           <View style={styles({theme}).icon}>
             <Icon 

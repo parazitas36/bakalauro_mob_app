@@ -21,7 +21,8 @@ export default styles = ({theme}) => {
         borderColor: theme.colors.black,
         borderWidth: moderateScale(1.25),
         borderRadius: moderateScale(5),
-        width: scale(200)
+        width: scale(250),
+        height: scale(40)
       },
       buttonText: {
         fontSize: Resources.FontSize.btnText,
