@@ -33,6 +33,11 @@ const CreateExerciseGuide = ({navigation, route}) => {
 
   const {theme} = useTheme();
 
+  const GetSizeMb = (size) => {
+    const mbSize = (Number(size) / 1024 / 1024)
+    return mbSize;
+  }
+
   const blockList = useMemo(() => {
     return blocks.map((x, i) => (
       <GuideBlock
@@ -56,7 +61,8 @@ const CreateExerciseGuide = ({navigation, route}) => {
       const result = await launchImageLibrary(options);
       if (result.didCancel !== true) {
         const image = result?.assets.at(0);
-        if (image) {
+        const mbSize = GetSizeMb(image.fileSize);
+        if (image && mbSize <= 5) {
           const block = {
             id: currentId,
             type: Resources.BlockType.Image,
@@ -65,6 +71,12 @@ const CreateExerciseGuide = ({navigation, route}) => {
 
           setBlocks(prev => [...prev, block]);
           setCurrentId(prev => prev + 1);
+        } else if (mbSize > 5){
+          ToastAndroid.show(
+            'Image maximum size is 5MB!',
+            ToastAndroid.SHORT
+          )
+          return;
         }
       }
     } catch (e) {
@@ -82,7 +94,8 @@ const CreateExerciseGuide = ({navigation, route}) => {
       const result = await launchImageLibrary(options);
       if (result.didCancel !== true) {
         const video = result?.assets.at(0);
-        if (video) {
+        const mbSize = GetSizeMb(video.fileSize);
+        if (video && mbSize <= 10) {
           const block = {
             id: currentId,
             type: Resources.BlockType.Video,
@@ -91,6 +104,12 @@ const CreateExerciseGuide = ({navigation, route}) => {
 
           setBlocks(prev => [...prev, block]);
           setCurrentId(prev => prev + 1);
+        } else if (mbSize > 10){
+          ToastAndroid.show(
+            'Video maximum size is 10MB!',
+            ToastAndroid.SHORT
+          )
+          return;
         }
       }
     } catch (e) {

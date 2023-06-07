@@ -39,6 +39,8 @@ const Login = (props) => {
         setUserData(data.data)
       } else if (resp.status === 404) {
         setError(Resources.Errors.wrongCredentialsError)
+      } else {
+        setError('Server is not responding. Please try again.')
       }
     } else {
       setError(Resources.Errors.loginFieldsError)
@@ -64,7 +66,7 @@ const Login = (props) => {
       />
       {(validation?.usernameMessage ?? null) !== null && (
         <Animated.Text
-          style={styles.errors}
+          style={styles({theme: theme}).errors}
           entering={FadeInLeft}
           exiting={FadeOutLeft}>
           {validation?.usernameMessage}

@@ -116,7 +116,7 @@ const SportsClub = ({navigation, route}) => {
                     <Card.Divider />
                     <TextInput
                       multiline={true}
-                      numberOfLines={4}
+                      numberOfLines={2}
                       placeholder='Enter your review' 
                       placeholderTextColor={theme.colors.grey2}
                       value={reviewText}
